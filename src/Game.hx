@@ -22,73 +22,73 @@ class Game extends dn.Process {
 
     public var cinematic: dn.Cinematic;
 
-    public function new(ctx: h2d.Object, replayHistory: Array<HistoryEntry>) {
+    public function new(context: h2d.Object, ?replayHistory: Array<HistoryEntry>) {
         super(Main.ME);
 
         ME = this;
-        createRoot(ctx);
+        this.createRoot(context);
 
         if (replayHistory != null) {
-            isReplay = true;
-            heroHistory = replayHistory.copy();
+            this.isReplay = true;
+            this.heroHistory = replayHistory.copy();
         } else {
-            heroHistory = [];
-            isReplay = false;
+            this.heroHistory = [];
+            this.isReplay = false;
         }
 
         cinematic = new dn.Cinematic(Const.FPS);
         // Console.ME.runCommand("+ bounds");
 
-        scroller = new h2d.Layers(root);
-        viewport = new Viewport();
-        fx = new Fx();
+        this.scroller = new h2d.Layers(this.root);
+        this.viewport = new Viewport();
+        this.fx = new Fx();
 
-        clickTrap = new h2d.Interactive(1, 1, Main.ME.root);
+        this.clickTrap = new h2d.Interactive(1, 1, Main.ME.root);
         // clickTrap.backgroundColor = 0x4400FF00;
-        clickTrap.onPush = onMouseDown;
+        this.clickTrap.onPush = this.onMouseDown;
         // clickTrap.enableRightButton = true;
 
-        mask = new h2d.Graphics(Main.ME.root);
-        mask.visible = false;
+        this.mask = new h2d.Graphics(Main.ME.root);
+        this.mask.visible = false;
 
-        hud = new h2d.Flow();
-        root.add(hud, Const.UI_LAYER);
-        hud.horizontalSpacing = 1;
+        this.hud = new h2d.Flow();
+        this.root.add(this.hud, Const.UI_LAYER);
+        this.hud.horizontalSpacing = 1;
 
-        level = new Level();
-        hero = new en.Hero(2, 6);
+        this.level = new Level();
+        this.hero = new en.Hero(2, 6);
 
         #if debug
-        hero.setPosCase(8, 6);
-        startWave(0);
+        this.hero.setPosCase(8, 6);
+        this.startWave(0);
         #else
-        logo();
+        this.logo();
         if (!Main.ME.cd.hasSetS("intro", Const.INFINITE)) {
-            startWave(0);
-            delayer.addS(function() {
-                announce("A fast turned-based action game", 0x706ACC);
+            this.startWave(0);
+            this.delayer.addS(function() {
+                this.announce("A fast turned-based action game", 0x706ACC);
             }, 1);
-            cinematic.create({
-                hud.visible = false;
-                hero.moveTarget = new FPoint(8 * Const.GRID, hero.footY);
+            this.cinematic.create({
+                this.hud.visible = false;
+                this.hero.moveTarget = new FPoint(8 * Const.GRID, hero.footY);
                 end("move");
                 500;
-                hero.executeAction(Reload);
+                this.hero.executeAction(Reload);
                 1500;
-                hero.say("Let's finish this.", 0xFBAD9F);
+                this.hero.say("Let's finish this.", 0xFBAD9F);
                 end;
-                hud.visible = true;
+                this.hud.visible = true;
                 1000;
             });
         } else {
-            hero.setPosCase(8, 6);
-            startWave(0);
+            this.hero.setPosCase(8, 6);
+            this.startWave(0);
         }
         #end
 
-        viewport.repos();
+        this.viewport.repos();
 
-        onResize();
+        this.onResize();
     }
 
     // function updateWave() {
@@ -101,69 +101,79 @@ class Game extends dn.Process {
     // }
     // }
 
+    /**
+        Marks HUD to be updates next frame
+    **/
     public function updateHud()
-        cd.setS("invalidateHud", Const.INFINITE);
+        this.cd.setS("invalidateHud", Const.INFINITE);
 
+    /**
+        Only updates HUD if `updateHud()` was called since the last update
+    **/
     function _updateHud() {
-        if (!cd.has("invalidateHud"))
+        if (!this.cd.has("invalidateHud"))
             return;
 
-        hud.removeChildren();
-        cd.unset("invalidateHud");
+        this.hud.removeChildren();
+        this.cd.unset("invalidateHud");
 
-        for (i in 0...M.imin(hero.maxLife, 6)) {
-            var e = Assets.gameElements.h_get("iconHeart", hud);
-            e.colorize(i + 1 <= hero.life ? 0xFFFFFF : 0xFF0000);
-            e.alpha = i + 1 <= hero.life ? 1 : 0.8;
-            e.blendMode = Add;
+        for (i in 0...M.imin(this.hero.maxLife, 6)) {
+            var heart = Assets.gameElements.h_get("iconHeart", this.hud);
+            heart.colorize(if (i + 1 <= hero.life) 0xFFFFFF else 0xFF0000);
+            heart.alpha = if (i + 1 <= hero.life) 1 else 0.8;
+            heart.blendMode = Add;
         }
 
-        hud.addSpacing(4);
+        this.hud.addSpacing(4);
 
         for (i in 0...hero.maxAmmo) {
-            var e = Assets.gameElements.h_get("iconBullet", hud);
-            e.colorize(i + 1 <= hero.ammo ? 0xFFFFFF : 0xFF0000);
-            e.alpha = i + 1 <= hero.ammo ? 1 : 0.8;
-            e.blendMode = Add;
+            var bullet = Assets.gameElements.h_get("iconBullet", this.hud);
+            bullet.colorize(if (i + 1 <= hero.ammo) 0xFFFFFF else 0xFF0000);
+            bullet.alpha = if (i + 1 <= hero.ammo) 1 else 0.8;
+            bullet.blendMode = Add;
         }
 
-        onResize();
+        this.onResize();
     }
 
-    function onMouseDown(ev: hxd.Event) {
-        var m = getMouse();
-        for (e in Entity.ALL)
-            e.onClick(m.x, m.y, ev.button);
+    function onMouseDown(event: hxd.Event) {
+        var mouse = this.getMouse();
+        for (entity in Entity.ALL)
+            entity.onClick(mouse.x, mouse.y, event.button);
     }
 
     override public function onResize() {
         super.onResize();
-        clickTrap.width = w();
-        clickTrap.height = h();
 
-        hud.x = Std.int(w() * 0.5 / Const.SCALE - hud.outerWidth * 0.5);
-        hud.y = Std.int(level.hei * Const.GRID + 6);
+        this.clickTrap.width = this.w();
+        this.clickTrap.height = this.h();
 
-        mask.clear();
-        mask.beginFill(0x0, 1);
-        mask.drawRect(0, 0, w(), h());
+        this.hud.x = Std.int(this.w() * 0.5 / Const.SCALE - this.hud.outerWidth * 0.5);
+        this.hud.y = Std.int(this.level.hei * Const.GRID + 6);
+
+        this.mask.clear();
+        this.mask.beginFill(0x0, 1);
+        this.mask.drawRect(0, 0, this.w(), this.h());
     }
 
     override public function onDispose() {
         super.onDispose();
 
-        mask.remove();
-        clickTrap.remove();
-        cinematic.destroy();
+        this.mask.remove();
+        this.clickTrap.remove();
+        this.cinematic.destroy();
 
-        for (e in Entity.ALL)
-            e.destroy();
-        gc();
+        for (entity in Entity.ALL)
+            entity.destroy();
+        this.gc();
 
         if (ME == this)
             ME = null;
     }
 
+    /**
+        Disposes of destroyed entities
+    **/
     function gc() {
         var i = 0;
         while (i < Entity.ALL.length)
@@ -175,14 +185,14 @@ class Game extends dn.Process {
 
     override function postUpdate() {
         super.postUpdate();
-        _updateHud();
+        this._updateHud();
     }
 
     public function getMouse() {
-        var gx = hxd.Window.getInstance().mouseX;
-        var gy = hxd.Window.getInstance().mouseY;
-        var x = Std.int(gx / Const.SCALE - scroller.x);
-        var y = Std.int(gy / Const.SCALE - scroller.y);
+        var mouseX = hxd.Window.getInstance().mouseX;
+        var mouseY = hxd.Window.getInstance().mouseY;
+        var x = Std.int(mouseX / Const.SCALE - scroller.x);
+        var y = Std.int(mouseY / Const.SCALE - scroller.y);
         return {
             x: x,
             y: y,
@@ -192,110 +202,110 @@ class Game extends dn.Process {
     }
 
     public function logo() {
-        var e = Assets.gameElements.h_get("logo", root);
-        e.y = 30;
-        e.colorize(0x3D65C2);
-        e.blendMode = Add;
-        tw.createMs(e.x, 500 | -e.tile.width > 12, 250).onEnd = function() {
+        var logo = Assets.gameElements.h_get("logo", root);
+        logo.y = 30;
+        logo.colorize(0x3D65C2);
+        logo.blendMode = Add;
+        this.tw.createMs(logo.x, 500 | -logo.tile.width > 12, 250).onEnd = function() {
             var d = 5000;
-            tw.createMs(e.alpha, d | 0, 1500).onEnd = e.remove;
+            this.tw.createMs(logo.alpha, d | 0, 1500).onEnd = logo.remove;
         }
     }
 
-    public function announce(txt: String, ?c = 0xFFFFFF, ?permanent = false, ?delayMs = 500) {
-        var tf = new h2d.Text(Assets.font, root);
-        tf.text = txt;
-        tf.textColor = c;
-        tf.y = Std.int(58 - tf.textHeight);
-        tw.createMs(tf.x, -tf.textWidth > 12, 200).end(() -> {
+    public function announce(str: String, ?color = 0xFFFFFF, ?permanent = false, ?delayMs = 500) {
+        var text = new h2d.Text(Assets.font, root);
+        text.text = str;
+        text.textColor = color;
+        text.y = Std.int(58 - text.textHeight);
+        this.tw.createMs(text.x, -text.textWidth > 12, 200).end(() -> {
             if (!permanent) {
-                var d = 1000 + txt.length * 75;
-                tw.createMs(tf.alpha, d | 0, 1500).onEnd = tf.remove;
+                var d = 1000 + str.length * 75;
+                tw.createMs(text.alpha, d | 0, 1500).onEnd = text.remove;
             }
         }).delayMs(delayMs);
     }
 
     var lastNotif: Null<h2d.Text>;
 
-    public function notify(txt: String, ?c = 0xFFFFFF) {
-        if (lastNotif != null)
-            lastNotif.remove();
+    public function notify(string: String, ?color = 0xFFFFFF) {
+        if (this.lastNotif != null)
+            this.lastNotif.remove();
 
-        var tf = new h2d.Text(Assets.font, root);
-        lastNotif = tf;
-        tf.text = txt;
-        tf.textColor = c;
-        tf.y = Std.int(100 - tf.textHeight);
-        tw.createMs(tf.x, -tf.textWidth > 12, 200).onEnd = function() {
-            var d = 650 + txt.length * 75;
-            tw.createMs(tf.alpha, d | 0, 1500).onEnd = function() {
-                tf.remove();
-                if (lastNotif == tf)
-                    lastNotif = null;
+        var text = new h2d.Text(Assets.font, root);
+        lastNotif = text;
+        text.text = string;
+        text.textColor = color;
+        text.y = Std.int(100 - text.textHeight);
+        this.tw.createMs(text.x, -text.textWidth > 12, 200).onEnd = function() {
+            var d = 650 + string.length * 75;
+            tw.createMs(text.alpha, d | 0, 1500).onEnd = function() {
+                text.remove();
+                if (this.lastNotif == text)
+                    this.lastNotif = null;
             }
         }
     }
 
     public function hasCinematic() {
-        return !cinematic.isEmpty();
+        return !this.cinematic.isEmpty();
     }
 
     public function startWave(id: Int) {
-        waveId = id;
+        this.waveId = id;
 
-        for (e in en.Mob.ALL)
-            e.destroy();
+        for (mob in en.Mob.ALL)
+            mob.destroy();
 
-        level.startWave(waveId);
+        this.level.startWave(waveId);
 
-        if (waveId == 2) {
-            fx.clear();
-            fx.allSpots(25, level.wid * Const.GRID);
-            fx.flashBangS(0xFFCC00, 0.5, 0.5);
-            for (e in en.DeadBody.ALL)
-                e.destroy();
+        if (this.waveId == 2) {
+            this.fx.clear();
+            this.fx.allSpots(25, this.level.wid * Const.GRID);
+            this.fx.flashBangS(0xFFCC00, 0.5, 0.5);
+            for (body in en.DeadBody.ALL)
+                body.destroy();
 
-            for (e in en.Cover.ALL)
-                e.destroy();
+            for (cover in en.Cover.ALL)
+                cover.destroy();
         }
 
-        level.waveMobCount = 1;
-        if (waveId > 7)
+        this.level.waveMobCount = 1;
+        if (this.waveId > 7)
             announce("Thank you for playing ^_^\nA 20h game by Sebastien Benard\ndeepnight.net", true);
         else {
-            if (waveId <= 0)
-                level.attacheWaveEntities();
+            if (this.waveId <= 0)
+                this.level.attacheWaveEntities();
             else {
-                announce("Wave " + waveId + "...", 0xFFD11C);
-                delayer.addS(function() {
-                    announce("          Fight!", 0xEF4810);
+                this.announce('Wave ${this.waveId}...', 0xFFD11C);
+                this.delayer.addS(function() {
+                    this.announce("          Fight!", 0xEF4810);
                 }, 0.5);
-                delayer.addS(function() {
-                    level.attacheWaveEntities();
-                    cd.unset("lockNext");
-                }, waveId == 0 ? 1 : 1);
+                this.delayer.addS(function() {
+                    this.level.attacheWaveEntities();
+                    this.cd.unset("lockNext");
+                }, 1);
             }
         }
     }
 
     function exitLevel() {
-        cd.setS("lockNext", Const.INFINITE);
-        switch (waveId) {
+        this.cd.setS("lockNext", Const.INFINITE);
+        switch (this.waveId) {
             case 1:
-                cinematic.create({
-                    mask.visible = true;
-                    tw.createS(mask.alpha, 0 > 1, 0.6);
+                this.cinematic.create({
+                    this.mask.visible = true;
+                    this.tw.createS(this.mask.alpha, 0 > 1, 0.6);
                     600;
-                    hero.setPosCase(0, level.hei - 3);
-                    startWave(waveId + 1);
-                    tw.createS(mask.alpha, 0, 0.3);
-                    mask.visible = false;
-                    hero.moveTarget = new FPoint(hero.centerX + 30, hero.footY);
+                    this.hero.setPosCase(0, this.level.hei - 3);
+                    this.startWave(this.waveId + 1);
+                    this.tw.createS(this.mask.alpha, 0, 0.3);
+                    this.mask.visible = false;
+                    this.hero.moveTarget = new FPoint(this.hero.centerX + 30, this.hero.footY);
                     end("move");
                 });
 
             default:
-                startWave(waveId + 1);
+                this.startWave(this.waveId + 1);
         }
     }
 
