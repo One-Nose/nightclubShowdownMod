@@ -33,9 +33,8 @@ class Main extends dn.Process {
         new dn.heaps.GameFocusHelper(Boot.ME.s2d, Assets.font);
 
         hxd.Timer.wantedFPS = Const.FPS;
-        #if !debug
+
         this.toggleFullscreen();
-        #end
 
         this.black = new h2d.Bitmap(h2d.Tile.fromColor(BACKGROUND, 1, 1), this.root);
         this.black.visible = false;
