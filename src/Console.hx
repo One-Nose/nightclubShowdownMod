@@ -8,7 +8,7 @@ class Console extends h2d.Console {
     var flags: Map<String, Bool>;
 
     public function new() {
-        super(Assets.font);
+        super(Assets.consoleFont);
 
         h2d.Console.HIDE_LOG_TIMEOUT = 30;
         ME = this;

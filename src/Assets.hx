@@ -7,11 +7,14 @@ class Assets {
     public static final SFX = dn.heaps.assets.SfxDirectory.load("sfx", true);
     public static var gameElements: SpriteLib;
     public static var font: h2d.Font;
+    public static var consoleFont: h2d.Font;
     public static var musicIn: Sfx;
     public static var musicOut: Sfx;
 
     public static function init() {
         font = hxd.Res.minecraftiaOutline.toFont();
+        consoleFont = font.clone();
+        consoleFont.resizeTo(20);
 
         Sfx.setGroupVolume(0, 1);
         Sfx.setGroupVolume(1, 0.7);
