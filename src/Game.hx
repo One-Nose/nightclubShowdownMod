@@ -326,68 +326,68 @@ class Game extends dn.Process {
         if (Key.isDown(Key.SHIFT))
             return false;
         #end
-        if (isReplay || !hero.isAlive() || hero.controlsLocked())
+        if (this.isReplay || !this.hero.isAlive() || this.hero.controlsLocked())
             return false;
 
-        for (e in en.Mob.ALL)
-            if (e.isAlive() && e.canBeShot())
+        for (mob in en.Mob.ALL)
+            if (mob.isAlive() && mob.canBeShot())
                 return true;
 
         return false;
     }
 
     public function getSlowMoDt() {
-        return isSlowMo() ? tmod * Const.PAUSE_SLOWMO : tmod;
+        return if (this.isSlowMo()) this.tmod * Const.PAUSE_SLOWMO else tmod;
     }
 
     public function getSlowMoFactor() {
-        return isSlowMo() ? Const.PAUSE_SLOWMO : 1;
+        return if (isSlowMo()) Const.PAUSE_SLOWMO else 1;
     }
 
     function canStartNextWave() {
-        if (level.waveMobCount > 0)
+        if (this.level.waveMobCount > 0)
             return false;
 
-        if (cd.has("lockNext") || hasCinematic())
+        if (this.cd.has("lockNext") || this.hasCinematic())
             return false;
 
-        return switch (waveId) {
-            case 0: level.waveMobCount <= 0;
-            case 1: hero.cx >= level.wid - 2;
+        return switch (this.waveId) {
+            case 0: this.level.waveMobCount <= 0;
+            case 1: this.hero.cx >= this.level.wid - 2;
 
-            default: level.waveMobCount <= 0;
+            default: this.level.waveMobCount <= 0;
         }
     }
 
     override public function update() {
-        cinematic.update(tmod);
+        this.cinematic.update(tmod);
 
         super.update();
 
         // Updates
-        for (e in Entity.ALL) {
-            e.setTmod(tmod);
-            if (!e.destroyed)
-                e.preUpdate();
-            if (!e.destroyed)
-                e.update();
-            if (!e.destroyed)
-                e.postUpdate();
+        for (entity in Entity.ALL) {
+            entity.setTmod(this.tmod);
+            if (!entity.destroyed)
+                entity.preUpdate();
+            if (!entity.destroyed)
+                entity.update();
+            if (!entity.destroyed)
+                entity.postUpdate();
         }
         gc();
 
-        if (canStartNextWave())
-            exitLevel();
+        if (this.canStartNextWave())
+            this.exitLevel();
 
         #if hl
         if (Main.ME.keyPressed(Key.ESCAPE))
-            if (!cd.hasSetS("exitTwice", 3))
-                announce("Escape again to quit...", 0x9900ff, 0);
+            if (!this.cd.hasSetS("exitTwice", 3))
+                this.announce("Escape again to quit...", 0x9900ff, 0);
             else
                 hxd.System.exit();
         #end
 
-        if (Main.ME.keyPressed(hxd.Key.T)) {
+        if (Main.ME.keyPressed(Key.T)) {
             if (Key.isDown(Key.SHIFT)) {
                 Main.ME.cd.unset("intro");
                 Assets.musicIn.stop();
@@ -399,28 +399,36 @@ class Game extends dn.Process {
 
         #if debug
         if (Main.ME.keyPressed(Key.N))
-            startWave(waveId + 1);
+            this.startWave(this.waveId + 1);
         if (Main.ME.keyPressed(Key.K))
-            for (e in en.Mob.ALL)
-                if (e.isAlive())
-                    e.hit(99, hero, true);
+            for (mob in en.Mob.ALL)
+                if (mob.isAlive())
+                    mob.hit(99, this.hero, true);
         #end
 
         if (Key.isDown(Key.ALT) && Main.ME.keyPressed(Key.ENTER))
             Main.ME.toggleFullscreen();
 
-        if (Main.ME.keyPressed(hxd.Key.S)) {
-            notify("Sounds: " + (dn.heaps.Sfx.isMuted(0) ? "ON" : "off"));
+        if (Main.ME.keyPressed(Key.S)) {
+            this.notify(
+                "Sounds: " + if (dn.heaps.Sfx.isMuted(0)) "ON" else "off"
+            );
             dn.heaps.Sfx.toggleMuteGroup(0);
             Assets.SFX.grunt0().playOnGroup(0);
         }
 
-        if (Main.ME.keyPressed(hxd.Key.M)) {
-            notify("Music: " + (dn.heaps.Sfx.isMuted(1) ? "ON" : "off"));
+        if (Main.ME.keyPressed(Key.M)) {
+            this.notify(
+                "Music: " + if (dn.heaps.Sfx.isMuted(1)) "ON" else "off"
+            );
             dn.heaps.Sfx.toggleMuteGroup(1);
         }
 
-        if (isReplay && heroHistory.length > 0 && itime >= heroHistory[0].t)
-            hero.executeAction(heroHistory.shift().a);
+        if (
+            this.isReplay &&
+            this.heroHistory.length > 0 &&
+            this.itime >= this.heroHistory[0].t
+        )
+            this.hero.executeAction(this.heroHistory.shift().a);
     }
 }
