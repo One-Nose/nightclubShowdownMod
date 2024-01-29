@@ -1,139 +1,147 @@
+/**
+    Singleton class for the app
+**/
 class Main extends dn.Process {
-	public static var BG = 0x0;
-	public static var ME : Main;
-	public var console : Console;
-	public var cached : h2d.Object;
-	var black : h2d.Bitmap;
+    public static final BG = 0x000000;
+    public static var ME: Main;
 
+    public final console: Console;
+    public final cached: h2d.Object;
 
-	public function new() {
-		super();
+    /** A black screen that fades in and out on transition **/
+    var black: h2d.Bitmap;
 
-		ME = this;
-		presses = new Map();
+    public function new() {
+        super();
 
-		createRoot(Boot.ME.s2d);
+        ME = this;
+        keyPresses = new Map();
 
-		cached = new h2d.Object(root);
-		cached.filter = new h2d.filter.ColorMatrix();
+        this.createRoot(Boot.ME.s2d);
 
-		//#if( debug && hl )
-		//hxd.Res.initLocal();
-		//hxd.res.Resource.LIVE_UPDATE = true;
-		//#else
-		hxd.Res.initEmbed();
-		//#end
+        this.cached = new h2d.Object(this.root);
+        this.cached.filter = new h2d.filter.ColorMatrix();
 
-		hxd.snd.Manager.get(); // force sound init
-		Assets.init();
-		console = new Console();
-		new dn.heaps.GameFocusHelper(Boot.ME.s2d, Assets.font);
-		hxd.Timer.wantedFPS = Const.FPS;
-		#if !debug
-		toggleFullscreen();
-		#end
+        hxd.Res.initEmbed();
 
+        hxd.snd.Manager.get(); // force sound init (not required?)
 
-		black = new h2d.Bitmap(h2d.Tile.fromColor(BG,1,1), root);
-		black.visible = false;
+        Assets.init();
+        console = new Console();
 
-		hxd.Timer.skip();
-		delayer.addF(()->restartGame(), 1);
+        // Pause on unfocus
+        new dn.heaps.GameFocusHelper(Boot.ME.s2d, Assets.font);
 
-		onResize();
-	}
+        hxd.Timer.wantedFPS = Const.FPS;
+        #if !debug
+        this.toggleFullscreen();
+        #end
 
-	public function isTransitioning() return cd.has("transition");
+        this.black = new h2d.Bitmap(h2d.Tile.fromColor(BG, 1, 1), this.root);
+        this.black.visible = false;
 
-	var presses : Map<Int,Bool>;
-	public function keyPressed(k:Int) {
-		if( console.isActive() || isTransitioning() )
-			return false;
+        hxd.Timer.skip();
+        this.delayer.addF(() -> this.restartGame(), 1);
 
-		if( presses.exists(k) )
-			return false;
+        this.onResize();
+    }
 
-		presses.set(k, true);
-		return hxd.Key.isDown(k);
-	}
+    public function isTransitioning()
+        return this.cd.has("transition");
 
-	public function setBlack(on:Bool, ?cb:Void->Void) {
-		if( on ) {
-			black.visible = true;
-			tw.createS(black.alpha, 0>1, 0.6).onEnd = function() {
-				if( cb!=null )
-					cb();
-			}
-		}
-		else {
-			tw.createS(black.alpha, 0, 0.3).onEnd = function() {
-				black.visible = false;
-				if( cb!=null )
-					cb();
-			}
-		}
-	}
+    /** Keys that are already down and can't be pressed until raised **/
+    final keyPresses: Map<Int, Bool>;
 
-	var full = false;
-	public function toggleFullscreen() {
-		#if hl
-		var s = hxd.Window.getInstance();
-		full = !full;
-		s.displayMode = Borderless;
-		#end
-	}
+    public function keyPressed(k: Int) {
+        if (this.console.isActive() || this.isTransitioning())
+            return false;
 
-	override public function onResize() {
-		super.onResize();
-		Const.SCALE = M.floor( w() / (20*Const.GRID) );
-		cached.scaleX = cached.scaleY = Const.SCALE;
-		black.scaleX = Boot.ME.s2d.width;
-		black.scaleY = Boot.ME.s2d.height;
-	}
+        if (this.keyPresses.exists(k))
+            return false;
 
-	override public function onDispose() {
-		super.onDispose();
-		if( ME==this )
-			ME = null;
-	}
+        this.keyPresses.set(k, true);
+        return hxd.Key.isDown(k);
+    }
 
-	public function restartGame(?hist:Array<Game.HistoryEntry>) {
-		if( Game.ME!=null ) {
-			cd.setS("transition",Const.INFINITE);
-			setBlack(true, function() {
-				Game.ME.destroy();
-				Assets.playMusic(false);
+    /**
+        Fades transition blackness in or out,
+        then calls `callback`
+    **/
+    public function fadeBlack(fadeIn: Bool, ?seconds: Float, ?callback: Void->Void) {
+        if (fadeIn) {
+            this.black.visible = true;
+            this.tw.createS(this.black.alpha, 0 > 1, seconds ?? 0.6).onEnd = function() {
+                if (callback != null)
+                    callback();
+            }
+        } else {
+            this.tw.createS(this.black.alpha, 0, seconds ?? 0.3).onEnd = function() {
+                this.black.visible = false;
+                if (callback != null)
+                    callback();
+            }
+        }
+    }
 
-				delayer.addS(function() {
-					cd.unset("transition");
-					new Game( new h2d.Object(cached), hist );
-					tw.createS(Game.ME.root.alpha, 0>1, 0.4);
-					setBlack(false);
-				},0.5);
-			});
-		}
-		else {
-			var g = new Game( new h2d.Object(cached), hist );
-			tw.createS(Game.ME.root.alpha, 0>1, 0.4);
-			setBlack(false);
-			Assets.playMusic(false);
-		}
+    var fullscreen = false;
 
-	}
+    public function toggleFullscreen() {
+        #if hl
+        final window = hxd.Window.getInstance();
+        fullscreen = !fullscreen;
+        window.displayMode = Borderless;
+        #end
+    }
 
-	override function postUpdate() {
-		super.postUpdate();
+    override public function onResize() {
+        super.onResize();
 
-		root.over(black);
+        Const.SCALE = M.floor(this.w() / (20 * Const.GRID));
+        this.cached.scaleX = this.cached.scaleY = Const.SCALE;
+        this.black.scaleX = Boot.ME.s2d.width;
+        this.black.scaleY = Boot.ME.s2d.height;
+    }
 
-		for(k in presses.keys())
-			if( !hxd.Key.isDown(k) )
-				presses.remove(k);
-	}
+    override public function onDispose() {
+        super.onDispose();
+        if (ME == this)
+            ME = null;
+    }
 
+    public function restartGame(?history: Array<Game.HistoryEntry>) {
+        if (Game.ME != null) {
+            this.cd.setS("transition", Const.INFINITE);
+            this.fadeBlack(true, function() {
+                Game.ME.destroy();
+                Assets.playMusic(false);
 
-	override function update() {
-		super.update();
-		Assets.gameElements.tmod = tmod*Boot.ME.speed;
-	}
+                this.delayer.addS(function() {
+                    this.cd.unset("transition");
+                    new Game(new h2d.Object(this.cached), history);
+                    this.fadeBlack(true, 0.4);
+                    this.fadeBlack(false);
+                }, 0.5);
+            });
+        } else {
+            new Game(new h2d.Object(this.cached), history);
+            this.fadeBlack(true, 0.4);
+            this.fadeBlack(false);
+            Assets.playMusic(false);
+        }
+    }
+
+    override function postUpdate() {
+        super.postUpdate();
+
+        this.root.over(this.black);
+
+        for (key in keyPresses.keys())
+            if (!hxd.Key.isDown(key))
+                keyPresses.remove(key);
+    }
+
+    override function update() {
+        super.update();
+        Assets.gameElements.tmod = this.tmod * Boot.ME.speed;
+    }
 }

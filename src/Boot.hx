@@ -1,7 +1,7 @@
 import hxd.Key;
 
 /**
-    The main application singleton class.
+    Singleton class that boots the app
 **/
 class Boot extends hxd.App {
     public static var ME: Boot;
@@ -13,7 +13,7 @@ class Boot extends hxd.App {
     }
 
     /**
-        Called when the engine is ready.
+        Called when the engine is ready
     **/
     override function init() {
         ME = this;
