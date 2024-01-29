@@ -1,164 +1,176 @@
 package en;
 
 class Mob extends Entity {
-	public static var ALL : Array<Mob> = [];
-	var tx = -1;
-	var onArrive : Null<Void->Void>;
+    public static var ALL: Array<Mob> = [];
 
-	var hitSounds : Array<Float->dn.heaps.Sfx>;
+    var tx = -1;
+    var onArrive: Null<Void->Void>;
 
-	public function new(x,y) {
-		super(x,y);
+    var hitSounds: Array<Float->dn.heaps.Sfx>;
 
-		ALL.push(this);
+    public function new(x, y) {
+        super(x, y);
 
-		game.scroller.add(spr, Const.DP_MOBS);
-		hitSounds = [
-			Assets.SBANK.grunt0,
-			Assets.SBANK.grunt1,
-			Assets.SBANK.grunt2,
-			Assets.SBANK.grunt3,
-			Assets.SBANK.grunt4,
-		];
-		dn.Lib.shuffleArray(hitSounds, Std.random);
-		//var g = new h2d.Graphics(spr);
-		//g.beginFill(0xFF0000,1);
-		//g.drawCircle(0,-radius,radius);
+        ALL.push(this);
 
-		initLife(4);
-		lifeBar.visible = true;
-	}
+        game.scroller.add(spr, Const.DP_MOBS);
+        hitSounds = [
+            Assets.SFX.grunt0,
+            Assets.SFX.grunt1,
+            Assets.SFX.grunt2,
+            Assets.SFX.grunt3,
+            Assets.SFX.grunt4,
+        ];
+        dn.Lib.shuffleArray(hitSounds, Std.random);
+        // var g = new h2d.Graphics(spr);
+        // g.beginFill(0xFF0000,1);
+        // g.drawCircle(0,-radius,radius);
 
-	function playHitSound() {
-		var s = hitSounds.shift();
-		s(0.7);
-		hitSounds.insert(hitSounds.length-irnd(0,2), s);
-	}
+        initLife(4);
+        lifeBar.visible = true;
+    }
 
-	override public function violentBump(bdx:Float, bdy:Float, sec:Float) {
-		super.violentBump(bdx, bdy, sec);
-		leaveCover();
-	}
+    function playHitSound() {
+        var s = hitSounds.shift();
+        s(0.7);
+        hitSounds.insert(hitSounds.length - irnd(0, 2), s);
+    }
 
-	override function onDamage(v:Int) {
-		super.onDamage(v);
-		leaveCover();
-	}
+    override public function violentBump(bdx: Float, bdy: Float, sec: Float) {
+        super.violentBump(bdx, bdy, sec);
+        leaveCover();
+    }
 
-	public function enterArena() {
-		dir = cx<level.wid*0.5 ? 1 : -1;
-		spr.alpha = 0;
-		cd.setS("entering",0.5);
-		cd.onComplete("entering", function() {
-			lookAt(hero);
-		});
-		lockControlsS(rnd(0.2,0.8) + cd.getS("entering"));
-	}
+    override function onDamage(v: Int) {
+        super.onDamage(v);
+        leaveCover();
+    }
 
-	public function canBePushed() return true;
+    public function enterArena() {
+        dir = cx < level.wid * 0.5 ? 1 : -1;
+        spr.alpha = 0;
+        cd.setS("entering", 0.5);
+        cd.onComplete("entering", function() {
+            lookAt(hero);
+        });
+        lockControlsS(rnd(0.2, 0.8) + cd.getS("entering"));
+    }
 
-	public function canBeGrabbed() {
-		return true;
-	}
+    public function canBePushed()
+        return true;
 
-	override function onDie() {
-		super.onDie();
-		level.waveMobCount--;
-	}
+    public function canBeGrabbed() {
+        return true;
+    }
 
-	override public function stunS(t:Float) {
-		super.stunS(t);
-		if( t>0 )
-			tx = -1;
-	}
+    override function onDie() {
+        super.onDie();
+        level.waveMobCount--;
+    }
 
-	public function isGrabbed() return hero.isAlive() && hero.grabbedMob==this;
+    override public function stunS(t: Float) {
+        super.stunS(t);
+        if (t > 0)
+            tx = -1;
+    }
 
-	public function canBeShot() return !cd.has("entering");
+    public function isGrabbed()
+        return hero.isAlive() && hero.grabbedMob == this;
 
-	override public function isBlockingHeroMoves() return !isGrabbed();
+    public function canBeShot()
+        return !cd.has("entering");
 
-	override public function dispose() {
-		super.dispose();
-		ALL.remove(this);
-	}
+    override public function isBlockingHeroMoves()
+        return !isGrabbed();
 
-	override public function postUpdate() {
-		super.postUpdate();
-		if( cd.has("entering") )
-			spr.alpha = 1-cd.getRatio("entering");
-	}
+    override public function dispose() {
+        super.dispose();
+        ALL.remove(this);
+    }
 
-	function goto(x:Int, ?onDone:Void->Void) {
-		tx = x;
-		onArrive = onDone;
-	}
+    override public function postUpdate() {
+        super.postUpdate();
+        if (cd.has("entering"))
+            spr.alpha = 1 - cd.getRatio("entering");
+    }
 
-	public function countMobs(c:Class<Mob>,includeSelf:Bool) {
-		var n = 0;
-		for(e in ALL)
-			if( e.is(c) && ( includeSelf || e!=this ) )
-				n++;
-		return n;
-	}
+    function goto(x: Int, ?onDone: Void->Void) {
+        tx = x;
+        onArrive = onDone;
+    }
 
-	override public function movementLocked() {
-		return super.movementLocked() || isGrabbed();
-	}
-	override public function controlsLocked() {
-		return super.controlsLocked() || isGrabbed();
-	}
+    public function countMobs(c: Class<Mob>, includeSelf: Bool) {
+        var n = 0;
+        for (e in ALL)
+            if (e.is(c) && (includeSelf || e != this))
+                n++;
+        return n;
+    }
 
-	override public function update() {
-		super.update();
+    override public function movementLocked() {
+        return super.movementLocked() || isGrabbed();
+    }
 
-		if( tx!=-1 && !cd.has("entering") && !movementLocked() && !controlsLocked() && !hasSkillCharging() ) {
-			if( cover!=null )
-				leaveCover();
+    override public function controlsLocked() {
+        return super.controlsLocked() || isGrabbed();
+    }
 
-			var s = 0.015;
-			if( tx>cx ) {
-				dir = 1;
-				dx+=s*tmod;
-			}
-			if( tx<cx ) {
-				dir = -1;
-				dx-=s*tmod;
-			}
+    override public function update() {
+        super.update();
 
-			if( tx==cx ) {
-				tx = -1;
-				if( onArrive!=null ) {
-					var cb = onArrive;
-					onArrive = null;
-					cb();
-				}
-			}
-		}
+        if (tx != -1 && !cd.has("entering") && !movementLocked() && !controlsLocked() && !hasSkillCharging()) {
+            if (cover != null)
+                leaveCover();
 
-		if( cd.has("entering") )
-			dx = dir*0.05;
+            var s = 0.015;
+            if (tx > cx) {
+                dir = 1;
+                dx += s * tmod;
+            }
+            if (tx < cx) {
+                dir = -1;
+                dx -= s * tmod;
+            }
 
-		// Find cover
-		if( cover==null && tx==-1 && !controlsLocked() && !hasSkillCharging() )
-			for(e in en.Cover.ALL)
-				if( distCase(e)<=3 && e.canHostSomeone(-dirTo(hero)) && !e.coversAnyone() ) {
-					//fx.markerEntity(e, true);
-					goto(e.cx-dirTo(hero), function() {
-						startCover(e,-dirTo(hero));
-					});
-				}
+            if (tx == cx) {
+                tx = -1;
+                if (onArrive != null) {
+                    var cb = onArrive;
+                    onArrive = null;
+                    cb();
+                }
+            }
+        }
 
-		// Dodge hero
-		if( onGround && !movementLocked() && !controlsLocked() && ( !hasSkillCharging() || canInterruptSkill() ) && distCase(hero)<=1.75 && hero.moveTarget==null && !cd.has("dodgeHero") ) {
-			if( cover==null || dirTo(cover)!=dirTo(hero) ) {
-				leaveCover();
-				for(s in skills)
-					s.interrupt(false);
-				dx = -dirTo(hero)*0.12;
-				dy = -0.15;
-				cd.setS("dodgeHero",0.6);
-			}
-		}
-	}
+        if (cd.has("entering"))
+            dx = dir * 0.05;
+
+        // Find cover
+        if (cover == null && tx == -1 && !controlsLocked() && !hasSkillCharging())
+            for (e in en.Cover.ALL)
+                if (distCase(e) <= 3 && e.canHostSomeone(-dirTo(hero)) && !e.coversAnyone()) {
+                    // fx.markerEntity(e, true);
+                    goto(e.cx - dirTo(hero), function() {
+                        startCover(e, -dirTo(hero));
+                    });
+                }
+
+        // Dodge hero
+        if (onGround
+            && !movementLocked()
+            && !controlsLocked()
+            && (!hasSkillCharging() || canInterruptSkill())
+            && distCase(hero) <= 1.75
+            && hero.moveTarget == null
+            && !cd.has("dodgeHero")) {
+            if (cover == null || dirTo(cover) != dirTo(hero)) {
+                leaveCover();
+                for (s in skills)
+                    s.interrupt(false);
+                dx = -dirTo(hero) * 0.12;
+                dy = -0.15;
+                cd.setS("dodgeHero", 0.6);
+            }
+        }
+    }
 }
