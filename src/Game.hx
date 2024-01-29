@@ -6,7 +6,7 @@ class Game extends dn.Process {
     public static var ME: Game;
 
     public var scroller: h2d.Layers;
-    public var vp: Viewport;
+    public var viewport: Viewport;
     public var fx: Fx;
     public var level: Level;
     public var hero: en.Hero;
@@ -40,7 +40,7 @@ class Game extends dn.Process {
         // Console.ME.runCommand("+ bounds");
 
         scroller = new h2d.Layers(root);
-        vp = new Viewport();
+        viewport = new Viewport();
         fx = new Fx();
 
         clickTrap = new h2d.Interactive(1, 1, Main.ME.root);
@@ -86,7 +86,7 @@ class Game extends dn.Process {
         }
         #end
 
-        vp.repos();
+        viewport.repos();
 
         onResize();
     }
