@@ -18,19 +18,24 @@ class Console extends h2d.Console {
         this.flags = new Map();
 
         #if debug
-        this.addCommand("set", [{name: "flag", t: AString}], function(flag: String) {
-            this.set(flag, true);
-            this.log('+ $flag', 0x80FF00);
+        this.addCommand(
+            "set", [{name: "flag", t: AString}], function(flag: String) {
+                this.set(flag, true);
+                this.log('+ $flag', 0x80FF00);
         });
-        this.addCommand("unset", [{name: "flag", t: AString, opt: true}], function(?flag: String) {
-            if (flag == null) {
-                this.log("Reset all.", 0xFF0000);
-                this.flags = new Map();
-            } else {
-                this.log('- $flag', 0xFF8000);
-                this.set(flag, false);
-            }
-        });
+
+        this.addCommand(
+            "unset", [{name: "flag", t: AString, opt: true}],
+            function(?flag: String) {
+                if (flag == null) {
+                    this.log("Reset all.", 0xFF0000);
+                    this.flags = new Map();
+                } else {
+                    this.log('- $flag', 0xFF8000);
+                    this.set(flag, false);
+                }
+            });
+
         this.addAlias("+", "set");
         this.addAlias("-", "unset");
 

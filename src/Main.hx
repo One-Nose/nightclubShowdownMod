@@ -36,7 +36,9 @@ class Main extends dn.Process {
 
         this.toggleFullscreen();
 
-        this.black = new h2d.Bitmap(h2d.Tile.fromColor(BACKGROUND, 1, 1), this.root);
+        this.black = new h2d.Bitmap(
+            h2d.Tile.fromColor(BACKGROUND, 1, 1), this.root
+        );
         this.black.visible = false;
 
         hxd.Timer.skip();
@@ -66,20 +68,22 @@ class Main extends dn.Process {
         Fades transition blackness in or out,
         then calls `callback`
     **/
-    public function fadeBlack(fadeIn: Bool, ?seconds: Float, ?callback: Void->Void) {
+    public function fadeBlack(
+        fadeIn: Bool, ?seconds: Float, ?callback: Void->Void
+    ) {
         if (fadeIn) {
             this.black.visible = true;
-            this.tw.createS(this.black.alpha, 0 > 1, seconds ?? 0.6).onEnd = function() {
-                if (callback != null)
-                    callback();
-            }
-        } else {
-            this.tw.createS(this.black.alpha, 0, seconds ?? 0.3).onEnd = function() {
-                this.black.visible = false;
-                if (callback != null)
-                    callback();
-            }
-        }
+            this.tw.createS(this.black.alpha, 0 > 1, seconds ?? 0.6)
+                .onEnd = function() {
+                    if (callback != null)
+                        callback();
+                }} else {
+            this.tw.createS(this.black.alpha, 0, seconds ?? 0.3)
+                .onEnd = function() {
+                    this.black.visible = false;
+                    if (callback != null)
+                        callback();
+                }}
     }
 
     var fullscreen = false;

@@ -35,7 +35,9 @@ class Assets {
         gameElements.defineAnim("heroKick", "0(20), 1(5)");
         gameElements.defineAnim("heroDeathFly", "0(30), 1(9999)");
         gameElements.defineAnim("heroRun", "0(6),1(4), 2(4), 3(6), 4(4), 5(4)");
-        gameElements.defineAnim("heroReload", "0(15),1(15), 2(8), 3(6), 4(4), 5(6)");
+        gameElements.defineAnim(
+            "heroReload", "0(15),1(15), 2(8), 3(6), 4(4), 5(6)"
+        );
 
         gameElements.defineAnim("aAimShoot", "0(10), 1(10)");
         gameElements.defineAnim("aBlindShoot", "0(4), 1(10)");

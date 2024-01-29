@@ -22,7 +22,9 @@ class Game extends dn.Process {
 
     public var cinematic: dn.Cinematic;
 
-    public function new(context: h2d.Object, ?replayHistory: Array<HistoryEntry>) {
+    public function new(
+        context: h2d.Object, ?replayHistory: Array<HistoryEntry>
+    ) {
         super(Main.ME);
 
         ME = this;
@@ -148,7 +150,9 @@ class Game extends dn.Process {
         this.clickTrap.width = this.w();
         this.clickTrap.height = this.h();
 
-        this.hud.x = Std.int(this.w() * 0.5 / Const.SCALE - this.hud.outerWidth * 0.5);
+        this.hud.x = Std.int(
+            this.w() * 0.5 / Const.SCALE - this.hud.outerWidth * 0.5
+        );
         this.hud.y = Std.int(this.level.hei * Const.GRID + 6);
 
         this.mask.clear();
@@ -206,17 +210,20 @@ class Game extends dn.Process {
         logo.y = 30;
         logo.colorize(0x3D65C2);
         logo.blendMode = Add;
-        this.tw.createMs(logo.x, 500 | -logo.tile.width > 12, 250).onEnd = function() {
-            var d = 5000;
-            this.tw.createMs(logo.alpha, d | 0, 1500).onEnd = logo.remove;
-        }
-    }
+        this.tw.createMs(logo.x, 500 | -logo.tile.width > 12, 250)
+            .onEnd = function() {
+                var d = 5000;
+                this.tw.createMs(logo.alpha, d | 0, 1500).onEnd = logo.remove;
+            }}
 
-    public function announce(str: String, ?color = 0xFFFFFF, ?permanent = false, ?delayMs = 500) {
+    public function announce(
+        str: String, ?color = 0xFFFFFF, ?permanent = false, ?delayMs = 500
+    ) {
         var text = new h2d.Text(Assets.font, root);
         text.text = str;
         text.textColor = color;
         text.y = Std.int(58 - text.textHeight);
+
         this.tw.createMs(text.x, -text.textWidth > 12, 200).end(() -> {
             if (!permanent) {
                 var d = 1000 + str.length * 75;
@@ -271,7 +278,10 @@ class Game extends dn.Process {
 
         this.level.waveMobCount = 1;
         if (this.waveId > 7)
-            announce("Thank you for playing ^_^\nA 20h game by Sebastien Benard\ndeepnight.net", true);
+            announce(
+                "Thank you for playing ^_^\nA 20h game by Sebastien Benard\ndeepnight.net",
+                true
+            );
         else {
             if (this.waveId <= 0)
                 this.level.attacheWaveEntities();
@@ -300,7 +310,9 @@ class Game extends dn.Process {
                     this.startWave(this.waveId + 1);
                     this.tw.createS(this.mask.alpha, 0, 0.3);
                     this.mask.visible = false;
-                    this.hero.moveTarget = new FPoint(this.hero.centerX + 30, this.hero.footY);
+                    this.hero.moveTarget = new FPoint(
+                        this.hero.centerX + 30, this.hero.footY
+                    );
                     end("move");
                 });
 

@@ -4,5 +4,36 @@
   },
   "whitespace": {
     "typeHintColonPolicy": "after"
+  },
+  "wrapping": {
+    "maxLineLength": 80,
+    "callParameter": {
+      "rules": [
+        {
+          "conditions": [{ "cond": "exceedsMaxLineLength" }],
+          "type": "fillLineWithLeadingBreak"
+        }
+      ]
+    },
+    "functionSignature": {
+      "rules": [
+        {
+          "conditions": [
+            {
+              "cond": "exceedsMaxLineLength"
+            }
+          ],
+          "type": "fillLineWithLeadingBreak"
+        }
+      ]
+    },
+    "opBoolChain": {
+      "rules": [
+        {
+          "conditions": [{ "cond": "exceedsMaxLineLength" }],
+          "type": "onePerLine"
+        }
+      ]
+    }
   }
 }
