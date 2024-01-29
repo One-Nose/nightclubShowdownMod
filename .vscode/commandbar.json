@@ -1,6 +1,6 @@
 {
   "skipTerminateQuickPick": true,
-  "skipSwitchToOutput": false,
+  "skipSwitchToOutput": true,
   "skipErrorMessage": true,
   "commands": [
     {
