@@ -15,9 +15,6 @@ class Assets {
 
         Sfx.setGroupVolume(0, 1);
         Sfx.setGroupVolume(1, 0.7);
-        #if debug
-        Sfx.toggleMuteGroup(1);
-        #end
 
         #if hl
         musicIn = new Sfx(hxd.Res.music.musicIn);
