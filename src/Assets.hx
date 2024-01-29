@@ -1,7 +1,10 @@
 import dn.heaps.Sfx;
 
+/**
+    Static class to manage assets
+**/
 class Assets {
-    public static var SFX = dn.heaps.assets.SfxDirectory.load("sfx", true);
+    public static final SFX = dn.heaps.assets.SfxDirectory.load("sfx", true);
     public static var gameElements: SpriteLib;
     public static var font: h2d.Font;
     public static var musicIn: Sfx;
