@@ -310,7 +310,7 @@ class Entity {
         }
         t.onEnd = function() {
             var tf = label;
-            game.cm.signal("say");
+            game.cinematic.signal("say");
             game.tw.createS(tf.alpha, 0.5 | 0, 1).end(function() setLabel());
         }
     }

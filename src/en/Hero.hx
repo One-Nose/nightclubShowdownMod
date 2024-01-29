@@ -518,7 +518,7 @@ class Hero extends Entity {
         if (moveTarget != null && !movementLocked())
             if (M.fabs(centerX - moveTarget.x) <= 5) {
                 // Arrived
-                game.cm.signal("move");
+                game.cinematic.signal("move");
                 executeAction(afterMoveAction);
                 moveTarget = null;
                 afterMoveAction = None;

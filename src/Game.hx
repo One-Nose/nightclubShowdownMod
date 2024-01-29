@@ -20,7 +20,7 @@ class Game extends dn.Process {
 
     public var hud: h2d.Flow;
 
-    public var cm: dn.Cinematic;
+    public var cinematic: dn.Cinematic;
 
     public function new(ctx: h2d.Object, replayHistory: Array<HistoryEntry>) {
         super(Main.ME);
@@ -36,7 +36,7 @@ class Game extends dn.Process {
             isReplay = false;
         }
 
-        cm = new dn.Cinematic(Const.FPS);
+        cinematic = new dn.Cinematic(Const.FPS);
         // Console.ME.runCommand("+ bounds");
 
         scroller = new h2d.Layers(root);
@@ -68,7 +68,7 @@ class Game extends dn.Process {
             delayer.addS(function() {
                 announce("A fast turned-based action game", 0x706ACC);
             }, 1);
-            cm.create({
+            cinematic.create({
                 hud.visible = false;
                 hero.moveTarget = new FPoint(8 * Const.GRID, hero.footY);
                 end("move");
@@ -154,7 +154,7 @@ class Game extends dn.Process {
 
         mask.remove();
         clickTrap.remove();
-        cm.destroy();
+        cinematic.destroy();
 
         for (e in Entity.ALL)
             e.destroy();
@@ -237,7 +237,7 @@ class Game extends dn.Process {
     }
 
     public function hasCinematic() {
-        return !cm.isEmpty();
+        return !cinematic.isEmpty();
     }
 
     public function startWave(id: Int) {
@@ -282,7 +282,7 @@ class Game extends dn.Process {
         cd.setS("lockNext", Const.INFINITE);
         switch (waveId) {
             case 1:
-                cm.create({
+                cinematic.create({
                     mask.visible = true;
                     tw.createS(mask.alpha, 0 > 1, 0.6);
                     600;
@@ -338,7 +338,7 @@ class Game extends dn.Process {
     }
 
     override public function update() {
-        cm.update(tmod);
+        cinematic.update(tmod);
 
         super.update();
 
