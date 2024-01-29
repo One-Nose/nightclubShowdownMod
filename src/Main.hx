@@ -77,13 +77,15 @@ class Main extends dn.Process {
                 .onEnd = function() {
                     if (callback != null)
                         callback();
-                }} else {
+                };
+        } else {
             this.tw.createS(this.black.alpha, 0, seconds ?? 0.3)
                 .onEnd = function() {
                     this.black.visible = false;
                     if (callback != null)
                         callback();
-                }}
+                };
+        }
     }
 
     var fullscreen = false;
