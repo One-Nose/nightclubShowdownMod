@@ -1,5 +1,5 @@
 /**
-    Singleton class for the app
+    One-at-a-time class for the app
 **/
 class Main extends dn.Process {
     public static final BACKGROUND = 0x000000;
