@@ -10,7 +10,7 @@ class Console extends h2d.Console {
     public function new() {
         super(Assets.consoleFont);
 
-        h2d.Console.HIDE_LOG_TIMEOUT = 30;
+        h2d.Console.HIDE_LOG_TIMEOUT = 5;
         ME = this;
         Main.ME.root.add(this, Const.DP_UI);
         dn.Lib.redirectTracesToH2dConsole(this);
