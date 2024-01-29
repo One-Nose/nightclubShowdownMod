@@ -52,7 +52,7 @@ class Game extends dn.Process {
         mask.visible = false;
 
         hud = new h2d.Flow();
-        root.add(hud, Const.DP_UI);
+        root.add(hud, Const.UI_LAYER);
         hud.horizontalSpacing = 1;
 
         level = new Level();

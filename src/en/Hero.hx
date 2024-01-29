@@ -31,7 +31,7 @@ class Hero extends Entity {
 
         afterMoveAction = None;
 
-        game.scroller.add(spr, Const.DP_HERO);
+        game.scroller.add(spr, Const.HERO_LAYER);
         spr.anim.registerStateAnim("heroPush", 21, function() return !onGround && isStunned());
         spr.anim.registerStateAnim("heroStun", 20, function() return cd.has("reloading"));
         spr.anim.registerStateAnim("heroCover", 10, function() return cover != null);
@@ -43,7 +43,7 @@ class Hero extends Entity {
         spr.anim.registerStateAnim("heroIdle", 0);
 
         icon = Assets.gameElements.h_get("iconMove");
-        game.scroller.add(icon, Const.DP_UI);
+        game.scroller.add(icon, Const.UI_LAYER);
         icon.setCenterRatio(0.5, 0.5);
         icon.blendMode = Add;
 
@@ -415,7 +415,7 @@ class Hero extends Entity {
         grabbedMob = e;
         grabbedMob.hasGravity = false;
         grabbedMob.interruptSkills(false);
-        game.scroller.add(grabbedMob.spr, Const.DP_HERO);
+        game.scroller.add(grabbedMob.spr, Const.HERO_LAYER);
     }
 
     public function stopGrab() {
@@ -423,7 +423,7 @@ class Hero extends Entity {
             return;
         grabbedMob.hasGravity = true;
         if (grabbedMob.isAlive())
-            game.scroller.add(grabbedMob.spr, Const.DP_MOBS);
+            game.scroller.add(grabbedMob.spr, Const.MOBS_LAYER);
         grabbedMob = null;
     }
 
@@ -437,7 +437,7 @@ class Hero extends Entity {
                 e = this;
             if (help == null) {
                 help = new h2d.Text(Assets.font);
-                game.scroller.add(help, Const.DP_UI);
+                game.scroller.add(help, Const.UI_LAYER);
             }
             help.text = str;
             help.textColor = c;

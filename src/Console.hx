@@ -12,7 +12,7 @@ class Console extends h2d.Console {
 
         h2d.Console.HIDE_LOG_TIMEOUT = 5;
         ME = this;
-        Main.ME.root.add(this, Const.DP_UI);
+        Main.ME.root.add(this, Const.UI_LAYER);
         dn.Lib.redirectTracesToH2dConsole(this);
 
         this.flags = new Map();

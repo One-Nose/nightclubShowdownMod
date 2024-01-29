@@ -8,12 +8,12 @@ class Const {
     public static var PAUSE_SLOWMO = 0.03;
 
     static var index = 0;
-    public static final DP_BG = index++;
-    public static final DP_FX_BG = index++;
-    public static final DP_PROPS = index++;
-    public static final DP_MOBS = index++;
-    public static final DP_HERO = index++;
-    public static final DP_FX_TOP = index++;
-    public static final DP_UI = index++;
-    public static final DP_TOP = index++;
+    public static final BACKGROUND_LAYER = index++;
+    public static final FX_BACKGROUND_LAYER = index++;
+    public static final PROPS_LAYER = index++;
+    public static final MOBS_LAYER = index++;
+    public static final HERO_LAYER = index++;
+    public static final TOP_FX_LAYER = index++;
+    public static final UI_LAYER = index++;
+    public static final TOP_LAYER = index++;
 }

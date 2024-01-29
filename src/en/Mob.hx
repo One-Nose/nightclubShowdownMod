@@ -13,7 +13,7 @@ class Mob extends Entity {
 
         ALL.push(this);
 
-        game.scroller.add(spr, Const.DP_MOBS);
+        game.scroller.add(spr, Const.MOBS_LAYER);
         hitSounds = [
             Assets.SFX.grunt0,
             Assets.SFX.grunt1,
