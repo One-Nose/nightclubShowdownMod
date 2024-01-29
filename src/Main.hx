@@ -2,7 +2,7 @@
     Singleton class for the app
 **/
 class Main extends dn.Process {
-    public static final BG = 0x000000;
+    public static final BACKGROUND = 0x000000;
     public static var ME: Main;
 
     public final console: Console;
@@ -37,7 +37,7 @@ class Main extends dn.Process {
         this.toggleFullscreen();
         #end
 
-        this.black = new h2d.Bitmap(h2d.Tile.fromColor(BG, 1, 1), this.root);
+        this.black = new h2d.Bitmap(h2d.Tile.fromColor(BACKGROUND, 1, 1), this.root);
         this.black.visible = false;
 
         hxd.Timer.skip();
