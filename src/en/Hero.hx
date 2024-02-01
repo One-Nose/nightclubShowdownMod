@@ -1,7 +1,5 @@
 package en;
 
-import hxd.Key;
-
 enum Action {
     None;
     BlindShot(e: en.Mob);
