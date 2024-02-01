@@ -69,7 +69,7 @@ class Main extends dn.Process {
         then calls `callback`
     **/
     public function fadeBlack(
-        fadeIn: Bool, ?seconds: Float, ?callback: Void->Void
+        fadeIn: Bool, ?seconds: Float, ?callback: () -> Void
     ) {
         if (fadeIn) {
             this.black.visible = true;

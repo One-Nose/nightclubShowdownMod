@@ -4,9 +4,9 @@ class Mob extends Entity {
     public static var ALL: Array<Mob> = [];
 
     var tx = -1;
-    var onArrive: Null<Void->Void>;
+    var onArrive: Null<() -> Void>;
 
-    var hitSounds: Array<Float->dn.heaps.Sfx>;
+    var hitSounds: Array<(Float) -> dn.heaps.Sfx>;
 
     public function new(x, y) {
         super(x, y);
@@ -94,7 +94,7 @@ class Mob extends Entity {
             spr.alpha = 1 - cd.getRatio("entering");
     }
 
-    function goto(x: Int, ?onDone: Void->Void) {
+    function goto(x: Int, ?onDone: () -> Void) {
         tx = x;
         onArrive = onDone;
     }

@@ -4,8 +4,8 @@ class Area {
     public var radius: Float;
     public var owner: Entity;
 
-    var getX: Void->Float;
-    var getY: Void->Float;
+    var getX: () -> Float;
+    var getY: () -> Float;
 
     public var centerX(get, never): Float;
 
@@ -20,7 +20,7 @@ class Area {
     public var color: UInt = 0xFFFFFF;
 
     public function new(
-        e: Entity, r: Float, getX: Void->Float, getY: Void->Float
+        e: Entity, r: Float, getX: () -> Float, getY: () -> Float
     ) {
         ALL.push(this);
         owner = e;

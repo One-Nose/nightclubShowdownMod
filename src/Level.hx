@@ -196,7 +196,7 @@ class Level extends dn.Process {
         for (pt in getPixels(0x704621))
             new en.Cover(pt.cx, 3);
 
-        function initMob(cx: Int, cy: Int, cb: Void->en.Mob) {
+        function initMob(cx: Int, cy: Int, cb: () -> en.Mob) {
             delayer.addS(function() {
                 var e = cb();
                 e.enterArena();
@@ -243,7 +243,7 @@ class Level extends dn.Process {
         // }
     }
 
-    public function iteratePixels(c: UInt, cb: Int->Int->Void) {
+    public function iteratePixels(c: UInt, cb: (Int, Int) -> Void) {
         if (!pixels.exists(c))
             return;
 

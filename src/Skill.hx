@@ -12,10 +12,10 @@ class Skill {
 
     public var target(default, null): Null<Entity>;
 
-    public var onExecute: Null<Entity>->Void;
-    public var onStart: Void->Void;
-    public var onProgress: Float->Void;
-    public var onInterrupt: Void->Void;
+    public var onExecute: (Null<Entity>) -> Void;
+    public var onStart: () -> Void;
+    public var onProgress: (Float) -> Void;
+    public var onInterrupt: () -> Void;
 
     public function new(id, ?e: Entity) {
         this.id = id;

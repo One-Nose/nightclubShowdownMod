@@ -27,7 +27,7 @@ class DecisionHelper<T> {
         }
     }
 
-    public inline function remove(cb: T->Bool) {
+    public inline function remove(cb: (T) -> Bool) {
         for (e in all)
             if (!e.out && cb(e.v))
                 e.out = true;
@@ -39,13 +39,13 @@ class DecisionHelper<T> {
                 e.out = true;
     }
 
-    public inline function keepOnly(cb: T->Bool) {
+    public inline function keepOnly(cb: (T) -> Bool) {
         for (e in all)
             if (!e.out && !cb(e.v))
                 e.out = true;
     }
 
-    public inline function score(cb: T->Float) {
+    public inline function score(cb: (T) -> Float) {
         for (e in all)
             if (!e.out)
                 e.score += cb(e.v);
@@ -62,7 +62,7 @@ class DecisionHelper<T> {
     public inline function isEmpty()
         return countRemaining() == 0;
 
-    public inline function iterateRemainings(cb: T->Float->Void) {
+    public inline function iterateRemainings(cb: (T, Float) -> Void) {
         for (e in all)
             if (!e.out)
                 cb(e.v, e.score);
@@ -77,7 +77,7 @@ class DecisionHelper<T> {
         return best == null ? null : best.v;
     }
 
-    public function getRemainingRandom(rnd: Int->Int): Null<T> {
+    public function getRemainingRandom(rnd: (Int) -> Int): Null<T> {
         var idx = rnd(countRemaining());
         var i = 0;
         for (e in all) {
