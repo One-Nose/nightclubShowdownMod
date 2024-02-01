@@ -32,14 +32,42 @@ class Hero extends Entity {
         afterMoveAction = None;
 
         game.scroller.add(spr, Const.HERO_LAYER);
-        spr.anim.registerStateAnim("heroPush", 21, function() return !onGround && isStunned());
-        spr.anim.registerStateAnim("heroStun", 20, function() return cd.has("reloading"));
-        spr.anim.registerStateAnim("heroCover", 10, function() return cover != null);
-        spr.anim.registerStateAnim("heroRoll", 9, function() return onGround && moveTarget != null && !movementLocked() && cd.has("rolling"));
-        spr.anim.registerStateAnim("heroBrake", 6, function() return onGround && moveTarget != null && !movementLocked() && cd.has("rollBraking"));
-        spr.anim.registerStateAnim("heroRun", 5, function() return onGround && moveTarget != null && !movementLocked());
-        spr.anim.registerStateAnim("heroBrake", 2, function() return cd.has("braking") && grabbedMob == null);
-        spr.anim.registerStateAnim("heroIdleGrab", 1, function() return grabbedMob != null);
+        spr.anim.registerStateAnim(
+            "heroPush", 21, function() return !onGround && isStunned());
+        spr.anim.registerStateAnim(
+            "heroStun", 20, function() return cd.has("reloading"));
+        spr.anim.registerStateAnim(
+            "heroCover", 10, function() return cover != null
+        );
+        spr.anim.registerStateAnim(
+            "heroRoll", 9,
+            function() return
+                onGround &&
+                moveTarget != null &&
+                !movementLocked() &&
+                cd.has("rolling")
+        );
+        spr.anim.registerStateAnim(
+            "heroBrake", 6,
+            function() return
+                onGround &&
+                moveTarget != null &&
+                !movementLocked() &&
+                cd.has("rollBraking")
+        );
+        spr.anim.registerStateAnim(
+            "heroRun", 5,
+            function() return
+                onGround &&
+                moveTarget != null &&
+                !movementLocked()
+        );
+        spr.anim.registerStateAnim(
+            "heroBrake", 2,
+            function() return cd.has("braking") && grabbedMob == null);
+        spr.anim.registerStateAnim(
+            "heroIdleGrab", 1, function() return grabbedMob != null
+        );
         spr.anim.registerStateAnim("heroIdle", 0);
 
         icon = Assets.gameElements.h_get("iconMove");
@@ -129,7 +157,10 @@ class Hero extends Entity {
     }
 
     override public function isCoveredFrom(source: Entity) {
-        return super.isCoveredFrom(source) || grabbedMob != null && dirTo(grabbedMob) == dirTo(source);
+        return
+            super.isCoveredFrom(source) ||
+            grabbedMob != null &&
+            dirTo(grabbedMob) == dirTo(source);
     }
 
     override public function hitCover(dmg: Int, source: Entity) {
@@ -233,7 +264,10 @@ class Hero extends Entity {
         if (M.fabs(y - footY) <= 1.5 * Const.GRID && grabbedMob == null) {
             var ok = true;
             for (e in Entity.ALL)
-                if (e.isBlockingHeroMoves() && M.fabs(x - e.centerX) <= Const.GRID * 0.8) {
+                if (
+                    e.isBlockingHeroMoves() &&
+                    M.fabs(x - e.centerX) <= Const.GRID * 0.8
+                ) {
                     ok = false;
                     break;
                 }
@@ -241,29 +275,41 @@ class Hero extends Entity {
             if (ok) {
                 var tx = x;
                 tx = M.fclamp(tx, 5, level.wid * Const.GRID - 5);
-                if (game.waveId <= 1 && level.waveMobCount > 0 && tx >= (level.wid - 3) * Const.GRID)
+                if (
+                    game.waveId <= 1 &&
+                    level.waveMobCount > 0 &&
+                    tx >= (level.wid - 3) * Const.GRID
+                )
                     tx = (game.level.wid - 3) * Const.GRID;
                 a = Move(x, footY);
             }
         }
 
         // Throw grabbed mob
-        if (grabbedMob != null && M.fabs(centerX - dir * 10 - x) <= 9 && M.fabs(centerY - y) <= 20)
+        if (
+            grabbedMob != null &&
+            M.fabs(centerX - dir * 10 - x) <= 9 &&
+            M.fabs(centerY - y) <= 20
+        )
             a = KickGrab;
 
         // Turn back
-        if (a == null
-            && grabbedMob != null
-            && M.fabs(x - centerX) >= Const.GRID
-            && (x > centerX && dir == -1 || x < centerX && dir == 1))
+        if (
+            a == null &&
+            grabbedMob != null &&
+            M.fabs(x - centerX) >= Const.GRID &&
+            (x > centerX && dir == -1 || x < centerX && dir == 1)
+        )
             a = TurnBack;
 
         // Wait
-        if (grabbedMob == null
-            && game.isSlowMo()
-            && ammo >= maxAmmo
-            && M.fabs(centerX - x) <= Const.GRID * 0.3
-            && M.fabs(centerY - y) <= Const.GRID * 0.7)
+        if (
+            grabbedMob == null &&
+            game.isSlowMo() &&
+            ammo >= maxAmmo &&
+            M.fabs(centerX - x) <= Const.GRID * 0.3 &&
+            M.fabs(centerY - y) <= Const.GRID * 0.7
+        )
             a = Wait(0.6);
 
         // Take cover
@@ -279,12 +325,17 @@ class Hero extends Entity {
         if (grabbedMob == null) {
             var best: en.Mob = null;
             for (e in en.Mob.ALL)
-                if (e.canBeShot()
-                    && e.canBeGrabbed()
-                    && grabbedMob != e
-                    && M.fabs(x - e.centerX) <= Const.GRID
-                    && M.fabs(y - e.centerY) <= Const.GRID
-                    && (best == null || e.distPxFree(x, y) <= best.distPxFree(x, y)))
+                if (
+                    e.canBeShot() &&
+                    e.canBeGrabbed() &&
+                    grabbedMob != e &&
+                    M.fabs(x - e.centerX) <= Const.GRID &&
+                    M.fabs(y - e.centerY) <= Const.GRID &&
+                    (
+                        best == null ||
+                        e.distPxFree(x, y) <= best.distPxFree(x, y)
+                    )
+                )
                     best = e;
             if (best != null)
                 a = GrabMob(best, x < best.centerX ? -1 : 1);
@@ -294,9 +345,18 @@ class Hero extends Entity {
         if (a != KickGrab) {
             var best: en.Mob = null;
             for (e in en.Mob.ALL) {
-                if (e.canBeShot()
-                    && (e.head.contains(x, y) || e.torso.contains(x, y) || e.legs.contains(x, y))
-                    && (best == null || e.distPxFree(x, y) <= best.distPxFree(x, y)))
+                if (
+                    e.canBeShot() &&
+                    (
+                        e.head.contains(x, y) ||
+                        e.torso.contains(x, y) ||
+                        e.legs.contains(x, y)
+                    ) &&
+                    (
+                        best == null ||
+                        e.distPxFree(x, y) <= best.distPxFree(x, y)
+                    )
+                )
                     best = e;
             }
             if (best != null) {
@@ -308,10 +368,12 @@ class Hero extends Entity {
         }
 
         // Relaod
-        if (grabbedMob == null
-            && ammo < maxAmmo
-            && M.fabs(centerX - x) <= Const.GRID * 0.3
-            && M.fabs(centerY - y) <= Const.GRID * 0.7)
+        if (
+            grabbedMob == null &&
+            ammo < maxAmmo &&
+            M.fabs(centerX - x) <= Const.GRID * 0.3 &&
+            M.fabs(centerY - y) <= Const.GRID * 0.7
+        )
             a = Reload;
 
         return a;
@@ -485,7 +547,9 @@ class Hero extends Entity {
 
             case BlindShot(e):
                 icon.setPos(e.torso.centerX, e.torso.centerY + 3);
-                icon.set(e.isCoveredFrom(this) ? "iconShootCover" : "iconShoot");
+                icon.set(
+                    e.isCoveredFrom(this) ? "iconShootCover" : "iconShoot"
+                );
                 icon.colorize(e.isCoveredFrom(this) ? 0xFF0000 : 0xFFFF00);
                 if (e.isCoveredFrom(this))
                     setHelp(e, "Quick shoot (cover)", 0xFF0000);
@@ -511,7 +575,11 @@ class Hero extends Entity {
                 setHelp(e, "Grab enemy", 0xA6EE11);
         }
 
-        if (!controlsLocked() && Main.ME.keyPressed(hxd.Key.R) && ammo < maxAmmo)
+        if (
+            !controlsLocked() &&
+            Main.ME.keyPressed(hxd.Key.R) &&
+            ammo < maxAmmo
+        )
             executeAction(Reload);
 
         // Move

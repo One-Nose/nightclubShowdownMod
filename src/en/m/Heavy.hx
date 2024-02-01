@@ -7,8 +7,10 @@ class Heavy extends en.Mob {
         initLife(6);
         sprScaleX = sprScaleY = 1.25;
 
-        spr.anim.registerStateAnim("cRun", 3, function() return cd.has("entering"));
-        spr.anim.registerStateAnim("cPush", 2, function() return !onGround && isStunned());
+        spr.anim.registerStateAnim(
+            "cRun", 3, function() return cd.has("entering"));
+        spr.anim.registerStateAnim(
+            "cPush", 2, function() return !onGround && isStunned());
         spr.anim.registerStateAnim("cStun", 1, function() return isStunned());
         spr.anim.registerStateAnim("cIdle", 0);
 

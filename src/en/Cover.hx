@@ -17,17 +17,25 @@ class Cover extends Entity {
         initLife(3);
 
         var r = 11;
-        left = new Area(this, r, function() return centerX - r, function() return centerY);
+        left = new Area(
+            this, r, function() return centerX - r, function() return centerY
+        );
         left.color = 0x009500;
-        right = new Area(this, r, function() return centerX + r, function() return centerY);
+        right = new Area(
+            this, r, function() return centerX + r, function() return centerY
+        );
         right.color = 0x17FF17;
 
-        game.scroller.add(iconLeft = Assets.gameElements.h_get("iconShield"), Const.UI_LAYER);
+        game.scroller.add(
+            iconLeft = Assets.gameElements.h_get("iconShield"), Const.UI_LAYER
+        );
         iconLeft.setCenterRatio(0.5, 1);
         iconLeft.blendMode = Add;
         iconLeft.colorize(0x14BBEB);
 
-        game.scroller.add(iconRight = Assets.gameElements.h_get("iconShield"), Const.UI_LAYER);
+        game.scroller.add(
+            iconRight = Assets.gameElements.h_get("iconShield"), Const.UI_LAYER
+        );
         iconRight.setCenterRatio(0.5, 1);
         iconRight.blendMode = Add;
         iconRight.colorize(0x14BBEB);

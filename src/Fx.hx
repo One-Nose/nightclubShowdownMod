@@ -58,19 +58,27 @@ class Fx extends dn.Process {
         pool.clear();
     }
 
-    public inline function allocTopAdd(t: h2d.Tile, x: Float, y: Float): HParticle {
+    public inline function allocTopAdd(
+        t: h2d.Tile, x: Float, y: Float
+    ): HParticle {
         return pool.alloc(topAddSb, t, x, y);
     }
 
-    public inline function allocTopNormal(t: h2d.Tile, x: Float, y: Float): HParticle {
+    public inline function allocTopNormal(
+        t: h2d.Tile, x: Float, y: Float
+    ): HParticle {
         return pool.alloc(topNormalSb, t, x, y);
     }
 
-    public inline function allocBgAdd(t: h2d.Tile, x: Float, y: Float): HParticle {
+    public inline function allocBgAdd(
+        t: h2d.Tile, x: Float, y: Float
+    ): HParticle {
         return pool.alloc(bgAddSb, t, x, y);
     }
 
-    public inline function allocBgNormal(t: h2d.Tile, x: Float, y: Float): HParticle {
+    public inline function allocBgNormal(
+        t: h2d.Tile, x: Float, y: Float
+    ): HParticle {
         return pool.alloc(bgNormalSb, t, x, y);
     }
 
@@ -91,14 +99,20 @@ class Fx extends dn.Process {
         #end
     }
 
-    public function markerCase(cx: Int, cy: Int, ?c = 0xFF00FF, ?short = false) {
-        var p = allocTopAdd(getTile("circle"), (cx + 0.5) * Const.GRID, (cy + 0.5) * Const.GRID);
+    public function markerCase(
+        cx: Int, cy: Int, ?c = 0xFF00FF, ?short = false
+    ) {
+        var p = allocTopAdd(
+            getTile("circle"), (cx + 0.5) * Const.GRID, (cy + 0.5) * Const.GRID
+        );
         p.setFadeS(1, 0, 0.06);
         p.colorize(c);
         p.frict = 0.92;
         p.lifeS = short ? 0.06 : 3;
 
-        var p = allocTopAdd(getTile("dot"), (cx + 0.5) * Const.GRID, (cy + 0.5) * Const.GRID);
+        var p = allocTopAdd(
+            getTile("dot"), (cx + 0.5) * Const.GRID, (cy + 0.5) * Const.GRID
+        );
         p.setFadeS(1, 0, 0.06);
         p.colorize(c);
         p.setScale(2);
@@ -106,7 +120,9 @@ class Fx extends dn.Process {
         p.lifeS = short ? 0.06 : 3;
     }
 
-    public function markerFree(x: Float, y: Float, ?c = 0xFF00FF, ?short = false) {
+    public function markerFree(
+        x: Float, y: Float, ?c = 0xFF00FF, ?short = false
+    ) {
         var p = allocTopAdd(getTile("dot"), x, y);
         p.setFadeS(1, 0, 0.06);
         p.colorize(c);
@@ -120,7 +136,9 @@ class Fx extends dn.Process {
         var tf = new h2d.Text(Assets.font, topNormalSb);
         tf.text = txt;
 
-        var p = allocTopAdd(getTile("circle"), (cx + 0.5) * Const.GRID, (cy + 0.5) * Const.GRID);
+        var p = allocTopAdd(
+            getTile("circle"), (cx + 0.5) * Const.GRID, (cy + 0.5) * Const.GRID
+        );
         p.colorize(0x0080FF);
         p.frict = 0.92;
         p.alpha = 0.6;
@@ -143,12 +161,16 @@ class Fx extends dn.Process {
     }
 
     function collGround(p: HParticle) {
-        return !level.hasColl(Std.int(p.x / Const.GRID), Std.int((p.y - 2) / Const.GRID))
-            && level.hasColl(Std.int(p.x / Const.GRID), Std.int((p.y + 1) / Const.GRID));
+        return
+            !level.hasColl(
+                Std.int(p.x / Const.GRID), Std.int((p.y - 2) / Const.GRID)) &&
+            level.hasColl(
+                Std.int(p.x / Const.GRID), Std.int((p.y + 1) / Const.GRID));
     }
 
     function coll(p: HParticle) {
-        return level.hasColl(Std.int(p.x / Const.GRID), Std.int((p.y + 1) / Const.GRID));
+        return level.hasColl(
+            Std.int(p.x / Const.GRID), Std.int((p.y + 1) / Const.GRID));
     }
 
     function _bloodPhysics(p: HParticle) {
@@ -175,7 +197,9 @@ class Fx extends dn.Process {
         // Core
         for (i in 0...4) {
             var d = i <= 2 ? 0 : rnd(0, 5);
-            var p = allocTopAdd(getTile("dot"), fx + Math.cos(a) * d, fy + Math.sin(a) * d);
+            var p = allocTopAdd(
+                getTile("dot"), fx + Math.cos(a) * d, fy + Math.sin(a) * d
+            );
             p.setFadeS(rnd(0.6, 1), 0, rnd(0.1, 0.12));
             p.colorize(c);
             p.setCenterRatio(0, 0.5);
@@ -192,7 +216,9 @@ class Fx extends dn.Process {
         for (i in 0...20) {
             var a = a + rnd(0.2, 0.5, true);
             var d = i <= 2 ? 0 : rnd(0, 5);
-            var p = allocTopAdd(getTile("dot"), fx + Math.cos(a) * d, fy + Math.sin(a) * d);
+            var p = allocTopAdd(
+                getTile("dot"), fx + Math.cos(a) * d, fy + Math.sin(a) * d
+            );
             p.setFadeS(rnd(0.4, 0.6), 0, rnd(0.1, 0.12));
             p.colorize(0xF5450A);
             p.setCenterRatio(0, 0.5);
@@ -209,7 +235,9 @@ class Fx extends dn.Process {
         var d = M.dist(fx, fy, tx, ty) - 10;
         for (i in 0...n) {
             var d = 0.8 * d * i / (n - 1) + rnd(0, 6);
-            var p = allocTopAdd(getTile("dot"), fx + Math.cos(a) * d, fy + Math.sin(a) * d);
+            var p = allocTopAdd(
+                getTile("dot"), fx + Math.cos(a) * d, fy + Math.sin(a) * d
+            );
             p.setFadeS(rnd(0.4, 0.6), 0, rnd(0.1, 0.12));
             p.colorize(c);
 
@@ -228,7 +256,8 @@ class Fx extends dn.Process {
         // Dots
         var n = 2;
         for (i in 0...n) {
-            var p = allocTopNormal(getTile("dot"), x + rnd(0, 3, true), y + rnd(0, 4, true));
+            var p = allocTopNormal(
+                getTile("dot"), x + rnd(0, 3, true), y + rnd(0, 4, true));
             p.colorize(Color.interpolateInt(0xFF0000, 0x6F0000, rnd(0, 1)));
             p.dx = Math.sin(x + ftime * 0.03) * 0.2;
             p.dy = rnd(-1.5, -0.1);
@@ -246,7 +275,8 @@ class Fx extends dn.Process {
         // Dots
         var n = 40;
         for (i in 0...n) {
-            var p = allocTopNormal(getTile("dot"), x + rnd(0, 3, true), y + rnd(0, 4, true));
+            var p = allocTopNormal(
+                getTile("dot"), x + rnd(0, 3, true), y + rnd(0, 4, true));
             p.colorize(Color.interpolateInt(0xFF0000, 0x6F0000, rnd(0, 1)));
             p.dx = dir * (i <= 10 ? rnd(3, 12) : rnd(1, 5));
             p.dy = rnd(-2, 1);
@@ -260,12 +290,15 @@ class Fx extends dn.Process {
 
         // Line
         var n = 40;
-        var a = 3.14 + Math.atan2(y + rnd(0, 3, true) - fy, x + rnd(0, 3, true) - fx);
+        var a = 3.14
+            + Math.atan2(y + rnd(0, 3, true) - fy, x + rnd(0, 3, true) - fx);
         a = M.radClamp(a, dir == 1 ? 3.14 : 0, 0.2);
         for (i in 0...n) {
             var a = a + rnd(0, 0.03, true);
             var d = rnd(0, 15);
-            var p = allocTopNormal(getTile("dot"), x + Math.cos(a) * d, y + Math.sin(a) * d + rnd(0, 1, true));
+            var p = allocTopNormal(
+                getTile("dot"), x + Math.cos(a) * d,
+                y + Math.sin(a) * d + rnd(0, 1, true));
             p.colorize(Color.interpolateInt(0xFF0000, 0x6F0000, rnd(0, 1)));
             p.scaleX = rnd(1, 3);
             p.scaleXMul = rnd(0.92, 0.97);
@@ -280,11 +313,14 @@ class Fx extends dn.Process {
         }
     }
 
-    public function headShot(fx: Float, fy: Float, x: Float, y: Float, dir: Int) {
+    public function headShot(
+        fx: Float, fy: Float, x: Float, y: Float, dir: Int
+    ) {
         // Blood dots
         var n = 40;
         for (i in 0...n) {
-            var p = allocTopNormal(getTile("dot"), x + rnd(0, 3, true), y + rnd(0, 4, true));
+            var p = allocTopNormal(
+                getTile("dot"), x + rnd(0, 3, true), y + rnd(0, 4, true));
             p.colorize(Color.interpolateInt(0xFF0000, 0x6F0000, rnd(0, 1)));
             p.scaleX = rnd(1, 3);
             p.scaleX = rnd(1, 1.5);
@@ -302,12 +338,15 @@ class Fx extends dn.Process {
 
         // Line
         var n = 40;
-        var a = 3.14 + Math.atan2(y + rnd(0, 3, true) - fy, x + rnd(0, 3, true) - fx);
+        var a = 3.14
+            + Math.atan2(y + rnd(0, 3, true) - fy, x + rnd(0, 3, true) - fx);
         a = M.radClamp(a, dir == 1 ? 3.14 : 0, 0.2);
         for (i in 0...n) {
             var a = a + rnd(0, 0.03, true);
             var d = rnd(0, 15);
-            var p = allocTopNormal(getTile("dot"), x + Math.cos(a) * d, y + Math.sin(a) * d + rnd(0, 1, true));
+            var p = allocTopNormal(
+                getTile("dot"), x + Math.cos(a) * d,
+                y + Math.sin(a) * d + rnd(0, 1, true));
             p.colorize(Color.interpolateInt(0xFF0000, 0x6F0000, rnd(0, 1)));
             p.scaleX = rnd(1, 3);
             p.scaleXMul = rnd(0.92, 0.97);
@@ -328,7 +367,9 @@ class Fx extends dn.Process {
         for (i in 0...n) {
             var a = a + rnd(0, 0.06, true);
             var d = rnd(0, 15);
-            var p = allocTopNormal(getTile("bigDirt"), x + Math.cos(a) * d, y + Math.sin(a) * d + rnd(0, 1, true));
+            var p = allocTopNormal(
+                getTile("bigDirt"), x + Math.cos(a) * d,
+                y + Math.sin(a) * d + rnd(0, 1, true));
             p.colorize(i % 3 == 0 ? 0x950000 : 0xE1C684);
             p.setFadeS(rnd(0.7, 1), 0, rnd(3, 7));
 
@@ -368,7 +409,8 @@ class Fx extends dn.Process {
         // Dots
         var n = 100;
         for (i in 0...n) {
-            var p = allocTopNormal(getTile("dot"), x + rnd(0, 3, true), y + rnd(0, 4, true));
+            var p = allocTopNormal(
+                getTile("dot"), x + rnd(0, 3, true), y + rnd(0, 4, true));
             p.colorize(Color.interpolateInt(c, 0x0, rnd(0, 0.1)));
             p.scaleX = rnd(1, 3);
             p.dx = dir * (i <= n * 0.2 ? rnd(3, 12) : rnd(-2, 5));
@@ -386,7 +428,8 @@ class Fx extends dn.Process {
         // Planks
         var n = 20;
         for (i in 0...n) {
-            var p = allocTopNormal(getTile("dot"), x + rnd(0, 3, true), y + rnd(0, 4, true));
+            var p = allocTopNormal(
+                getTile("dot"), x + rnd(0, 3, true), y + rnd(0, 4, true));
             p.colorize(Color.interpolateInt(c, 0x0, rnd(0, 0.1)));
             p.setFadeS(rnd(0.7, 1), 0, rnd(3, 7));
 
@@ -440,7 +483,8 @@ class Fx extends dn.Process {
         // Dots
         var n = 100;
         for (i in 0...n) {
-            var p = allocTopNormal(getTile("bigDirt"), x + rnd(0, 3, true), y + rnd(0, 4, true));
+            var p = allocTopNormal(
+                getTile("bigDirt"), x + rnd(0, 3, true), y + rnd(0, 4, true));
             p.setFadeS(rnd(0.7, 1), 0, rnd(3, 7));
             p.colorize(Color.interpolateInt(c, 0x0, rnd(0, 0.1)));
 
@@ -463,7 +507,8 @@ class Fx extends dn.Process {
         // Big dirt
         var n = 20;
         for (i in 0...n) {
-            var p = allocBgNormal(getTile("bigDirt"), x + rnd(0, 3, true), y + rnd(0, 4, true));
+            var p = allocBgNormal(
+                getTile("bigDirt"), x + rnd(0, 3, true), y + rnd(0, 4, true));
             p.colorize(Color.interpolateInt(c, 0x0, rnd(0, 0.1)));
             p.setFadeS(rnd(0.7, 1), 0, rnd(3, 7));
 
@@ -486,7 +531,10 @@ class Fx extends dn.Process {
         // Smoke
         var n = 40;
         for (i in 0...n) {
-            var p = allocBgNormal(getTile("smallSmoke"), x + rnd(0, 5, true), y + rnd(0, 7, true));
+            var p = allocBgNormal(
+                getTile(
+                    "smallSmoke"
+                ), x + rnd(0, 5, true), y + rnd(0, 7, true));
             // p.colorize( Color.interpolateInt(0xFFFF8A,0xF23100,rnd(0,0.1)) );
             p.colorAnimS(0xE1451E, 0x222035, rnd(2, 4));
             p.setFadeS(rnd(0.2, 0.4), 0, rnd(0.5, 1));
@@ -509,7 +557,8 @@ class Fx extends dn.Process {
         // Fire
         var n = 40;
         for (i in 0...n) {
-            var p = allocTopAdd(getTile("smallSmoke"), x + rnd(0, 3, true), y - rnd(0, 6));
+            var p = allocTopAdd(
+                getTile("smallSmoke"), x + rnd(0, 3, true), y - rnd(0, 6));
             // p.colorize( Color.interpolateInt(0xFFFF8A,0xF23100,rnd(0,0.1)) );
             p.colorAnimS(0xE78F0C, 0x5A5F98, rnd(1, 3));
             p.setFadeS(rnd(0.7, 1), 0, rnd(0.5, 1));
@@ -557,7 +606,9 @@ class Fx extends dn.Process {
         var base = dir == 1 ? 0 : 3.14;
         for (i in 0...n) {
             var a = base + -1.7 + 3.4 * i / (n - 1);
-            var p = allocTopAdd(getTile("dot"), x + Math.cos(a) * 5, y + Math.sin(a) * 5);
+            var p = allocTopAdd(
+                getTile("dot"), x + Math.cos(a) * 5, y + Math.sin(a) * 5
+            );
             p.setFadeS(0.4, 0, 0.06);
             p.rotation = a;
             p.scaleX = i % 2 == 0 ? 2 : 5;
@@ -571,7 +622,9 @@ class Fx extends dn.Process {
     public function allSpots(y: Float, wid: Float) {
         var n = 50;
         for (i in 0...n) {
-            var p = allocBgAdd(getTile("spot"), i / (n - 1) * wid + rnd(0, 3, true), y);
+            var p = allocBgAdd(
+                getTile("spot"), i / (n - 1) * wid + rnd(0, 3, true), y
+            );
             p.colorize(0xFBC404);
             p.setCenterRatio(0.2, 0.5);
             p.setFadeS(rnd(0.4, 0.5), 0, rnd(0.3, 0.8));
@@ -645,7 +698,9 @@ class Fx extends dn.Process {
     public function envDust() {
         var n = 6;
         for (i in 0...n) {
-            var p = allocTopAdd(getTile("dot"), rnd(0, game.viewport.wid), rnd(0, game.viewport.hei));
+            var p = allocTopAdd(
+                getTile("dot"), rnd(0, game.viewport.wid),
+                rnd(0, game.viewport.hei));
             // var p = allocTopAdd(getTile("dot"), rnd(0,game.vp.wid), rnd(-30,0));
             p.setFadeS(rnd(0.07, 0.12), rnd(0.6, 1), rnd(2, 3));
             p.scaleX = rnd(5, 10);
@@ -664,7 +719,9 @@ class Fx extends dn.Process {
         var n = 6;
         for (i in 0...n) {
             var xr = rnd(0, 1);
-            var p = allocTopAdd(getTile("dot"), xr * game.viewport.wid, rnd(0, game.viewport.hei));
+            var p = allocTopAdd(
+                getTile("dot"), xr * game.viewport.wid,
+                rnd(0, game.viewport.hei));
             // var p = allocTopAdd(getTile("dot"), rnd(0,game.vp.wid), rnd(-30,0));
             p.setFadeS(rnd(0.07, 0.12), rnd(0.6, 1), rnd(2, 3));
             p.scaleX = rnd(9, 16);
@@ -683,7 +740,9 @@ class Fx extends dn.Process {
         var n = 6;
         for (i in 0...n) {
             var xr = rnd(0, 1);
-            var p = allocTopAdd(getTile("largeSmoke"), xr * game.viewport.wid, game.level.hei * Const.GRID * rnd(0.6, 1));
+            var p = allocTopAdd(
+                getTile("largeSmoke"), xr * game.viewport.wid,
+                game.level.hei * Const.GRID * rnd(0.6, 1));
             p.colorize(Color.interpolateInt(0x236CC7, 0xBC2E38, xr));
             p.setFadeS(rnd(0.05, 0.08), rnd(0.6, 1), rnd(2, 3));
             p.setScale(rnd(0.9, 1.7));

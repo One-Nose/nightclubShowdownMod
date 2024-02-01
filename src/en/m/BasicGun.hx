@@ -7,8 +7,10 @@ class BasicGun extends en.Mob {
         initLife(2);
 
         spr.anim.registerStateAnim("aGrab", 4, function() return isGrabbed());
-        spr.anim.registerStateAnim("aRun", 3, function() return cd.has("entering"));
-        spr.anim.registerStateAnim("aPush", 2, function() return !onGround && isStunned());
+        spr.anim.registerStateAnim(
+            "aRun", 3, function() return cd.has("entering"));
+        spr.anim.registerStateAnim(
+            "aPush", 2, function() return !onGround && isStunned());
         spr.anim.registerStateAnim("aStun", 1, function() return isStunned());
         spr.anim.registerStateAnim("aIdle", 0);
 
@@ -39,7 +41,9 @@ class BasicGun extends en.Mob {
             spr.anim.play("aAimShoot").chainFor("aBlind", Const.FPS * 0.2);
         }
 
-        lockControlsS(cd.getS("ctrlLock") + 0.1 + countMobs(BasicGun, false) * 0.6);
+        lockControlsS(
+            cd.getS("ctrlLock") + 0.1 + countMobs(BasicGun, false) * 0.6
+        );
     }
 
     override function onDie() {

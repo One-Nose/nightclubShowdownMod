@@ -130,7 +130,9 @@ class Level extends dn.Process {
                 Game.ME.scroller.add(front, Const.TOP_LAYER);
                 front.x = -32;
 
-                var bottomLight = Assets.gameElements.h_get("bottomLight", 0, 0, 1, root);
+                var bottomLight = Assets.gameElements.h_get(
+                    "bottomLight", 0, 0, 1, root
+                );
                 // Game.ME.scroller.add(bottomLight, Const.DP_BG);
                 bottomLight.y = 5 * Const.GRID;
                 bottomLight.blendMode = Add;
@@ -187,7 +189,9 @@ class Level extends dn.Process {
         var c = Color.removeAlpha(bd.getPixel(0, curWaveId * 6));
         hue(Color.intToHsl(c).h * 6.28, 2.5);
 
-        waveMobCount = getPixels(0xff6600).length + getPixels(0x20d5fc).length + getPixels(0x00ff00).length;
+        waveMobCount = getPixels(0xff6600).length
+            + getPixels(0x20d5fc).length
+            + getPixels(0x00ff00).length;
 
         for (pt in getPixels(0x704621))
             new en.Cover(pt.cx, 3);
@@ -200,17 +204,31 @@ class Level extends dn.Process {
                     e.dir = -1;
                 else if (hasPixel(0x363c60, cx - 1, cy))
                     e.dir = 1;
-            }, hasPixel(0x363c60, cx, cy - 2) ? 7 : hasPixel(0x363c60, cx, cy - 1) ? 3.5 : 0);
+            }, hasPixel(
+                0x363c60, cx, cy - 2
+            ) ? 7 : hasPixel(0x363c60, cx, cy - 1) ? 3.5 : 0);
         }
 
         for (pt in getPixels(0x00ff00))
-            initMob(pt.cx, pt.cy, function() return new en.m.Heavy(pt.cx, curWaveId <= 1 ? 6 : 4));
+            initMob(
+                pt.cx, pt.cy,
+                function() return new en.m.Heavy(
+                    pt.cx, curWaveId <= 1 ? 6 : 4
+                ));
 
         for (pt in getPixels(0xff6600))
-            initMob(pt.cx, pt.cy, function() return new en.m.BasicGun(pt.cx, curWaveId <= 1 ? 6 : 4));
+            initMob(
+                pt.cx, pt.cy,
+                function() return new en.m.BasicGun(
+                    pt.cx, curWaveId <= 1 ? 6 : 4
+                ));
 
         for (pt in getPixels(0x20d5fc))
-            initMob(pt.cx, pt.cy, function() return new en.m.Grenader(pt.cx, curWaveId <= 1 ? 6 : 4));
+            initMob(
+                pt.cx, pt.cy,
+                function() return new en.m.Grenader(
+                    pt.cx, curWaveId <= 1 ? 6 : 4
+                ));
 
         //// Grenader
         // for(pt in getPixels(0x20d5fc)) {
@@ -295,7 +313,8 @@ class Level extends dn.Process {
 
                 if (!cd.hasSetS("spot", 0.06))
                     for (i in 0...5)
-                        Game.ME.fx.spotLight(wid * Const.GRID * rnd(0, 1), rnd(20, 30));
+                        Game.ME.fx.spotLight(
+                            wid * Const.GRID * rnd(0, 1), rnd(20, 30));
 
                 if (!cd.hasSetS("lazer", 0.06))
                     for (i in 0...5)

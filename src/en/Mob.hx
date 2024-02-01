@@ -118,7 +118,13 @@ class Mob extends Entity {
     override public function update() {
         super.update();
 
-        if (tx != -1 && !cd.has("entering") && !movementLocked() && !controlsLocked() && !hasSkillCharging()) {
+        if (
+            tx != -1 &&
+            !cd.has("entering") &&
+            !movementLocked() &&
+            !controlsLocked() &&
+            !hasSkillCharging()
+        ) {
             if (cover != null)
                 leaveCover();
 
@@ -146,9 +152,18 @@ class Mob extends Entity {
             dx = dir * 0.05;
 
         // Find cover
-        if (cover == null && tx == -1 && !controlsLocked() && !hasSkillCharging())
+        if (
+            cover == null &&
+            tx == -1 &&
+            !controlsLocked() &&
+            !hasSkillCharging()
+        )
             for (e in en.Cover.ALL)
-                if (distCase(e) <= 3 && e.canHostSomeone(-dirTo(hero)) && !e.coversAnyone()) {
+                if (
+                    distCase(e) <= 3 &&
+                    e.canHostSomeone(-dirTo(hero)) &&
+                    !e.coversAnyone()
+                ) {
                     // fx.markerEntity(e, true);
                     goto(e.cx - dirTo(hero), function() {
                         startCover(e, -dirTo(hero));
@@ -156,13 +171,15 @@ class Mob extends Entity {
                 }
 
         // Dodge hero
-        if (onGround
-            && !movementLocked()
-            && !controlsLocked()
-            && (!hasSkillCharging() || canInterruptSkill())
-            && distCase(hero) <= 1.75
-            && hero.moveTarget == null
-            && !cd.has("dodgeHero")) {
+        if (
+            onGround &&
+            !movementLocked() &&
+            !controlsLocked() &&
+            (!hasSkillCharging() || canInterruptSkill()) &&
+            distCase(hero) <= 1.75 &&
+            hero.moveTarget == null &&
+            !cd.has("dodgeHero")
+        ) {
             if (cover == null || dirTo(cover) != dirTo(hero)) {
                 leaveCover();
                 for (s in skills)
