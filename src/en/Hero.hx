@@ -296,7 +296,7 @@ class Hero extends Entity {
 
         // Turn back
         if (
-            action == null &&
+            action == None &&
             this.grabbedMob != null &&
             M.fabs(x - this.centerX) >= Const.GRID &&
             (
