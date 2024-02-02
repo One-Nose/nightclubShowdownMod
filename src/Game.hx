@@ -1,6 +1,6 @@
 import hxd.Key;
 
-typedef HistoryEntry = {t: Int, a: en.Hero.Action};
+typedef HistoryEntry = {t: Int, a: Action};
 
 class Game extends dn.Process {
     public static var ME: Game;
@@ -75,7 +75,7 @@ class Game extends dn.Process {
                 this.hero.moveTarget = new FPoint(8 * Const.GRID, hero.footY);
                 end("move");
                 500;
-                this.hero.executeAction(Reload);
+                this.hero.executeAction(new action.Reload());
                 1500;
                 this.hero.say("Let's finish this.", 0xFBAD9F);
                 end;
