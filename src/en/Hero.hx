@@ -4,7 +4,7 @@ class Hero extends Entity {
     public var moveTarget: FPoint;
     public var afterMoveAction: Action;
 
-    var icon: HSprite;
+    public var icon(default, null): HSprite;
 
     public var ammo: Int;
     public var maxAmmo: Int;
@@ -413,7 +413,7 @@ class Hero extends Entity {
         grabbedMob = null;
     }
 
-    function setHelp(?e: Entity, ?str: String, ?c = 0xADAED6) {
+    public function setHelp(?e: Entity, ?str: String, ?c = 0xADAED6) {
         if (str == null && help != null) {
             help.remove();
             help = null;
@@ -440,70 +440,13 @@ class Hero extends Entity {
 
         // HUD icon
         var m = game.getMouse();
-        var a = getActionAt(m.x, m.y);
+        var action = getActionAt(m.x, m.y);
         icon.alpha = 0.7;
         icon.visible = true;
         icon.colorize(0xffffff);
         setHelp();
 
-        if (a is action.None)
-            icon.visible = false;
-        else if (a is action.Move)
-            icon.visible = false;
-        else if (a is action.TurnBack)
-            icon.visible = false;
-        else if (a is action.Wait) {
-            icon.setPos(centerX, footY);
-            icon.set("iconWait");
-            setHelp("Wait");
-        } else if (a is action.KickGrab) {
-            icon.setPos(centerX - dir * 8, centerY);
-            icon.colorize(0xFF9300);
-            icon.set("iconKickGrab");
-            setHelp("Kick your cover");
-        } else if (a is action.Reload) {
-            icon.setPos(centerX, footY);
-            icon.set("iconReload");
-            setHelp("Reload");
-        } else if (a is action.BlindShot) {
-            final entity = cast(a, action.BlindShot).entity;
-
-            icon.setPos(entity.torso.centerX, entity.torso.centerY + 3);
-            icon.set(
-                entity.isCoveredFrom(this) ? "iconShootCover" : "iconShoot"
-            );
-            icon.colorize(entity.isCoveredFrom(this) ? 0xFF0000 : 0xFFFF00);
-            if (entity.isCoveredFrom(this))
-                setHelp(entity, "Quick shoot (cover)", 0xFF0000);
-            else
-                setHelp(entity, "Quick shoot", 0xFFFF00);
-        } else if (a is action.HeadShot) {
-            final entity = cast(a, action.HeadShot).entity;
-
-            icon.setPos(entity.head.centerX, entity.head.centerY);
-            icon.set("iconShoot");
-            icon.colorize(0xFF9300);
-            setHelp(entity, "Head shot", 0xFF9300);
-        } else if (a is action.TakeCover) {
-            final coverAction = cast(a, action.TakeCover);
-
-            icon.setPos(
-                coverAction.entity.footX + coverAction.side * 14,
-                coverAction.entity.footY - 6
-            );
-            icon.set("iconCover" + (coverAction.side == -1 ? "Left" : "Right"));
-            icon.colorize(0xA6EE11);
-            setHelp(coverAction.entity, "Cover", 0xA6EE11);
-        } else if (a is action.GrabMob) {
-            final grab = cast(a, action.GrabMob);
-
-            icon.setPos(
-                grab.entity.footX + grab.side * 14, grab.entity.footY - 6
-            );
-            icon.colorize(0xA6EE11);
-            icon.set("iconCover" + (grab.side == -1 ? "Left" : "Right"));
-            setHelp(grab.entity, "Grab enemy", 0xA6EE11);
-        }
+        action.updateDisplay(this);
 
         if (
             !controlsLocked() &&

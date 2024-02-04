@@ -1,6 +1,10 @@
 package action;
 
 class KickGrab extends Action {
+    public function new() {
+        super("Kick your cover");
+    }
+
     public function execute(hero: en.Hero) {
         if (hero.grabbedMob != null) {
             Assets.SFX.hit1(1);
@@ -10,5 +14,13 @@ class KickGrab extends Action {
             hero.stopGrab();
             hero.spr.anim.play("heroKick");
         }
+    }
+
+    public override function updateDisplay(hero: en.Hero) {
+        hero.icon.setPos(hero.centerX - hero.dir * 8, hero.centerY);
+        hero.icon.set("iconKickGrab");
+
+        hero.icon.colorize(0xFF9300);
+        super.updateDisplay(hero);
     }
 }

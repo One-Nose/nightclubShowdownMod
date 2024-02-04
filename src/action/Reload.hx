@@ -1,6 +1,10 @@
 package action;
 
 class Reload extends Action {
+    public function new() {
+        super("Reload");
+    }
+
     public function execute(hero: en.Hero) {
         hero.spr.anim.stopWithStateAnims();
         hero.spr.anim.play("heroReload");
@@ -13,5 +17,12 @@ class Reload extends Action {
         hero.cd.setS("reloading", 0.8);
         hero.lockControlsS(0.8);
         hero.setAmmo(hero.maxAmmo);
+    }
+
+    public override function updateDisplay(hero: en.Hero) {
+        hero.icon.setPos(hero.centerX, hero.footY);
+        hero.icon.set("iconReload");
+
+        super.updateDisplay(hero);
     }
 }

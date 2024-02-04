@@ -56,9 +56,10 @@ class Entity {
 
     var skills: Array<Skill>;
     var diminishingUses: Map<String, Int> = new Map();
-    var head: Area;
-    var torso: Area;
-    var legs: Area;
+
+    public var head(default, null): Area;
+    public var torso(default, null): Area;
+    public var legs(default, null): Area;
 
     public var cover: Null<en.Cover>;
 

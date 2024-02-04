@@ -1,16 +1,23 @@
 package action;
 
 class HeadShot extends Action {
-    public var entity: en.Mob;
+    public var mob: en.Mob;
 
-    public function new(entity: en.Mob) {
-        super();
+    public function new(mob: en.Mob) {
+        super("Head shot", 0xFF9300, mob);
 
-        this.entity = entity;
+        this.mob = mob;
     }
 
     public function execute(hero: en.Hero) {
         hero.getSkill("headShot")
-            .prepareOn(this.entity, if (this.entity.isGrabbed()) 0.5 else 1);
+            .prepareOn(this.mob, if (this.mob.isGrabbed()) 0.5 else 1);
+    }
+
+    public override function updateDisplay(hero: en.Hero) {
+        hero.icon.setPos(this.mob.head.centerX, this.mob.head.centerY);
+        hero.icon.set("iconShoot");
+
+        super.updateDisplay(hero);
     }
 }

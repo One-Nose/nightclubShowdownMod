@@ -1,33 +1,42 @@
 package action;
 
 class TakeCover extends Action {
-    public var entity: en.Cover;
+    public var cover: en.Cover;
     public var side: Int;
 
-    public function new(entity: en.Cover, side: Int) {
-        super();
+    public function new(cover: en.Cover, side: Int) {
+        super("Cover", 0xA6EE11, cover);
 
-        this.entity = entity;
+        this.cover = cover;
         this.side = side;
     }
 
     public function execute(hero: en.Hero) {
         hero.spr.anim.stopWithStateAnims();
 
-        if (this.entity.canHostSomeone(this.side)) {
+        if (this.cover.canHostSomeone(this.side)) {
             hero.stopGrab();
 
             if (hero.distPxFree(
-                this.entity.centerX + this.side * 10, this.entity.centerY
+                this.cover.centerX + this.side * 10, this.cover.centerY
             ) >= 20) {
                 hero.moveTarget = new FPoint(
-                    this.entity.centerX + this.side * 10, hero.footY
+                    this.cover.centerX + this.side * 10, hero.footY
                 );
                 hero.afterMoveAction = this;
                 hero.leaveCover();
             } else {
-                hero.startCover(this.entity, this.side);
+                hero.startCover(this.cover, this.side);
             }
         }
+    }
+
+    public override function updateDisplay(hero: en.Hero) {
+        hero.icon.setPos(
+            this.cover.footX + this.side * 14, this.cover.footY - 6
+        );
+        hero.icon.set("iconCover" + if (this.side == -1) "Left" else "Right");
+
+        super.updateDisplay(hero);
     }
 }
