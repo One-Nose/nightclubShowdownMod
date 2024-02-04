@@ -8,4 +8,9 @@ class BlindShot extends Action {
 
         this.entity = entity;
     }
+
+    public function execute(hero: en.Hero) {
+        hero.getSkill("blindShot")
+            .prepareOn(this.entity, if (this.entity.isGrabbed()) 0.5 else 1);
+    }
 }

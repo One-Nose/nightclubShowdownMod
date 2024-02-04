@@ -8,4 +8,9 @@ class Wait extends Action {
 
         this.seconds = seconds;
     }
+
+    public function execute(hero: en.Hero) {
+        hero.spr.anim.stopWithStateAnims();
+        hero.lockControlsS(this.seconds);
+    }
 }
