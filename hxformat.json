@@ -18,11 +18,7 @@
     "functionSignature": {
       "rules": [
         {
-          "conditions": [
-            {
-              "cond": "exceedsMaxLineLength"
-            }
-          ],
+          "conditions": [{ "cond": "exceedsMaxLineLength" }],
           "type": "fillLineWithLeadingBreak"
         }
       ]
