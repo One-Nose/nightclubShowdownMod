@@ -7,6 +7,14 @@
   },
   "wrapping": {
     "maxLineLength": 80,
+    "arrayWrap": {
+      "rules": [
+        {
+          "conditions": [{ "cond": "exceedsMaxLineLength" }],
+          "type": "fillLineWithLeadingBreak"
+        }
+      ]
+    },
     "callParameter": {
       "rules": [
         {
