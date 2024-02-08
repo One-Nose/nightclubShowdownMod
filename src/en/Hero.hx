@@ -1,5 +1,7 @@
 package en;
 
+import action.*;
+
 class Hero extends Entity {
     public var moveTarget: FPoint;
     public var afterMoveAction: Action;
@@ -14,7 +16,7 @@ class Hero extends Entity {
     public function new(x, y) {
         super(x, y);
 
-        afterMoveAction = new action.None(this);
+        afterMoveAction = new None(this);
 
         game.scroller.add(spr, Const.HERO_LAYER);
         spr.anim.registerStateAnim(
@@ -241,7 +243,7 @@ class Hero extends Entity {
     }
 
     function getActionAt(x: Float, y: Float): Action {
-        var action: Action = new action.None(this);
+        var action: Action = new None(this);
         if (this.game.hasCinematic())
             return action;
 
@@ -269,7 +271,7 @@ class Hero extends Entity {
                     tx >= (this.level.wid - 3) * Const.GRID
                 )
                     tx = (this.game.level.wid - 3) * Const.GRID;
-                action = new action.Move(this, x, this.footY);
+                action = new Move(this, x, this.footY);
             }
         }
 
@@ -279,11 +281,11 @@ class Hero extends Entity {
             M.fabs(this.centerX - this.dir * 10 - x) <= 9 &&
             M.fabs(this.centerY - y) <= 20
         )
-            action = new action.KickGrab(this);
+            action = new KickGrab(this);
 
         // Turn back
         if (
-            action is action.None &&
+            action is None &&
             this.grabbedMob != null &&
             M.fabs(x - this.centerX) >= Const.GRID &&
             (
@@ -293,7 +295,7 @@ class Hero extends Entity {
                 this.dir == 1
             )
         )
-            action = new action.TurnBack(this);
+            action = new TurnBack(this);
 
         // Wait
         if (
@@ -303,15 +305,15 @@ class Hero extends Entity {
             M.fabs(this.centerX - x) <= Const.GRID * 0.3 &&
             M.fabs(this.centerY - y) <= Const.GRID * 0.7
         )
-            action = new action.Wait(this, 0.6);
+            action = new Wait(this, 0.6);
 
         // Take cover
         for (entity in en.Cover.ALL) {
             if (entity.left.contains(x, y) && entity.canHostSomeone(-1))
-                action = new action.TakeCover(this, entity, -1);
+                action = new TakeCover(this, entity, -1);
 
             if (entity.right.contains(x, y) && entity.canHostSomeone(1))
-                action = new action.TakeCover(this, entity, 1);
+                action = new TakeCover(this, entity, 1);
         }
 
         // Grab mob
@@ -331,13 +333,13 @@ class Hero extends Entity {
                 )
                     best = mob;
             if (best != null)
-                action = new action.GrabMob(
+                action = new GrabMob(
                     this, best, if (x < best.centerX) -1 else 1
                 );
         }
 
         // Shoot mob
-        if (!(action is action.KickGrab)) {
+        if (!(action is KickGrab)) {
             var best: en.Mob = null;
             for (mob in en.Mob.ALL) {
                 if (
@@ -356,9 +358,9 @@ class Hero extends Entity {
             }
             if (best != null) {
                 if (best.head.contains(x, y))
-                    action = new action.HeadShot(this, best);
+                    action = new HeadShot(this, best);
                 else
-                    action = new action.BlindShot(this, best);
+                    action = new BlindShot(this, best);
             }
         }
 
@@ -369,7 +371,7 @@ class Hero extends Entity {
             M.fabs(this.centerX - x) <= Const.GRID * 0.3 &&
             M.fabs(this.centerY - y) <= Const.GRID * 0.7
         )
-            action = new action.Reload(this);
+            action = new Reload(this);
 
         return action;
     }
@@ -453,7 +455,7 @@ class Hero extends Entity {
             Main.ME.keyPressed(hxd.Key.R) &&
             ammo < maxAmmo
         )
-            executeAction(new action.Reload(this));
+            executeAction(new Reload(this));
 
         // Move
         if (moveTarget != null && !movementLocked())
@@ -462,7 +464,7 @@ class Hero extends Entity {
                 game.cinematic.signal("move");
                 executeAction(afterMoveAction);
                 moveTarget = null;
-                afterMoveAction = new action.None(this);
+                afterMoveAction = new None(this);
                 dx *= 0.3;
                 if (M.fabs(dx) >= 0.04)
                     cd.setS("braking", 0.2);
