@@ -3,21 +3,21 @@ package action;
 class Wait extends Action {
     public var seconds: Float;
 
-    public function new(seconds: Float) {
-        super("Wait");
+    public function new(hero: en.Hero, seconds: Float) {
+        super(hero, "Wait");
 
         this.seconds = seconds;
     }
 
-    public function execute(hero: en.Hero) {
-        hero.spr.anim.stopWithStateAnims();
-        hero.lockControlsS(this.seconds);
+    public function execute() {
+        this.hero.spr.anim.stopWithStateAnims();
+        this.hero.lockControlsS(this.seconds);
     }
 
-    public override function updateDisplay(hero: en.Hero) {
-        hero.icon.setPos(hero.centerX, hero.footY);
-        hero.icon.set("iconWait");
+    public override function updateDisplay() {
+        this.hero.icon.setPos(this.hero.centerX, this.hero.footY);
+        this.hero.icon.set("iconWait");
 
-        super.updateDisplay(hero);
+        super.updateDisplay();
     }
 }

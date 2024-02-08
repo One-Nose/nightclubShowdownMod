@@ -1,21 +1,26 @@
 abstract class Action {
+    var hero: en.Hero;
     var helpText: Null<String> = null;
     var color: Null<dn.Col> = null;
     var displayEntity: Null<Entity> = null;
 
-    function new(?helpText: String, ?color: dn.Col, ?displayEntity: Entity) {
+    function new(
+        hero: en.Hero, ?helpText: String, ?color: dn.Col,
+        ?displayEntity: Entity
+    ) {
+        this.hero = hero;
         this.helpText = helpText;
         this.color = color;
         this.displayEntity = displayEntity;
     }
 
-    public abstract function execute(hero: en.Hero): Void;
+    public abstract function execute(): Void;
 
-    public function updateDisplay(hero: en.Hero) {
+    public function updateDisplay() {
         if (this.helpText == null)
-            hero.icon.visible = false;
+            this.hero.icon.visible = false;
         else if (this.color != null)
-            hero.icon.colorize(this.color);
-        hero.setHelp(this.displayEntity, this.helpText, this.color);
+            this.hero.icon.colorize(this.color);
+        this.hero.setHelp(this.displayEntity, this.helpText, this.color);
     }
 }

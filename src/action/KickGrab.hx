@@ -1,26 +1,30 @@
 package action;
 
 class KickGrab extends Action {
-    public function new() {
-        super("Kick your cover");
+    public function new(hero: en.Hero) {
+        super(hero, "Kick your cover");
     }
 
-    public function execute(hero: en.Hero) {
-        if (hero.grabbedMob != null) {
+    public function execute() {
+        if (this.hero.grabbedMob != null) {
             Assets.SFX.hit1(1);
-            hero.grabbedMob.hit(1, hero, true);
-            hero.grabbedMob.xr += 0.5 * hero.dirTo(hero.grabbedMob);
-            hero.grabbedMob.violentBump(hero.dir * 0.5, -0.1, 1.5);
-            hero.stopGrab();
-            hero.spr.anim.play("heroKick");
+            this.hero.grabbedMob.hit(1, this.hero, true);
+            this.hero.grabbedMob.xr += 0.5 * this.hero.dirTo(
+                this.hero.grabbedMob
+            );
+            this.hero.grabbedMob.violentBump(this.hero.dir * 0.5, -0.1, 1.5);
+            this.hero.stopGrab();
+            this.hero.spr.anim.play("heroKick");
         }
     }
 
-    public override function updateDisplay(hero: en.Hero) {
-        hero.icon.setPos(hero.centerX - hero.dir * 8, hero.centerY);
-        hero.icon.set("iconKickGrab");
+    public override function updateDisplay() {
+        this.hero.icon.setPos(
+            this.hero.centerX - this.hero.dir * 8, this.hero.centerY
+        );
+        this.hero.icon.set("iconKickGrab");
 
-        hero.icon.colorize(0xFF9300);
-        super.updateDisplay(hero);
+        this.hero.icon.colorize(0xFF9300);
+        super.updateDisplay();
     }
 }

@@ -1,7 +1,7 @@
 package action;
 
 class TurnBack extends Action {
-    public function execute(hero: en.Hero) {
-        hero.dir *= -1;
+    public function execute() {
+        this.hero.dir *= -1;
     }
 }

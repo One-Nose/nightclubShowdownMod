@@ -14,7 +14,7 @@ class Hero extends Entity {
     public function new(x, y) {
         super(x, y);
 
-        afterMoveAction = new action.None();
+        afterMoveAction = new action.None(this);
 
         game.scroller.add(spr, Const.HERO_LAYER);
         spr.anim.registerStateAnim(
@@ -241,7 +241,7 @@ class Hero extends Entity {
     }
 
     function getActionAt(x: Float, y: Float): Action {
-        var action: Action = new action.None();
+        var action: Action = new action.None(this);
         if (this.game.hasCinematic())
             return action;
 
@@ -269,7 +269,7 @@ class Hero extends Entity {
                     tx >= (this.level.wid - 3) * Const.GRID
                 )
                     tx = (this.game.level.wid - 3) * Const.GRID;
-                action = new action.Move(x, this.footY);
+                action = new action.Move(this, x, this.footY);
             }
         }
 
@@ -279,7 +279,7 @@ class Hero extends Entity {
             M.fabs(this.centerX - this.dir * 10 - x) <= 9 &&
             M.fabs(this.centerY - y) <= 20
         )
-            action = new action.KickGrab();
+            action = new action.KickGrab(this);
 
         // Turn back
         if (
@@ -293,7 +293,7 @@ class Hero extends Entity {
                 this.dir == 1
             )
         )
-            action = new action.TurnBack();
+            action = new action.TurnBack(this);
 
         // Wait
         if (
@@ -303,15 +303,15 @@ class Hero extends Entity {
             M.fabs(this.centerX - x) <= Const.GRID * 0.3 &&
             M.fabs(this.centerY - y) <= Const.GRID * 0.7
         )
-            action = new action.Wait(0.6);
+            action = new action.Wait(this, 0.6);
 
         // Take cover
         for (entity in en.Cover.ALL) {
             if (entity.left.contains(x, y) && entity.canHostSomeone(-1))
-                action = new action.TakeCover(entity, -1);
+                action = new action.TakeCover(this, entity, -1);
 
             if (entity.right.contains(x, y) && entity.canHostSomeone(1))
-                action = new action.TakeCover(entity, 1);
+                action = new action.TakeCover(this, entity, 1);
         }
 
         // Grab mob
@@ -332,7 +332,7 @@ class Hero extends Entity {
                     best = mob;
             if (best != null)
                 action = new action.GrabMob(
-                    best, if (x < best.centerX) -1 else 1
+                    this, best, if (x < best.centerX) -1 else 1
                 );
         }
 
@@ -356,9 +356,9 @@ class Hero extends Entity {
             }
             if (best != null) {
                 if (best.head.contains(x, y))
-                    action = new action.HeadShot(best);
+                    action = new action.HeadShot(this, best);
                 else
-                    action = new action.BlindShot(best);
+                    action = new action.BlindShot(this, best);
             }
         }
 
@@ -369,7 +369,7 @@ class Hero extends Entity {
             M.fabs(this.centerX - x) <= Const.GRID * 0.3 &&
             M.fabs(this.centerY - y) <= Const.GRID * 0.7
         )
-            action = new action.Reload();
+            action = new action.Reload(this);
 
         return action;
     }
@@ -378,7 +378,7 @@ class Hero extends Entity {
         if (!game.isReplay)
             game.heroHistory.push({t: game.itime, a: action});
 
-        action.execute(this);
+        action.execute();
     }
 
     override public function postUpdate() {
@@ -446,14 +446,14 @@ class Hero extends Entity {
         icon.colorize(0xffffff);
         setHelp();
 
-        action.updateDisplay(this);
+        action.updateDisplay();
 
         if (
             !controlsLocked() &&
             Main.ME.keyPressed(hxd.Key.R) &&
             ammo < maxAmmo
         )
-            executeAction(new action.Reload());
+            executeAction(new action.Reload(this));
 
         // Move
         if (moveTarget != null && !movementLocked())
@@ -462,7 +462,7 @@ class Hero extends Entity {
                 game.cinematic.signal("move");
                 executeAction(afterMoveAction);
                 moveTarget = null;
-                afterMoveAction = new action.None();
+                afterMoveAction = new action.None(this);
                 dx *= 0.3;
                 if (M.fabs(dx) >= 0.04)
                     cd.setS("braking", 0.2);
