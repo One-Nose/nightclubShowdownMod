@@ -5,6 +5,19 @@ class KickGrab extends Action {
         super(hero, "Kick your cover");
     }
 
+    public static function getInstance(
+        hero: en.Hero, x: Float, y: Float
+    ): Null<KickGrab> {
+        if (
+            hero.grabbedMob != null &&
+            M.fabs(hero.centerX - hero.dir * 10 - x) <= 9 &&
+            M.fabs(hero.centerY - y) <= 20
+        )
+            return new KickGrab(hero);
+
+        return null;
+    }
+
     public function execute() {
         if (this.hero.grabbedMob != null) {
             Assets.SFX.hit1(1);

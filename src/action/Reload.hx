@@ -5,6 +5,20 @@ class Reload extends Action {
         super(hero, "Reload");
     }
 
+    public static function getInstance(
+        hero: en.Hero, x: Float, y: Float
+    ): Null<Reload> {
+        if (
+            hero.grabbedMob == null &&
+            hero.ammo < hero.maxAmmo &&
+            M.fabs(hero.centerX - x) <= Const.GRID * 0.3 &&
+            M.fabs(hero.centerY - y) <= Const.GRID * 0.7
+        )
+            return new Reload(hero);
+
+        return null;
+    }
+
     public function execute() {
         this.hero.spr.anim.stopWithStateAnims();
         this.hero.spr.anim.play("heroReload");

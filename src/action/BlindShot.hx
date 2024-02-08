@@ -9,6 +9,28 @@ class BlindShot extends Action {
         this.mob = mob;
     }
 
+    public static function getInstance(
+        hero: en.Hero, x: Float, y: Float
+    ): Null<BlindShot> {
+        var best: Null<en.Mob> = null;
+        for (mob in en.Mob.ALL) {
+            if (
+                mob.canBeShot() &&
+                (
+                    mob.head.contains(x, y) ||
+                    mob.torso.contains(x, y) ||
+                    mob.legs.contains(x, y)
+                ) &&
+                (best == null || mob.distPxFree(x, y) <= best.distPxFree(x, y))
+            )
+                best = mob;
+        }
+        if (best != null)
+            return new BlindShot(hero, best);
+
+        return null;
+    }
+
     public function execute() {
         this.hero.getSkill("blindShot")
             .prepareOn(this.mob, if (this.mob.isGrabbed()) 0.5 else 1);

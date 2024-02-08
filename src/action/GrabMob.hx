@@ -11,6 +11,35 @@ class GrabMob extends Action {
         this.side = side;
     }
 
+    public static function getInstance(
+        hero: en.Hero, x: Float, y: Float
+    ): Null<GrabMob> {
+        var action: Null<GrabMob> = null;
+
+        if (hero.grabbedMob == null) {
+            var best: en.Mob = null;
+            for (mob in en.Mob.ALL)
+                if (
+                    mob.canBeShot() &&
+                    mob.canBeGrabbed() &&
+                    hero.grabbedMob != mob &&
+                    M.fabs(x - mob.centerX) <= Const.GRID &&
+                    M.fabs(y - mob.centerY) <= Const.GRID &&
+                    (
+                        best == null ||
+                        mob.distPxFree(x, y) <= best.distPxFree(x, y)
+                    )
+                )
+                    best = mob;
+            if (best != null)
+                action = new GrabMob(
+                    hero, best, if (x < best.centerX) -1 else 1
+                );
+        }
+
+        return action;
+    }
+
     public function execute() {
         if (hero.distPxFree(
             this.mob.footX + this.side * 10, this.mob.footY

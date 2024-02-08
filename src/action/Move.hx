@@ -11,6 +11,38 @@ class Move extends Action {
         this.y = y;
     }
 
+    public static function getInstance(
+        hero: en.Hero, x: Float, y: Float
+    ): Null<Move> {
+        if (
+            M.fabs(y - hero.footY) <= 1.5 * Const.GRID &&
+            hero.grabbedMob == null
+        ) {
+            var movementOK = true;
+            for (entity in Entity.ALL)
+                if (
+                    entity.isBlockingHeroMoves() &&
+                    M.fabs(x - entity.centerX) <= Const.GRID * 0.8
+                ) {
+                    movementOK = false;
+                    break;
+                }
+
+            if (movementOK) {
+                var tx = x;
+                tx = M.fclamp(tx, 5, hero.level.wid * Const.GRID - 5);
+                if (
+                    hero.game.waveId <= 1 &&
+                    hero.level.waveMobCount > 0 &&
+                    tx >= (hero.level.wid - 3) * Const.GRID
+                )
+                    tx = (hero.game.level.wid - 3) * Const.GRID;
+                return new Move(hero, x, hero.footY);
+            }
+        }
+        return null;
+    }
+
     public function execute() {
         this.hero.spr.anim.stopWithStateAnims();
         this.hero.moveTarget = new FPoint(this.x, this.y);

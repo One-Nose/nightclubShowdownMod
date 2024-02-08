@@ -243,137 +243,21 @@ class Hero extends Entity {
     }
 
     function getActionAt(x: Float, y: Float): Action {
-        var action: Action = new None(this);
-        if (this.game.hasCinematic())
-            return action;
+        final availableActions: Array<{
+            function getInstance(hero: Hero, x: Float, y: Float): Action;
+        }> = [
+            Reload, KickGrab, HeadShot, BlindShot, GrabMob, TakeCover, Wait,
+            Move, TurnBack
+        ];
 
-        // Movement
-        if (
-            M.fabs(y - this.footY) <= 1.5 * Const.GRID &&
-            this.grabbedMob == null
-        ) {
-            var movementOK = true;
-            for (entity in Entity.ALL)
-                if (
-                    entity.isBlockingHeroMoves() &&
-                    M.fabs(x - entity.centerX) <= Const.GRID * 0.8
-                ) {
-                    movementOK = false;
-                    break;
-                }
-
-            if (movementOK) {
-                var tx = x;
-                tx = M.fclamp(tx, 5, level.wid * Const.GRID - 5);
-                if (
-                    this.game.waveId <= 1 &&
-                    this.level.waveMobCount > 0 &&
-                    tx >= (this.level.wid - 3) * Const.GRID
-                )
-                    tx = (this.game.level.wid - 3) * Const.GRID;
-                action = new Move(this, x, this.footY);
+        if (!this.game.hasCinematic())
+            for (actionType in availableActions) {
+                final action = actionType.getInstance(this, x, y);
+                if (action != null)
+                    return action;
             }
-        }
 
-        // Throw grabbed mob
-        if (
-            this.grabbedMob != null &&
-            M.fabs(this.centerX - this.dir * 10 - x) <= 9 &&
-            M.fabs(this.centerY - y) <= 20
-        )
-            action = new KickGrab(this);
-
-        // Turn back
-        if (
-            action is None &&
-            this.grabbedMob != null &&
-            M.fabs(x - this.centerX) >= Const.GRID &&
-            (
-                x > this.centerX &&
-                this.dir == -1 ||
-                x < this.centerX &&
-                this.dir == 1
-            )
-        )
-            action = new TurnBack(this);
-
-        // Wait
-        if (
-            this.grabbedMob == null &&
-            this.game.isSlowMo() &&
-            this.ammo >= this.maxAmmo &&
-            M.fabs(this.centerX - x) <= Const.GRID * 0.3 &&
-            M.fabs(this.centerY - y) <= Const.GRID * 0.7
-        )
-            action = new Wait(this, 0.6);
-
-        // Take cover
-        for (entity in en.Cover.ALL) {
-            if (entity.left.contains(x, y) && entity.canHostSomeone(-1))
-                action = new TakeCover(this, entity, -1);
-
-            if (entity.right.contains(x, y) && entity.canHostSomeone(1))
-                action = new TakeCover(this, entity, 1);
-        }
-
-        // Grab mob
-        if (this.grabbedMob == null) {
-            var best: en.Mob = null;
-            for (mob in en.Mob.ALL)
-                if (
-                    mob.canBeShot() &&
-                    mob.canBeGrabbed() &&
-                    this.grabbedMob != mob &&
-                    M.fabs(x - mob.centerX) <= Const.GRID &&
-                    M.fabs(y - mob.centerY) <= Const.GRID &&
-                    (
-                        best == null ||
-                        mob.distPxFree(x, y) <= best.distPxFree(x, y)
-                    )
-                )
-                    best = mob;
-            if (best != null)
-                action = new GrabMob(
-                    this, best, if (x < best.centerX) -1 else 1
-                );
-        }
-
-        // Shoot mob
-        if (!(action is KickGrab)) {
-            var best: en.Mob = null;
-            for (mob in en.Mob.ALL) {
-                if (
-                    mob.canBeShot() &&
-                    (
-                        mob.head.contains(x, y) ||
-                        mob.torso.contains(x, y) ||
-                        mob.legs.contains(x, y)
-                    ) &&
-                    (
-                        best == null ||
-                        mob.distPxFree(x, y) <= best.distPxFree(x, y)
-                    )
-                )
-                    best = mob;
-            }
-            if (best != null) {
-                if (best.head.contains(x, y))
-                    action = new HeadShot(this, best);
-                else
-                    action = new BlindShot(this, best);
-            }
-        }
-
-        // Relaod
-        if (
-            this.grabbedMob == null &&
-            this.ammo < this.maxAmmo &&
-            M.fabs(this.centerX - x) <= Const.GRID * 0.3 &&
-            M.fabs(this.centerY - y) <= Const.GRID * 0.7
-        )
-            action = new Reload(this);
-
-        return action;
+        return new None(this);
     }
 
     public function executeAction(action: Action) {

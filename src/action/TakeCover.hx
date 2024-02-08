@@ -11,6 +11,22 @@ class TakeCover extends Action {
         this.side = side;
     }
 
+    public static function getInstance(
+        hero: en.Hero, x: Float, y: Float
+    ): Null<TakeCover> {
+        var action: Null<TakeCover> = null;
+
+        for (entity in en.Cover.ALL) {
+            if (entity.left.contains(x, y) && entity.canHostSomeone(-1))
+                action = new TakeCover(hero, entity, -1);
+
+            if (entity.right.contains(x, y) && entity.canHostSomeone(1))
+                action = new TakeCover(hero, entity, 1);
+        }
+
+        return action;
+    }
+
     public function execute() {
         this.hero.spr.anim.stopWithStateAnims();
 
