@@ -63,7 +63,8 @@ class GrabMob extends Action {
 
     public override function updateDisplay() {
         this.hero.icon.setPos(
-            this.mob.footX + this.side * 14, this.mob.footY + Const.GRID / 2
+            this.mob.footX + this.side * Const.GRID / 1.5,
+            this.mob.footY + Const.GRID / 2
         );
         this.hero.icon.set(
             "iconCover" + if (this.side == -1) "Left" else "Right"
