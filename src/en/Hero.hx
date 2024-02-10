@@ -246,7 +246,7 @@ class Hero extends Entity {
         final availableActions: Array<{
             function getInstance(hero: Hero, x: Float, y: Float): Action;
         }> = [
-            Reload, KickGrab, HeadShot, BlindShot, GrabMob, TakeCover, Wait,
+            Reload, KickGrab, HeadShot, BlindShot, Wait, GrabMob, TakeCover,
             Move, TurnBack
         ];
 

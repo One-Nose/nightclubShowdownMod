@@ -153,7 +153,7 @@ class Game extends dn.Process {
         this.hud.x = Std.int(
             this.w() * 0.5 / Const.SCALE - this.hud.outerWidth * 0.5
         );
-        this.hud.y = Std.int(this.level.hei * Const.GRID + 6);
+        this.hud.y = Std.int((this.level.hei + 1) * Const.GRID + 6);
 
         this.mask.clear();
         this.mask.beginFill(0x0, 1);

@@ -17,10 +17,16 @@ class TakeCover extends Action {
         var action: Null<TakeCover> = null;
 
         for (entity in en.Cover.ALL) {
-            if (entity.left.contains(x, y) && entity.canHostSomeone(-1))
+            if (
+                entity.left.contains(x, y - Const.GRID) &&
+                entity.canHostSomeone(-1)
+            )
                 action = new TakeCover(hero, entity, -1);
 
-            if (entity.right.contains(x, y) && entity.canHostSomeone(1))
+            if (
+                entity.right.contains(x, y - Const.GRID) &&
+                entity.canHostSomeone(1)
+            )
                 action = new TakeCover(hero, entity, 1);
         }
 
@@ -49,7 +55,8 @@ class TakeCover extends Action {
 
     public override function updateDisplay() {
         this.hero.icon.setPos(
-            this.cover.footX + this.side * 14, this.cover.footY - 6
+            this.cover.footX + this.side * 14,
+            this.cover.footY + Const.GRID / 2
         );
         this.hero.icon.set(
             "iconCover" + if (this.side == -1) "Left" else "Right"
