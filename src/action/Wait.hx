@@ -14,7 +14,6 @@ class Wait extends Action {
     ): Null<Wait> {
         if (
             hero.game.isSlowMo() &&
-            hero.ammo >= hero.maxAmmo &&
             M.fabs(hero.centerX - x) <= Const.GRID * 0.3 &&
             M.fabs(hero.centerY - y + Const.GRID / 3) <= Const.GRID * 0.7
         )
