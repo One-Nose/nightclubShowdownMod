@@ -10,7 +10,7 @@ class KickGrab extends Action {
     ): Null<KickGrab> {
         if (
             hero.grabbedMob != null &&
-            M.fabs(hero.centerX - hero.dir * 10 - x) <= 9 &&
+            M.fabs(hero.centerX - hero.dir * 10 - x) <= Const.GRID &&
             M.fabs(hero.centerY - y) <= 20
         )
             return new KickGrab(hero);
