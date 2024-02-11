@@ -77,6 +77,7 @@ class Hero extends Entity {
         game.scroller.add(icon, Const.UI_LAYER);
         icon.setCenterRatio(0.5, 0.5);
         icon.blendMode = Add;
+        icon.visible = false;
 
         isAffectBySlowMo = false;
         setAmmo(6);
@@ -217,7 +218,7 @@ class Hero extends Entity {
     override function onDie() {
         super.onDie();
         stopGrab();
-        new entity.DeadBody(this, "hero");
+        new entity.DeadBody(this, "hero").init();
         game.announce("T to restart", 0xFF0000, true);
     }
 

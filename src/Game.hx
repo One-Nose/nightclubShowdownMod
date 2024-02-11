@@ -59,6 +59,7 @@ class Game extends dn.Process {
 
         this.level = new Level();
         this.hero = new entity.Hero(2, 6);
+        this.hero.init();
 
         #if debug
         this.hero.setPosCase(8, 6);

@@ -23,6 +23,7 @@ class Grenader extends entity.Mob {
         s.onExecute = function(e) {
             dy = -0.1;
             var g = new entity.Grenade(this);
+            g.init();
             g.setPosPixel(shootX, shootY);
             g.dx = dirTo(e) * 0.2 * M.fabs(e.cx - cx) / 7; // 0.2 for 7 cells
             g.dy = -0.05;
@@ -40,7 +41,7 @@ class Grenader extends entity.Mob {
 
     override function onDie() {
         super.onDie();
-        new entity.DeadBody(this, "b");
+        new entity.DeadBody(this, "b").init();
     }
 
     override function get_shootY(): Float {

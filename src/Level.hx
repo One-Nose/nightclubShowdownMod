@@ -194,11 +194,12 @@ class Level extends dn.Process {
             + getPixels(0x00ff00).length;
 
         for (pt in getPixels(0x704621))
-            new entity.Cover(pt.cx, 3);
+            new entity.Cover(pt.cx, 3).init();
 
         function initMob(cx: Int, cy: Int, cb: () -> entity.Mob) {
             delayer.addS(function() {
                 var e = cb();
+                e.init();
                 e.enterArena();
                 if (hasPixel(0x363c60, cx - 1, cy))
                     e.dir = -1;

@@ -40,6 +40,10 @@ class BasicGun extends entity.Mob {
             fx.shoot(shootX, shootY, e.centerX, e.centerY, 0xFF0000);
             spr.anim.play("aAimShoot").chainFor("aBlind", Const.FPS * 0.2);
         }
+    }
+
+    override function init() {
+        super.init();
 
         lockControlsS(
             cd.getS("ctrlLock") + 0.1 + countMobs(BasicGun, false) * 0.6
@@ -49,7 +53,7 @@ class BasicGun extends entity.Mob {
     override function onDie() {
         super.onDie();
         // Assets.SBANK.death0(1);
-        new entity.DeadBody(this, "a");
+        new entity.DeadBody(this, "a").init();
     }
 
     override function get_shootY(): Float {

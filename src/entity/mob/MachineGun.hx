@@ -35,13 +35,17 @@ class MachineGun extends entity.Mob {
             fx.shoot(shootX, shootY, e.centerX, e.centerY, 0xFF0000);
             spr.anim.play("cAimShoot").chainFor("cBlind", Const.FPS * 0.2);
         }
+    }
+
+    override function init() {
+        super.init();
 
         lockControlsS(rnd(0.3, 1.6));
     }
 
     override function onDie() {
         super.onDie();
-        new entity.DeadBody(this, "c");
+        new entity.DeadBody(this, "c").init();
     }
 
     override function get_shootY(): Float {

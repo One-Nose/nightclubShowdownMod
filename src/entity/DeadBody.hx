@@ -5,7 +5,6 @@ class DeadBody extends Entity {
 
     public function new(e: Entity, sid: String) {
         super(e.cx, e.cy);
-        ALL.push(this);
         xr = e.xr;
         yr = e.yr;
 
@@ -24,6 +23,12 @@ class DeadBody extends Entity {
         );
         spr.anim.registerStateAnim(sid + "DeathGround", 0);
         spr.colorize(e.spr.color.toColor());
+    }
+
+    override function init() {
+        super.init();
+
+        ALL.push(this);
         cd.setS("bleeding", 2);
         cd.setS("decay", rnd(20, 25));
     }

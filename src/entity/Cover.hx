@@ -11,11 +11,9 @@ class Cover extends Entity {
 
     public function new(x, y) {
         super(x, y);
-        ALL.push(this);
 
         spr.set("crate");
         initLife(3);
-        this.lifeBar.visible = true;
 
         var r = 11;
         left = new Area(
@@ -33,6 +31,7 @@ class Cover extends Entity {
         iconLeft.setCenterRatio(0.5, 1);
         iconLeft.blendMode = Add;
         iconLeft.colorize(0x14BBEB);
+        iconLeft.visible = false;
 
         game.scroller.add(
             iconRight = Assets.gameElements.h_get("iconShield"), Const.UI_LAYER
@@ -40,6 +39,14 @@ class Cover extends Entity {
         iconRight.setCenterRatio(0.5, 1);
         iconRight.blendMode = Add;
         iconRight.colorize(0x14BBEB);
+        iconRight.visible = false;
+    }
+
+    override function init() {
+        super.init();
+
+        ALL.push(this);
+        this.lifeBar.visible = true;
     }
 
     override function onDamage(v) {

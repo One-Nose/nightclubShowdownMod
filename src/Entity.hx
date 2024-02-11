@@ -119,7 +119,6 @@ class Entity {
 
     private function new(x, y) {
         this.uid = Const.UNIQ++;
-        ALL.push(this);
 
         this.lifeBar = new h2d.Flow();
         this.game.scroller.add(this.lifeBar, Const.UI_LAYER);
@@ -136,6 +135,7 @@ class Entity {
         this.game.scroller.add(this.spr, Const.PROPS_LAYER);
         this.spr.setCenterRatio(0.5, 1);
         this.spr.colorAdd = this.cAdd = new h3d.Vector();
+        this.spr.visible = false;
 
         this.head = new Area(this, 6, () -> this.headX, () -> this.headY);
         this.head.color = 0xFF0000;
@@ -148,6 +148,11 @@ class Entity {
 
         this.legs = new Area(this, 5, () -> this.footX, () -> this.footY - 4);
         this.legs.color = 0x9D55DF;
+    }
+
+    public function init() {
+        ALL.push(this);
+        this.spr.visible = true;
     }
 
     public function isBlockingHeroMoves()

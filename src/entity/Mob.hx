@@ -11,8 +11,6 @@ class Mob extends Entity {
     public function new(x, y) {
         super(x, y);
 
-        ALL.push(this);
-
         game.scroller.add(spr, Const.MOBS_LAYER);
         hitSounds = [
             Assets.SFX.grunt0, Assets.SFX.grunt1, Assets.SFX.grunt2,
@@ -24,6 +22,11 @@ class Mob extends Entity {
         // g.drawCircle(0,-radius,radius);
 
         initLife(4);
+    }
+
+    override function init() {
+        super.init();
+        ALL.push(this);
         lifeBar.visible = true;
     }
 

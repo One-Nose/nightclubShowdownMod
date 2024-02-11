@@ -11,12 +11,17 @@ class Grenade extends Entity {
         dir = e.dir;
         gravity *= 0.25;
         frict = 0.98;
-        cd.setS("timer", 1.25);
         radius = 5;
         range = Const.GRID * 1;
 
-        spr.set("grenade");
         spr.setCenterRatio(0.5, 0.5);
+    }
+
+    override function init() {
+        super.init();
+
+        cd.setS("timer", 1.25);
+        spr.set("grenade");
     }
 
     override public function dispose() {
