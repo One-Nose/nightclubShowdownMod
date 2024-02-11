@@ -67,7 +67,7 @@ class Mob extends Entity {
         for (mob in Mob.ALL)
             if (mob.isAlive())
                 return;
-        this.game.cd.setS("lastMobDiedRecently", 1);
+        this.game.cd.setS("lastMobDiedRecently", 1.5);
     }
 
     override public function stunS(t: Float) {
