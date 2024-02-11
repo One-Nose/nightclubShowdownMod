@@ -75,7 +75,7 @@ class Game extends dn.Process {
                 this.hero.moveTarget = new FPoint(8 * Const.GRID, hero.footY);
                 end("move");
                 500;
-                this.hero.executeAction(new action.Reload());
+                this.hero.executeAction(new action.Reload(this.hero));
                 1500;
                 this.hero.say("Let's finish this.", 0xFBAD9F);
                 end;
@@ -427,7 +427,9 @@ class Game extends dn.Process {
         if (
             this.isReplay &&
             this.heroHistory.length > 0 &&
-            this.itime >= this.heroHistory[0].t
+            this.itime >= this.heroHistory[
+                0
+            ].t
         )
             this.hero.executeAction(this.heroHistory.shift().a);
     }
