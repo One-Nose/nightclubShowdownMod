@@ -10,7 +10,10 @@
     "arrayWrap": {
       "rules": [
         {
-          "conditions": [{ "cond": "exceedsMaxLineLength" }],
+          "conditions": [
+            { "cond": "exceedsMaxLineLength" },
+            { "cond": "itemCount >= n", "value": 2 }
+          ],
           "type": "fillLineWithLeadingBreak"
         }
       ]

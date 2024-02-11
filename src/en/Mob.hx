@@ -15,11 +15,8 @@ class Mob extends Entity {
 
         game.scroller.add(spr, Const.MOBS_LAYER);
         hitSounds = [
-            Assets.SFX.grunt0,
-            Assets.SFX.grunt1,
-            Assets.SFX.grunt2,
-            Assets.SFX.grunt3,
-            Assets.SFX.grunt4,
+            Assets.SFX.grunt0, Assets.SFX.grunt1, Assets.SFX.grunt2,
+            Assets.SFX.grunt3, Assets.SFX.grunt4,
         ];
         dn.Lib.shuffleArray(hitSounds, Std.random);
         // var g = new h2d.Graphics(spr);

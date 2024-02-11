@@ -430,9 +430,7 @@ class Game extends dn.Process {
         if (
             this.isReplay &&
             this.heroHistory.length > 0 &&
-            this.itime >= this.heroHistory[
-                0
-            ].t
+            this.itime >= this.heroHistory[0].t
         )
             this.hero.executeAction(this.heroHistory.shift().a);
     }
