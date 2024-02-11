@@ -2,7 +2,17 @@ package en;
 
 import action.*;
 
+typedef ActionType = {
+    function getInstance(hero: Hero, x: Float, y: Float): Action;
+}
+
 class Hero extends Entity {
+    var actionsByPriority: Array<ActionType> = [
+        Reload, Wait, HeadShot, BlindShot, KickGrab, GrabMob, TakeCover, Move,
+        TurnBack
+    ];
+    var availableActions: Array<ActionType> = [];
+
     public var moveTarget: FPoint;
     public var afterMoveAction: Action;
 
@@ -15,6 +25,11 @@ class Hero extends Entity {
 
     public function new(x, y) {
         super(x, y);
+
+        this.unlockAction(
+            BlindShot, GrabMob, HeadShot, KickGrab, Move, Reload, TakeCover,
+            TurnBack, Wait
+        );
 
         afterMoveAction = new None(this);
 
@@ -143,6 +158,22 @@ class Hero extends Entity {
         }
     }
 
+    function unlockAction(...actions: ActionType) {
+        for (action in actions) {
+            var index = 0;
+
+            for (availableAction in this.availableActions)
+                if (this.actionsByPriority.indexOf(
+                    availableAction
+                ) < this.actionsByPriority.indexOf(action))
+                    index++;
+                else
+                    break;
+
+            this.availableActions.insert(index, action);
+        }
+    }
+
     override public function isCoveredFrom(source: Entity) {
         return
             super.isCoveredFrom(source) ||
@@ -243,15 +274,8 @@ class Hero extends Entity {
     }
 
     function getActionAt(x: Float, y: Float): Action {
-        final availableActions: Array<{
-            function getInstance(hero: Hero, x: Float, y: Float): Action;
-        }> = [
-            Reload, Wait, HeadShot, BlindShot, KickGrab, GrabMob, TakeCover,
-            Move, TurnBack
-        ];
-
         if (!this.game.hasCinematic())
-            for (actionType in availableActions) {
+            for (actionType in this.availableActions) {
                 final action = actionType.getInstance(this, x, y);
                 if (action != null)
                     return action;
