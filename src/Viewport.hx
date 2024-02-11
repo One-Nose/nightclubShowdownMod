@@ -49,7 +49,7 @@ class Viewport extends dn.Process {
         var ty = game.hero.centerY;
         var n = 1.0;
         var w = 1;
-        for (e in en.Mob.ALL) {
+        for (e in entity.Mob.ALL) {
             if (!e.isAlive())
                 continue;
 

@@ -1,10 +1,10 @@
 package action;
 
 class GrabMob extends Action {
-    public var mob: en.Mob;
+    public var mob: entity.Mob;
     public var side: Int;
 
-    public function new(hero: en.Hero, mob: en.Mob, side: Int) {
+    public function new(hero: entity.Hero, mob: entity.Mob, side: Int) {
         super(hero, "Grab enemy", 0xA6EE11, mob);
 
         this.mob = mob;
@@ -12,13 +12,13 @@ class GrabMob extends Action {
     }
 
     public static function getInstance(
-        hero: en.Hero, x: Float, y: Float
+        hero: entity.Hero, x: Float, y: Float
     ): Null<GrabMob> {
         var action: Null<GrabMob> = null;
 
         if (hero.grabbedMob == null) {
-            var best: en.Mob = null;
-            for (mob in en.Mob.ALL)
+            var best: entity.Mob = null;
+            for (mob in entity.Mob.ALL)
                 if (
                     mob.canBeShot() &&
                     mob.canBeGrabbed() &&

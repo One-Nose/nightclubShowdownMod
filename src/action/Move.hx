@@ -4,7 +4,7 @@ class Move extends Action {
     public var x: Float;
     public var y: Float;
 
-    public function new(hero: en.Hero, x: Float, y: Float) {
+    public function new(hero: entity.Hero, x: Float, y: Float) {
         super(hero);
 
         this.x = x;
@@ -12,7 +12,7 @@ class Move extends Action {
     }
 
     public static function getInstance(
-        hero: en.Hero, x: Float, y: Float
+        hero: entity.Hero, x: Float, y: Float
     ): Null<Move> {
         if (
             M.fabs(y - hero.footY) <= 1.5 * Const.GRID &&

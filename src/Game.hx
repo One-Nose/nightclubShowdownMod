@@ -9,7 +9,7 @@ class Game extends dn.Process {
     public var viewport: Viewport;
     public var fx: Fx;
     public var level: Level;
-    public var hero: en.Hero;
+    public var hero: entity.Hero;
 
     var clickTrap: h2d.Interactive;
     var mask: h2d.Graphics;
@@ -58,7 +58,7 @@ class Game extends dn.Process {
         this.hud.horizontalSpacing = 1;
 
         this.level = new Level();
-        this.hero = new en.Hero(2, 6);
+        this.hero = new entity.Hero(2, 6);
 
         #if debug
         this.hero.setPosCase(8, 6);
@@ -95,11 +95,11 @@ class Game extends dn.Process {
 
     // function updateWave() {
     // var n = 0;
-    // for(e in en.Cover.ALL)
+    // for(e in entity.Cover.ALL)
     // if( e.isAlive() )
     // n++;
     // for(i in n...2) {
-    // var e = new en.Cover(10,0);
+    // var e = new entity.Cover(10,0);
     // }
     // }
 
@@ -260,7 +260,7 @@ class Game extends dn.Process {
     public function startWave(id: Int) {
         this.waveId = id;
 
-        for (mob in en.Mob.ALL)
+        for (mob in entity.Mob.ALL)
             mob.destroy();
 
         this.level.startWave(waveId);
@@ -269,10 +269,10 @@ class Game extends dn.Process {
             this.fx.clear();
             this.fx.allSpots(25, this.level.wid * Const.GRID);
             this.fx.flashBangS(0xFFCC00, 0.5, 0.5);
-            for (body in en.DeadBody.ALL)
+            for (body in entity.DeadBody.ALL)
                 body.destroy();
 
-            for (cover in en.Cover.ALL)
+            for (cover in entity.Cover.ALL)
                 cover.destroy();
         }
 
@@ -329,7 +329,7 @@ class Game extends dn.Process {
         if (this.isReplay || !this.hero.isAlive() || this.hero.controlsLocked())
             return false;
 
-        for (mob in en.Mob.ALL)
+        for (mob in entity.Mob.ALL)
             if (mob.isAlive() && mob.canBeShot())
                 return true;
 
@@ -404,7 +404,7 @@ class Game extends dn.Process {
         if (Main.ME.keyPressed(Key.N))
             this.startWave(this.waveId + 1);
         if (Main.ME.keyPressed(Key.K))
-            for (mob in en.Mob.ALL)
+            for (mob in entity.Mob.ALL)
                 if (mob.isAlive())
                     mob.hit(99, this.hero, true);
         #end

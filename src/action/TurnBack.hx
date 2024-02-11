@@ -2,7 +2,7 @@ package action;
 
 class TurnBack extends Action {
     public static function getInstance(
-        hero: en.Hero, x: Float, y: Float
+        hero: entity.Hero, x: Float, y: Float
     ): Null<TurnBack> {
         if (
             hero.grabbedMob != null &&

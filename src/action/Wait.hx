@@ -3,14 +3,14 @@ package action;
 class Wait extends Action {
     public var seconds: Float;
 
-    public function new(hero: en.Hero, seconds: Float) {
+    public function new(hero: entity.Hero, seconds: Float) {
         super(hero, "Wait");
 
         this.seconds = seconds;
     }
 
     public static function getInstance(
-        hero: en.Hero, x: Float, y: Float
+        hero: entity.Hero, x: Float, y: Float
     ): Null<Wait> {
         if (
             hero.game.isSlowMo() &&

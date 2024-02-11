@@ -1,4 +1,4 @@
-package en;
+package entity;
 
 class Grenade extends Entity {
     var range: Float;
@@ -49,11 +49,11 @@ class Grenade extends Entity {
                 game.hero.hit(2, this, true);
             }
 
-            for (e in en.Cover.ALL)
+            for (e in entity.Cover.ALL)
                 if (distPx(e) <= range)
                     e.hit(999, this, true);
 
-            for (e in en.Mob.ALL)
+            for (e in entity.Mob.ALL)
                 if (distPx(e) <= range)
                     e.hit(3, this, true);
 

@@ -1,12 +1,12 @@
 package action;
 
 class KickGrab extends Action {
-    public function new(hero: en.Hero) {
+    public function new(hero: entity.Hero) {
         super(hero, "Kick your cover");
     }
 
     public static function getInstance(
-        hero: en.Hero, x: Float, y: Float
+        hero: entity.Hero, x: Float, y: Float
     ): Null<KickGrab> {
         if (
             hero.grabbedMob != null &&

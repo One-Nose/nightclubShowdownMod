@@ -1,19 +1,19 @@
 package action;
 
 class BlindShot extends Action {
-    var mob: en.Mob;
+    var mob: entity.Mob;
 
-    public function new(hero: en.Hero, mob: en.Mob) {
+    public function new(hero: entity.Hero, mob: entity.Mob) {
         super(hero, "Quick shoot", 0xFFFF00, mob);
 
         this.mob = mob;
     }
 
     public static function getInstance(
-        hero: en.Hero, x: Float, y: Float
+        hero: entity.Hero, x: Float, y: Float
     ): Null<BlindShot> {
-        var best: Null<en.Mob> = null;
-        for (mob in en.Mob.ALL) {
+        var best: Null<entity.Mob> = null;
+        for (mob in entity.Mob.ALL) {
             if (
                 mob.canBeShot() &&
                 (

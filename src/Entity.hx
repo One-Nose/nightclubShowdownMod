@@ -6,7 +6,7 @@ class Entity {
     inline function get_game()
         return Game.ME;
 
-    public var hero(get, never): en.Hero;
+    public var hero(get, never): entity.Hero;
 
     inline function get_hero()
         return Game.ME.hero;
@@ -61,7 +61,7 @@ class Entity {
     public var torso(default, null): Area;
     public var legs(default, null): Area;
 
-    public var cover: Null<en.Cover>;
+    public var cover: Null<entity.Cover>;
 
     public var footX(get, never): Float;
 
@@ -347,7 +347,7 @@ class Entity {
         }
     }
 
-    public function startCover(newCover: en.Cover, side: Int) {
+    public function startCover(newCover: entity.Cover, side: Int) {
         if (!newCover.canHostSomeone(side))
             return false;
 

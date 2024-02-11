@@ -1,4 +1,4 @@
-package en;
+package entity;
 
 class DeadBody extends Entity {
     public static var ALL: Array<DeadBody> = [];
@@ -55,7 +55,7 @@ class DeadBody extends Entity {
 
         if (!onGround) {
             // Dmg covers
-            for (e in en.Cover.ALL)
+            for (e in entity.Cover.ALL)
                 if (
                     distPx(e) <= radius + e.radius &&
                     !e.cd.hasSetS("bodyHit", 0.3) &&
@@ -64,7 +64,7 @@ class DeadBody extends Entity {
                     e.hit(2, this, true);
 
             // Push mobs
-            for (e in en.Mob.ALL)
+            for (e in entity.Mob.ALL)
                 if (
                     e.isAlive() &&
                     distPx(e) <= radius + e.radius &&

@@ -1,6 +1,6 @@
-package en.m;
+package entity.mob;
 
-class Grenader extends en.Mob {
+class Grenader extends entity.Mob {
     public function new(x, y) {
         super(x, y);
 
@@ -22,7 +22,7 @@ class Grenader extends en.Mob {
         s.onInterrupt = function() spr.anim.stopWithStateAnims();
         s.onExecute = function(e) {
             dy = -0.1;
-            var g = new en.Grenade(this);
+            var g = new entity.Grenade(this);
             g.setPosPixel(shootX, shootY);
             g.dx = dirTo(e) * 0.2 * M.fabs(e.cx - cx) / 7; // 0.2 for 7 cells
             g.dy = -0.05;
@@ -40,7 +40,7 @@ class Grenader extends en.Mob {
 
     override function onDie() {
         super.onDie();
-        new en.DeadBody(this, "b");
+        new entity.DeadBody(this, "b");
     }
 
     override function get_shootY(): Float {

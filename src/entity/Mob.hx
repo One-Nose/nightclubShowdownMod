@@ -1,4 +1,4 @@
-package en;
+package entity;
 
 class Mob extends Entity {
     public static var ALL: Array<Mob> = [];
@@ -160,7 +160,7 @@ class Mob extends Entity {
             !controlsLocked() &&
             !hasSkillCharging()
         )
-            for (e in en.Cover.ALL)
+            for (e in entity.Cover.ALL)
                 if (
                     distCase(e) <= 3 &&
                     e.canHostSomeone(-dirTo(hero)) &&

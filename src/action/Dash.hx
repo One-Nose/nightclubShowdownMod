@@ -4,7 +4,7 @@ class Dash extends Action {
     public var x: Float;
     public var y: Float;
 
-    public function new(hero: en.Hero, x: Float, y: Float) {
+    public function new(hero: entity.Hero, x: Float, y: Float) {
         super(hero, "Dash", 0x44A9F7);
 
         this.x = x;
@@ -12,7 +12,7 @@ class Dash extends Action {
     }
 
     public static function getInstance(
-        hero: en.Hero, x: Float, y: Float
+        hero: entity.Hero, x: Float, y: Float
     ): Null<Dash> {
         if (
             M.fabs(y - hero.footY - Const.GRID / 2) <= Const.GRID / 2 &&

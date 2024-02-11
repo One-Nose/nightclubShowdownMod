@@ -1,4 +1,4 @@
-package en;
+package entity;
 
 class Cover extends Entity {
     public static var ALL: Array<Cover> = [];

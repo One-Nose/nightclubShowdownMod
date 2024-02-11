@@ -1,6 +1,6 @@
-package en.m;
+package entity.mob;
 
-class MachineGun extends en.Mob {
+class MachineGun extends entity.Mob {
     public function new(x, y) {
         super(x, y);
 
@@ -41,7 +41,7 @@ class MachineGun extends en.Mob {
 
     override function onDie() {
         super.onDie();
-        new en.DeadBody(this, "c");
+        new entity.DeadBody(this, "c");
     }
 
     override function get_shootY(): Float {

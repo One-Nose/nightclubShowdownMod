@@ -1,19 +1,19 @@
 package action;
 
 class HeadShot extends Action {
-    public var mob: en.Mob;
+    public var mob: entity.Mob;
 
-    public function new(hero: en.Hero, mob: en.Mob) {
+    public function new(hero: entity.Hero, mob: entity.Mob) {
         super(hero, "Head shot", 0xFF9300, mob);
 
         this.mob = mob;
     }
 
     public static function getInstance(
-        hero: en.Hero, x: Float, y: Float
+        hero: entity.Hero, x: Float, y: Float
     ): Null<HeadShot> {
-        var best: Null<en.Mob> = null;
-        for (mob in en.Mob.ALL) {
+        var best: Null<entity.Mob> = null;
+        for (mob in entity.Mob.ALL) {
             if (
                 mob.canBeShot() &&
                 mob.head.contains(x, y) &&

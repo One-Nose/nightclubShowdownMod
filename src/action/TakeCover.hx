@@ -1,10 +1,10 @@
 package action;
 
 class TakeCover extends Action {
-    public var cover: en.Cover;
+    public var cover: entity.Cover;
     public var side: Int;
 
-    public function new(hero: en.Hero, cover: en.Cover, side: Int) {
+    public function new(hero: entity.Hero, cover: entity.Cover, side: Int) {
         super(hero, "Cover", 0xA6EE11, cover);
 
         this.cover = cover;
@@ -12,11 +12,11 @@ class TakeCover extends Action {
     }
 
     public static function getInstance(
-        hero: en.Hero, x: Float, y: Float
+        hero: entity.Hero, x: Float, y: Float
     ): Null<TakeCover> {
         var action: Null<TakeCover> = null;
 
-        for (entity in en.Cover.ALL) {
+        for (entity in entity.Cover.ALL) {
             if (
                 entity.left.contains(x, y - Const.GRID) &&
                 entity.canHostSomeone(-1)

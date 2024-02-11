@@ -1,11 +1,11 @@
 abstract class Action {
-    var hero: en.Hero;
+    var hero: entity.Hero;
     var helpText: Null<String> = null;
     var color: Null<dn.Col> = null;
     var displayEntity: Null<Entity> = null;
 
     function new(
-        hero: en.Hero, ?helpText: String, ?color: dn.Col,
+        hero: entity.Hero, ?helpText: String, ?color: dn.Col,
         ?displayEntity: Entity
     ) {
         this.hero = hero;

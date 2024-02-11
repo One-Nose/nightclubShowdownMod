@@ -1,4 +1,4 @@
-package en;
+package entity;
 
 import action.*;
 
@@ -20,7 +20,7 @@ class Hero extends Entity {
 
     public var ammo: Int;
     public var maxAmmo: Int;
-    public var grabbedMob: Null<en.Mob>;
+    public var grabbedMob: Null<entity.Mob>;
     public var help: Null<h2d.Text>;
     public var speed = 0.011;
 
@@ -217,7 +217,7 @@ class Hero extends Entity {
     override function onDie() {
         super.onDie();
         stopGrab();
-        new en.DeadBody(this, "hero");
+        new entity.DeadBody(this, "hero");
         game.announce("T to restart", 0xFF0000, true);
     }
 
@@ -261,7 +261,7 @@ class Hero extends Entity {
         // leaveCover();
         //
         // case 1 :
-        // var dh = new DecisionHelper(en.Mob.ALL);
+        // var dh = new DecisionHelper(entity.Mob.ALL);
         // dh.remove( function(e) return e.distPxFree(x,y)>=30 );
         // dh.score( function(e) return -e.distPxFree(x,y) );
         // var e = dh.getBest();
@@ -299,7 +299,7 @@ class Hero extends Entity {
         // ammoBar.y = headY-4;
     }
 
-    public function startGrab(e: en.Mob) {
+    public function startGrab(e: entity.Mob) {
         if (!e.isAlive())
             return;
         grabbedMob = e;

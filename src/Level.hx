@@ -194,9 +194,9 @@ class Level extends dn.Process {
             + getPixels(0x00ff00).length;
 
         for (pt in getPixels(0x704621))
-            new en.Cover(pt.cx, 3);
+            new entity.Cover(pt.cx, 3);
 
-        function initMob(cx: Int, cy: Int, cb: () -> en.Mob) {
+        function initMob(cx: Int, cy: Int, cb: () -> entity.Mob) {
             delayer.addS(function() {
                 var e = cb();
                 e.enterArena();
@@ -212,28 +212,28 @@ class Level extends dn.Process {
         for (pt in getPixels(0x00ff00))
             initMob(
                 pt.cx, pt.cy,
-                function() return new en.m.Heavy(
+                function() return new entity.mob.Heavy(
                     pt.cx, curWaveId <= 1 ? 6 : 4
                 ));
 
         for (pt in getPixels(0xff6600))
             initMob(
                 pt.cx, pt.cy,
-                function() return new en.m.BasicGun(
+                function() return new entity.mob.BasicGun(
                     pt.cx, curWaveId <= 1 ? 6 : 4
                 ));
 
         for (pt in getPixels(0x20d5fc))
             initMob(
                 pt.cx, pt.cy,
-                function() return new en.m.Grenader(
+                function() return new entity.mob.Grenader(
                     pt.cx, curWaveId <= 1 ? 6 : 4
                 ));
 
         //// Grenader
         // for(pt in getPixels(0x20d5fc)) {
         // delayer.addS(function() {
-        // var e = new en.m.Grenader(pt.cx,4);
+        // var e = new entity.mob.Grenader(pt.cx,4);
         // e.enterArena(1.5);
         // if( hasPixel(0x363c60,pt.cx-1,pt.cy) )
         // e.dir = -1;
