@@ -196,15 +196,14 @@ class Level extends dn.Process {
         for (pt in getPixels(0x704621))
             new entity.Cover(pt.cx, 3).init();
 
-        function initMob(cx: Int, cy: Int, cb: () -> entity.Mob) {
+        function initMob(cx: Int, cy: Int, mob: entity.Mob) {
             delayer.addS(function() {
-                var e = cb();
-                e.init();
-                e.enterArena();
+                mob.init();
+                mob.enterArena();
                 if (hasPixel(0x363c60, cx - 1, cy))
-                    e.dir = -1;
+                    mob.dir = -1;
                 else if (hasPixel(0x363c60, cx - 1, cy))
-                    e.dir = 1;
+                    mob.dir = 1;
             }, hasPixel(
                 0x363c60, cx, cy - 2
             ) ? 7 : hasPixel(0x363c60, cx, cy - 1) ? 3.5 : 0);
@@ -213,23 +212,17 @@ class Level extends dn.Process {
         for (pt in getPixels(0x00ff00))
             initMob(
                 pt.cx, pt.cy,
-                function() return new entity.mob.Heavy(
-                    pt.cx, curWaveId <= 1 ? 6 : 4
-                ));
+                new entity.mob.Heavy(pt.cx, curWaveId <= 1 ? 6 : 4));
 
         for (pt in getPixels(0xff6600))
             initMob(
                 pt.cx, pt.cy,
-                function() return new entity.mob.BasicGun(
-                    pt.cx, curWaveId <= 1 ? 6 : 4
-                ));
+                new entity.mob.BasicGun(pt.cx, curWaveId <= 1 ? 6 : 4));
 
         for (pt in getPixels(0x20d5fc))
             initMob(
                 pt.cx, pt.cy,
-                function() return new entity.mob.Grenader(
-                    pt.cx, curWaveId <= 1 ? 6 : 4
-                ));
+                new entity.mob.Grenader(pt.cx, curWaveId <= 1 ? 6 : 4));
 
         //// Grenader
         // for(pt in getPixels(0x20d5fc)) {
