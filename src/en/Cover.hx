@@ -15,6 +15,7 @@ class Cover extends Entity {
 
         spr.set("crate");
         initLife(3);
+        this.lifeBar.visible = true;
 
         var r = 11;
         left = new Area(
@@ -51,6 +52,7 @@ class Cover extends Entity {
         spr.set("crateBroken");
         cd.setS("decay", 15);
         fx.woodCover(centerX, centerY, lastHitDir);
+        this.lifeBar.visible = false;
     }
 
     override public function isBlockingHeroMoves()
