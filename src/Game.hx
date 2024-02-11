@@ -333,6 +333,9 @@ class Game extends dn.Process {
             if (mob.isAlive() && mob.canBeShot())
                 return true;
 
+        if (this.cd.has("lastMobDiedRecently"))
+            return true;
+
         return false;
     }
 

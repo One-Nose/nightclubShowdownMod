@@ -66,6 +66,11 @@ class Mob extends Entity {
     override function onDie() {
         super.onDie();
         level.waveMobCount--;
+
+        for (mob in Mob.ALL)
+            if (mob.isAlive())
+                return;
+        this.game.cd.setS("lastMobDiedRecently", 1);
     }
 
     override public function stunS(t: Float) {
