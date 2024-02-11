@@ -185,7 +185,7 @@ class Entity {
         if (source != null)
             this.lastHitDir = source.dirTo(this);
 
-        if (damage <= 0 || !this.isAlive())
+        if (damage <= 0 || !this.isAlive() || this.cd.has("rolling"))
             return false;
 
         if (!ignoreCover && this.isCoveredFrom(source)) {

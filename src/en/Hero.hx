@@ -8,8 +8,8 @@ typedef ActionType = {
 
 class Hero extends Entity {
     var actionsByPriority: Array<ActionType> = [
-        Reload, Wait, HeadShot, BlindShot, KickGrab, GrabMob, TakeCover, Move,
-        TurnBack
+        Reload, Wait, HeadShot, BlindShot, KickGrab, GrabMob, TakeCover, Dash,
+        Move, TurnBack
     ];
     var availableActions: Array<ActionType> = [];
 
@@ -22,13 +22,14 @@ class Hero extends Entity {
     public var maxAmmo: Int;
     public var grabbedMob: Null<en.Mob>;
     public var help: Null<h2d.Text>;
+    public var speed = 0.011;
 
     public function new(x, y) {
         super(x, y);
 
         this.unlockAction(
-            BlindShot, GrabMob, HeadShot, KickGrab, Move, Reload, TakeCover,
-            TurnBack, Wait
+            BlindShot, Dash, GrabMob, HeadShot, KickGrab, Move, Reload,
+            TakeCover, TurnBack, Wait
         );
 
         afterMoveAction = new None(this);
@@ -362,6 +363,8 @@ class Hero extends Entity {
         if (moveTarget != null && !movementLocked())
             if (M.fabs(centerX - moveTarget.x) <= 5) {
                 // Arrived
+                this.speed = 0.011;
+                this.cd.unset("rolling");
                 game.cinematic.signal("move");
                 afterMoveAction.execute();
                 moveTarget = null;
@@ -370,14 +373,13 @@ class Hero extends Entity {
                 if (M.fabs(dx) >= 0.04)
                     cd.setS("braking", 0.2);
             } else {
-                var s = 0.011;
                 if (moveTarget.x > centerX) {
                     dir = 1;
-                    dx += s * tmod;
+                    dx += this.speed * tmod;
                 }
                 if (moveTarget.x < centerX) {
                     dir = -1;
-                    dx -= s * tmod;
+                    dx -= this.speed * tmod;
                 }
             }
 
