@@ -37,7 +37,7 @@ class Move extends Action {
                     tx >= (hero.level.wid - 3) * Const.GRID
                 )
                     tx = (hero.game.level.wid - 3) * Const.GRID;
-                return new Move(hero, x, hero.footY);
+                return new Move(hero, tx, hero.footY);
             }
         }
         return null;
