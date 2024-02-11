@@ -178,7 +178,7 @@ class Level extends dn.Process {
 
         var bd = hxd.Res.levels.toBitmap();
         pixels = new Map();
-        for (cy in 0...hei)
+        for (cy in 0...5)
             for (cx in 0...wid) {
                 var c = Color.removeAlpha(bd.getPixel(cx, cy + curWaveId * 6));
                 if (!pixels.exists(c))
