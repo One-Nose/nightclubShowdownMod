@@ -19,7 +19,8 @@ class TurnBack extends Action {
         return null;
     }
 
-    public function execute() {
+    public override function execute() {
+        super.execute();
         this.hero.dir *= -1;
     }
 }

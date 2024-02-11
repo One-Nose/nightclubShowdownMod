@@ -18,7 +18,9 @@ class Reload extends Action {
         return null;
     }
 
-    public function execute() {
+    public override function execute() {
+        super.execute();
+
         this.hero.spr.anim.stopWithStateAnims();
         this.hero.spr.anim.play("heroReload");
         Assets.SFX.reload0(1);

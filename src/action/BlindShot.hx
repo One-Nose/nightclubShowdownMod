@@ -31,7 +31,8 @@ class BlindShot extends Action {
         return null;
     }
 
-    public function execute() {
+    public override function execute() {
+        super.execute();
         this.hero.getSkill("blindShot")
             .prepareOn(this.mob, if (this.mob.isGrabbed()) 0.5 else 1);
     }

@@ -14,7 +14,10 @@ abstract class Action {
         this.displayEntity = displayEntity;
     }
 
-    public abstract function execute(): Void;
+    public function execute() {
+        if (!this.hero.game.isReplay)
+            this.hero.game.heroHistory.push({t: this.hero.game.itime, a: this});
+    }
 
     public function updateDisplay() {
         if (this.helpText == null)

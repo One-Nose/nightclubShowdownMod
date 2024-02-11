@@ -33,7 +33,9 @@ class TakeCover extends Action {
         return action;
     }
 
-    public function execute() {
+    public override function execute() {
+        super.execute();
+
         this.hero.spr.anim.stopWithStateAnims();
 
         if (this.cover.canHostSomeone(this.side)) {

@@ -40,7 +40,9 @@ class GrabMob extends Action {
         return action;
     }
 
-    public function execute() {
+    public override function execute() {
+        super.execute();
+
         if (hero.distPxFree(
             this.mob.footX + this.side * 10, this.mob.footY
         ) >= 20) {

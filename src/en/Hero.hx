@@ -221,7 +221,7 @@ class Hero extends Entity {
         if (controlsLocked())
             return;
 
-        executeAction(getActionAt(x, y));
+        getActionAt(x, y).execute();
 
         // switch(bt) {
         // case 0 :
@@ -258,13 +258,6 @@ class Hero extends Entity {
             }
 
         return new None(this);
-    }
-
-    public function executeAction(action: Action) {
-        if (!game.isReplay)
-            game.heroHistory.push({t: game.itime, a: action});
-
-        action.execute();
     }
 
     override public function postUpdate() {
@@ -339,14 +332,14 @@ class Hero extends Entity {
             Main.ME.keyPressed(hxd.Key.R) &&
             ammo < maxAmmo
         )
-            executeAction(new Reload(this));
+            new Reload(this).execute();
 
         // Move
         if (moveTarget != null && !movementLocked())
             if (M.fabs(centerX - moveTarget.x) <= 5) {
                 // Arrived
                 game.cinematic.signal("move");
-                executeAction(afterMoveAction);
+                afterMoveAction.execute();
                 moveTarget = null;
                 afterMoveAction = new None(this);
                 dx *= 0.3;

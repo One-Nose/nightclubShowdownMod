@@ -23,7 +23,9 @@ class Wait extends Action {
         return null;
     }
 
-    public function execute() {
+    public override function execute() {
+        super.execute();
+
         this.hero.spr.anim.stopWithStateAnims();
         this.hero.lockControlsS(this.seconds);
     }

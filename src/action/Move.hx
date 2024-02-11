@@ -43,7 +43,9 @@ class Move extends Action {
         return null;
     }
 
-    public function execute() {
+    public override function execute() {
+        super.execute();
+
         this.hero.spr.anim.stopWithStateAnims();
         this.hero.moveTarget = new FPoint(this.x, this.y);
         // this.hero.cd.setS("rolling",0.5);

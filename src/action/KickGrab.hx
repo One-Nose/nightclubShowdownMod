@@ -18,7 +18,9 @@ class KickGrab extends Action {
         return null;
     }
 
-    public function execute() {
+    public override function execute() {
+        super.execute();
+
         if (this.hero.grabbedMob != null) {
             Assets.SFX.hit1(1);
             this.hero.grabbedMob.hit(1, this.hero, true);
