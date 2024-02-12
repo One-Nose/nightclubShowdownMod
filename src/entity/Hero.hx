@@ -79,7 +79,6 @@ class Hero extends Entity {
         icon.blendMode = Add;
         icon.visible = false;
 
-        isAffectBySlowMo = false;
         setAmmo(6);
         initLife(3);
         // initLife(Const.INFINITE);

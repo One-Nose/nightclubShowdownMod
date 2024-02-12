@@ -46,6 +46,7 @@ class GrabMob extends Action {
         if (hero.distPxFree(
             this.mob.footX + this.side * 10, this.mob.footY
         ) >= 20) {
+            this.hero.spr.anim.stopWithStateAnims();
             this.hero.stopGrab();
             this.hero.leaveCover();
             this.hero.moveTarget = new FPoint(
