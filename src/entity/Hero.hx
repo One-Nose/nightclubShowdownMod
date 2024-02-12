@@ -244,7 +244,11 @@ class Hero extends Entity {
             if (s.isCharging())
                 return true;
 
-        return super.controlsLocked() || moveTarget != null || !onGround;
+        return
+            super.controlsLocked() ||
+            moveTarget != null ||
+            cd.has("braking") ||
+            !onGround;
     }
 
     override public function onClick(x: Float, y: Float, bt) {
