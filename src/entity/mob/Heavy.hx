@@ -7,13 +7,6 @@ class Heavy extends entity.Mob {
         initLife(6);
         sprScaleX = sprScaleY = 1.25;
 
-        spr.anim.registerStateAnim(
-            "cRun", 3, function() return cd.has("entering"));
-        spr.anim.registerStateAnim(
-            "cPush", 2, function() return !onGround && isStunned());
-        spr.anim.registerStateAnim("cStun", 1, function() return isStunned());
-        spr.anim.registerStateAnim("cIdle", 0);
-
         var s = createSkill("shoot");
         s.setTimers(1, 0.7, 0.3);
         s.onStart = function() {
@@ -40,6 +33,13 @@ class Heavy extends entity.Mob {
 
     override function init() {
         super.init();
+
+        spr.anim.registerStateAnim(
+            "cRun", 3, function() return cd.has("entering"));
+        spr.anim.registerStateAnim(
+            "cPush", 2, function() return !onGround && isStunned());
+        spr.anim.registerStateAnim("cStun", 1, function() return isStunned());
+        spr.anim.registerStateAnim("cIdle", 0);
 
         lockControlsS(rnd(0.3, 1.6));
     }

@@ -34,50 +34,9 @@ class Hero extends Entity {
 
         afterMoveAction = new None(this);
 
-        game.scroller.add(spr, Const.HERO_LAYER);
-        spr.anim.registerStateAnim(
-            "heroPush", 21, function() return !onGround && isStunned());
-        spr.anim.registerStateAnim(
-            "heroStun", 20, function() return cd.has("reloading"));
-        spr.anim.registerStateAnim(
-            "heroCover", 10, function() return cover != null
-        );
-        spr.anim.registerStateAnim(
-            "heroRoll", 9,
-            function() return
-                onGround &&
-                moveTarget != null &&
-                !movementLocked() &&
-                cd.has("rolling")
-        );
-        spr.anim.registerStateAnim(
-            "heroBrake", 6,
-            function() return
-                onGround &&
-                moveTarget != null &&
-                !movementLocked() &&
-                cd.has("rollBraking")
-        );
-        spr.anim.registerStateAnim(
-            "heroRun", 5,
-            function() return
-                onGround &&
-                moveTarget != null &&
-                !movementLocked()
-        );
-        spr.anim.registerStateAnim(
-            "heroBrake", 2,
-            function() return cd.has("braking") && grabbedMob == null);
-        spr.anim.registerStateAnim(
-            "heroIdleGrab", 1, function() return grabbedMob != null
-        );
-        spr.anim.registerStateAnim("heroIdle", 0);
-
         icon = Assets.gameElements.h_get("iconMove");
-        game.scroller.add(icon, Const.UI_LAYER);
         icon.setCenterRatio(0.5, 0.5);
         icon.blendMode = Add;
-        icon.visible = false;
 
         setAmmo(6);
         initLife(3);
@@ -157,6 +116,51 @@ class Hero extends Entity {
                     dx += 0.01 * -dir;
             spr.anim.play("heroAimShoot");
         }
+    }
+
+    override function init() {
+        super.init();
+
+        game.scroller.add(spr, Const.HERO_LAYER);
+        game.scroller.add(icon, Const.UI_LAYER);
+
+        spr.anim.registerStateAnim(
+            "heroPush", 21, function() return !onGround && isStunned());
+        spr.anim.registerStateAnim(
+            "heroStun", 20, function() return cd.has("reloading"));
+        spr.anim.registerStateAnim(
+            "heroCover", 10, function() return cover != null
+        );
+        spr.anim.registerStateAnim(
+            "heroRoll", 9,
+            function() return
+                onGround &&
+                moveTarget != null &&
+                !movementLocked() &&
+                cd.has("rolling")
+        );
+        spr.anim.registerStateAnim(
+            "heroBrake", 6,
+            function() return
+                onGround &&
+                moveTarget != null &&
+                !movementLocked() &&
+                cd.has("rollBraking")
+        );
+        spr.anim.registerStateAnim(
+            "heroRun", 5,
+            function() return
+                onGround &&
+                moveTarget != null &&
+                !movementLocked()
+        );
+        spr.anim.registerStateAnim(
+            "heroBrake", 2,
+            function() return cd.has("braking") && grabbedMob == null);
+        spr.anim.registerStateAnim(
+            "heroIdleGrab", 1, function() return grabbedMob != null
+        );
+        spr.anim.registerStateAnim("heroIdle", 0);
     }
 
     function unlockAction(...actions: ActionType) {

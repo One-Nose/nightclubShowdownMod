@@ -15,13 +15,13 @@ class Grenade extends Entity {
         range = Const.GRID * 1;
 
         spr.setCenterRatio(0.5, 0.5);
+        spr.set("grenade");
     }
 
     override function init() {
         super.init();
 
         cd.setS("timer", 1.25);
-        spr.set("grenade");
     }
 
     override public function dispose() {

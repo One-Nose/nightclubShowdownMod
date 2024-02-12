@@ -13,6 +13,7 @@ class Cover extends Entity {
         super(x, y);
 
         spr.set("crate");
+        this.lifeBar.visible = true;
         initLife(3);
 
         var r = 11;
@@ -25,28 +26,24 @@ class Cover extends Entity {
         );
         right.color = 0x17FF17;
 
-        game.scroller.add(
-            iconLeft = Assets.gameElements.h_get("iconShield"), Const.UI_LAYER
-        );
+        iconLeft = Assets.gameElements.h_get("iconShield");
         iconLeft.setCenterRatio(0.5, 1);
         iconLeft.blendMode = Add;
         iconLeft.colorize(0x14BBEB);
-        iconLeft.visible = false;
 
-        game.scroller.add(
-            iconRight = Assets.gameElements.h_get("iconShield"), Const.UI_LAYER
-        );
+        iconRight = Assets.gameElements.h_get("iconShield");
         iconRight.setCenterRatio(0.5, 1);
         iconRight.blendMode = Add;
         iconRight.colorize(0x14BBEB);
-        iconRight.visible = false;
     }
 
     override function init() {
         super.init();
 
         ALL.push(this);
-        this.lifeBar.visible = true;
+
+        game.scroller.add(this.iconLeft, Const.UI_LAYER);
+        game.scroller.add(this.iconRight, Const.UI_LAYER);
     }
 
     override function onDamage(v) {

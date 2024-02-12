@@ -6,12 +6,6 @@ class Grenader extends entity.Mob {
 
         initLife(3);
 
-        spr.anim.registerStateAnim("bGrab", 4, function() return isGrabbed());
-        spr.anim.registerStateAnim(
-            "bPush", 2, function() return !onGround && cd.has("bodyHit"));
-        spr.anim.registerStateAnim("bStun", 1, function() return isStunned());
-        spr.anim.registerStateAnim("bIdle", 0);
-
         var s = createSkill("shoot");
         s.setTimers(0.6, 0, 3);
         s.onStart = function() {
@@ -37,6 +31,16 @@ class Grenader extends entity.Mob {
             // fx.shoot(shootX, shootY, e.centerX, e.centerY, 0xFF0000);
             spr.anim.play("bBlindShoot");
         }
+    }
+
+    override function init() {
+        super.init();
+
+        spr.anim.registerStateAnim("bGrab", 4, function() return isGrabbed());
+        spr.anim.registerStateAnim(
+            "bPush", 2, function() return !onGround && cd.has("bodyHit"));
+        spr.anim.registerStateAnim("bStun", 1, function() return isStunned());
+        spr.anim.registerStateAnim("bIdle", 0);
     }
 
     override function onDie() {

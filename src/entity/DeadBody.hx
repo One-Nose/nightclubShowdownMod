@@ -3,6 +3,8 @@ package entity;
 class DeadBody extends Entity {
     public static var ALL: Array<DeadBody> = [];
 
+    var sid: String;
+
     public function new(e: Entity, sid: String) {
         super(e.cx, e.cy);
         xr = e.xr;
@@ -15,13 +17,9 @@ class DeadBody extends Entity {
         gravity *= 0.25;
         frict = 0.97;
         dy = -0.1;
-        spr.anim.registerStateAnim(
-            sid + "DeathBounce", 2,
-            function() return !onGround && cd.has("hitGround"));
-        spr.anim.registerStateAnim(
-            sid + "DeathFly", 1, function() return !onGround
-        );
-        spr.anim.registerStateAnim(sid + "DeathGround", 0);
+
+        this.sid = sid;
+
         spr.colorize(e.spr.color.toColor());
     }
 
@@ -29,6 +27,15 @@ class DeadBody extends Entity {
         super.init();
 
         ALL.push(this);
+
+        spr.anim.registerStateAnim(
+            sid + "DeathBounce", 2,
+            function() return !onGround && cd.has("hitGround"));
+        spr.anim.registerStateAnim(
+            sid + "DeathFly", 1, function() return !onGround
+        );
+        spr.anim.registerStateAnim(sid + "DeathGround", 0);
+
         cd.setS("bleeding", 2);
         cd.setS("decay", rnd(20, 25));
     }

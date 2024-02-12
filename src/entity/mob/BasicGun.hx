@@ -6,14 +6,6 @@ class BasicGun extends entity.Mob {
 
         initLife(2);
 
-        spr.anim.registerStateAnim("aGrab", 4, function() return isGrabbed());
-        spr.anim.registerStateAnim(
-            "aRun", 3, function() return cd.has("entering"));
-        spr.anim.registerStateAnim(
-            "aPush", 2, function() return !onGround && isStunned());
-        spr.anim.registerStateAnim("aStun", 1, function() return isStunned());
-        spr.anim.registerStateAnim("aIdle", 0);
-
         // spr.colorMatrix = new h3d.Matrix();
         // spr.colorMatrix.identity();
         // spr.colorMatrix.colorHue(0.5);
@@ -44,6 +36,14 @@ class BasicGun extends entity.Mob {
 
     override function init() {
         super.init();
+
+        spr.anim.registerStateAnim("aGrab", 4, function() return isGrabbed());
+        spr.anim.registerStateAnim(
+            "aRun", 3, function() return cd.has("entering"));
+        spr.anim.registerStateAnim(
+            "aPush", 2, function() return !onGround && isStunned());
+        spr.anim.registerStateAnim("aStun", 1, function() return isStunned());
+        spr.anim.registerStateAnim("aIdle", 0);
 
         lockControlsS(
             cd.getS("ctrlLock") + 0.1 + countMobs(BasicGun, false) * 0.6
