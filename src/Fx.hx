@@ -1,4 +1,3 @@
-import h2d.Sprite;
 import dn.heaps.HParticle;
 
 class Fx extends dn.Process {
