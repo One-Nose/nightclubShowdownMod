@@ -368,7 +368,6 @@ class Hero extends Entity {
             if (M.fabs(centerX - moveTarget.x) <= 5) {
                 // Arrived
                 this.speed = 0.011;
-                this.cd.unset("rolling");
                 game.cinematic.signal("move");
                 afterMoveAction.execute();
                 moveTarget = null;
