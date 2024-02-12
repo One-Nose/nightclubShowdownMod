@@ -47,7 +47,6 @@ class Mob extends Entity {
     }
 
     public function enterArena() {
-        dir = cx < level.wid * 0.5 ? 1 : -1;
         spr.alpha = 0;
         cd.setS("entering", 0.5);
         cd.onComplete("entering", function() {

@@ -173,6 +173,8 @@ class Level extends dn.Process {
     public var waveMobCount: Int;
 
     public function attacheWaveEntities() {
+        var wave = new Wave();
+
         if (curWaveId >= 2)
             Game.ME.fx.allSpots(25, wid * Const.GRID);
 
@@ -194,19 +196,20 @@ class Level extends dn.Process {
             + getPixels(0x00ff00).length;
 
         for (pt in getPixels(0x704621))
-            new entity.Cover(pt.cx, 3).init();
+            wave.registerEntity(new entity.Cover(pt.cx, 3));
 
         function initMob(cx: Int, cy: Int, mob: entity.Mob) {
-            delayer.addS(function() {
-                mob.init();
-                mob.enterArena();
-                if (hasPixel(0x363c60, cx - 1, cy))
-                    mob.dir = -1;
-                else if (hasPixel(0x363c60, cx - 1, cy))
-                    mob.dir = 1;
-            }, hasPixel(
-                0x363c60, cx, cy - 2
-            ) ? 7 : hasPixel(0x363c60, cx, cy - 1) ? 3.5 : 0);
+            if (hasPixel(0x363c60, cx - 1, cy))
+                mob.dir = -1;
+            else if (hasPixel(0x363c60, cx - 1, cy))
+                mob.dir = 1;
+
+            wave.registerEntity(
+                mob,
+                hasPixel(
+                    0x363c60, cx, cy - 2
+                ) ? 7 : hasPixel(0x363c60, cx, cy - 1) ? 3.5 : 0
+            );
         }
 
         for (pt in getPixels(0x00ff00))
@@ -224,17 +227,7 @@ class Level extends dn.Process {
                 pt.cx, pt.cy,
                 new entity.mob.Grenader(pt.cx, curWaveId <= 1 ? 6 : 4));
 
-        //// Grenader
-        // for(pt in getPixels(0x20d5fc)) {
-        // delayer.addS(function() {
-        // var e = new entity.mob.Grenader(pt.cx,4);
-        // e.enterArena(1.5);
-        // if( hasPixel(0x363c60,pt.cx-1,pt.cy) )
-        // e.dir = -1;
-        // else if( hasPixel(0x363c60,pt.cx-1,pt.cy) )
-        // e.dir = 1;
-        // }, hasPixel(0x363c60,pt.cx,pt.cy-2) ? 6 : hasPixel(0x363c60,pt.cx,pt.cy-1) ? 3 : 0);
-        // }
+        wave.start();
     }
 
     public function iteratePixels(c: UInt, cb: (Int, Int) -> Void) {
