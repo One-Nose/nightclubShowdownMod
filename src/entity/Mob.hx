@@ -83,7 +83,7 @@ class Mob extends Entity {
         return hero.isAlive() && hero.grabbedMob == this;
 
     public function canBeShot()
-        return !cd.has("entering");
+        return this.isAlive() && !cd.has("entering");
 
     override public function isBlockingHeroMoves()
         return !isGrabbed();
