@@ -53,6 +53,10 @@ class Console extends h2d.Console {
                 graphics.lineTo(level.wid * Const.GRID, cy * Const.GRID);
             }
         });
+
+        this.addCommand("god", [], function() {
+            Game.ME.hero.isInvulnerable = !Game.ME.hero.isInvulnerable;
+        });
         #end
     }
 

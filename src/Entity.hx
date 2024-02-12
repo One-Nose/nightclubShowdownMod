@@ -50,6 +50,7 @@ class Entity {
     public var lastHitDir = 0;
     public var sprScaleX = 1.0;
     public var sprScaleY = 1.0;
+    public var isInvulnerable = false;
 
     public var life: Int;
     public var maxLife: Int;
@@ -199,7 +200,8 @@ class Entity {
         }
 
         damage = M.imin(this.life, damage);
-        this.life -= damage;
+        if (!this.isInvulnerable)
+            this.life -= damage;
         this.updateLifeBar();
         this.onDamage(damage);
         this.blink();
