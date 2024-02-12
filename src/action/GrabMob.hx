@@ -13,55 +13,55 @@ class GrabMob extends Action {
 
     public static function getInstance(
         hero: entity.Hero, x: Float, y: Float
-    ): Null<GrabMob> {
-        var action: Null<GrabMob> = null;
+    ): Null<Move> {
+        var bestAction: Null<GrabMob> = null;
 
-        if (hero.grabbedMob == null) {
-            var best: entity.Mob = null;
-            for (mob in entity.Mob.ALL)
-                if (
-                    mob.canBeShot() &&
-                    mob.canBeGrabbed() &&
-                    hero.grabbedMob != mob &&
-                    M.fabs(x - mob.centerX) <= Const.GRID &&
-                    M.fabs(y - mob.centerY - Const.GRID) <= Const.GRID / 2 &&
-                    (
-                        best == null ||
-                        mob.distPxFree(x, y) <= best.distPxFree(x, y)
-                    )
+        for (mob in entity.Mob.ALL) {
+            var action = new GrabMob(hero, mob, if (x < mob.centerX) -1 else 1);
+
+            if (
+                action.canBePerformed() != false &&
+                M.fabs(x - mob.centerX) <= Const.GRID &&
+                M.fabs(y - mob.centerY - Const.GRID) <= Const.GRID / 2 &&
+                (
+                    bestAction == null ||
+                    mob.distPxFree(x, y) <= bestAction.mob.distPxFree(x, y)
                 )
-                    best = mob;
-            if (best != null)
-                action = new GrabMob(
-                    hero, best, if (x < best.centerX) -1 else 1
-                );
+            )
+                bestAction = action;
         }
 
-        return action;
+        if (bestAction == null)
+            return null;
+
+        return new Move(
+            hero, bestAction.mob.footX + bestAction.side * 10,
+            bestAction.mob.footY, bestAction
+        );
     }
 
-    public override function execute() {
-        super.execute();
+    override function canBePerformed(): Null<Bool> {
+        if (
+            this.hero.grabbedMob != null ||
+            !this.mob.canBeShot() ||
+            !this.mob.canBeGrabbed()
+        )
+            return false;
 
-        if (hero.distPxFree(
+        if (this.hero.distPxFree(
             this.mob.footX + this.side * 10, this.mob.footY
-        ) >= 20) {
-            this.hero.spr.anim.stopWithStateAnims();
-            this.hero.stopGrab();
-            this.hero.leaveCover();
-            this.hero.moveTarget = new FPoint(
-                this.mob.footX + this.side * 10, this.mob.footY
-            );
-            this.hero.afterMoveAction = new action.GrabMob(
-                this.hero, this.mob, this.side
-            );
-        } else {
-            Assets.SFX.hit0(1);
-            this.hero.dir = -this.side;
-            this.hero.cx = this.mob.cx;
-            this.hero.xr = this.mob.xr + this.side * 0.9;
-            this.hero.startGrab(this.mob);
-        }
+        ) >= 20)
+            return null;
+
+        return true;
+    }
+
+    function _execute() {
+        Assets.SFX.hit0(1);
+        this.hero.dir = -this.side;
+        this.hero.cx = this.mob.cx;
+        this.hero.xr = this.mob.xr + this.side * 0.9;
+        this.hero.startGrab(this.mob);
     }
 
     public override function updateDisplay() {

@@ -13,46 +13,46 @@ class TakeCover extends Action {
 
     public static function getInstance(
         hero: entity.Hero, x: Float, y: Float
-    ): Null<TakeCover> {
+    ): Null<Move> {
         var action: Null<TakeCover> = null;
 
         for (entity in entity.Cover.ALL) {
+            var rightCover = new TakeCover(hero, entity, -1);
             if (
-                entity.left.contains(x, y - Const.GRID) &&
-                entity.canHostSomeone(-1)
+                rightCover.canBePerformed() != false &&
+                entity.left.contains(x, y - Const.GRID)
             )
-                action = new TakeCover(hero, entity, -1);
+                action = rightCover;
 
+            var leftCover = new TakeCover(hero, entity, 1);
             if (
-                entity.right.contains(x, y - Const.GRID) &&
-                entity.canHostSomeone(1)
+                leftCover.canBePerformed() != false &&
+                entity.right.contains(x, y - Const.GRID)
             )
-                action = new TakeCover(hero, entity, 1);
+                action = leftCover;
         }
 
-        return action;
+        if (action == null)
+            return null;
+        return new Move(
+            hero, action.cover.centerX + action.side * 10, hero.footY, action
+        );
     }
 
-    public override function execute() {
-        super.execute();
+    override function canBePerformed(): Null<Bool> {
+        if (!this.cover.canHostSomeone(this.side))
+            return false;
 
-        this.hero.spr.anim.stopWithStateAnims();
+        if (this.hero.distPxFree(
+            this.cover.centerX + this.side * 10, this.hero.footY
+        ) >= 20)
+            return null;
 
-        if (this.cover.canHostSomeone(this.side)) {
-            this.hero.stopGrab();
+        return true;
+    }
 
-            if (this.hero.distPxFree(
-                this.cover.centerX + this.side * 10, this.cover.centerY
-            ) >= 20) {
-                this.hero.moveTarget = new FPoint(
-                    this.cover.centerX + this.side * 10, this.hero.footY
-                );
-                this.hero.afterMoveAction = this;
-                this.hero.leaveCover();
-            } else {
-                this.hero.startCover(this.cover, this.side);
-            }
-        }
+    function _execute() {
+        this.hero.startCover(this.cover, this.side);
     }
 
     public override function updateDisplay() {

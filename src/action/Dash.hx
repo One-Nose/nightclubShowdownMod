@@ -14,10 +14,7 @@ class Dash extends Action {
     public static function getInstance(
         hero: entity.Hero, x: Float, y: Float
     ): Null<Dash> {
-        if (
-            M.fabs(y - hero.footY - Const.GRID / 2) <= Const.GRID / 2 &&
-            hero.grabbedMob == null
-        ) {
+        if (M.fabs(y - hero.footY - Const.GRID / 2) <= Const.GRID / 2) {
             var tx = hero.footX + M.sign(x - hero.footX) * 5 * Const.GRID;
             tx = M.fclamp(tx, 5, hero.level.wid * Const.GRID - 5);
             if (
@@ -27,18 +24,24 @@ class Dash extends Action {
             )
                 tx = (hero.game.level.wid - 3) * Const.GRID;
 
+            var action = new Dash(hero, tx, hero.footY);
+
             if (
-                M.fabs(tx - x) <= Const.GRID * 3 &&
-                M.fabs(hero.footX - tx) >= Const.GRID * 2
+                action.canBePerformed() &&
+                M.fabs(action.x - x) <= Const.GRID * 3
             )
-                return new Dash(hero, tx, hero.footY);
+                return action;
         }
         return null;
     }
 
-    public override function execute() {
-        super.execute();
+    override function canBePerformed(): Null<Bool> {
+        return
+            hero.grabbedMob == null &&
+            M.fabs(this.hero.footX - this.x) >= Const.GRID * 2;
+    }
 
+    function _execute() {
         this.hero.spr.anim.stopWithStateAnims();
         this.hero.speed *= 2;
         this.hero.moveTarget = new FPoint(this.x, this.y);
@@ -46,7 +49,6 @@ class Dash extends Action {
         this.hero.cd.setS("rollBraking", this.hero.cd.getS("rolling") + 0.3);
         this.hero.afterMoveAction = new action.None(this.hero);
         this.hero.leaveCover();
-        this.hero.stopGrab();
     }
 
     public override function updateDisplay() {

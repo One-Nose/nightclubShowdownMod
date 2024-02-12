@@ -3,21 +3,20 @@ package action;
 class Move extends Action {
     public var x: Float;
     public var y: Float;
+    public var then: Action;
 
-    public function new(hero: entity.Hero, x: Float, y: Float) {
+    public function new(hero: entity.Hero, x: Float, y: Float, then: Action) {
         super(hero);
 
         this.x = x;
         this.y = y;
+        this.then = then;
     }
 
     public static function getInstance(
         hero: entity.Hero, x: Float, y: Float
     ): Null<Move> {
-        if (
-            M.fabs(y - hero.footY) <= 1.5 * Const.GRID &&
-            hero.grabbedMob == null
-        ) {
+        if (M.fabs(y - hero.footY) <= 1.5 * Const.GRID) {
             var tx = x;
             tx = M.fclamp(tx, 5, hero.level.wid * Const.GRID - 5);
             if (
@@ -26,20 +25,35 @@ class Move extends Action {
                 tx >= (hero.level.wid - 3) * Const.GRID
             )
                 tx = (hero.game.level.wid - 3) * Const.GRID;
-            return new Move(hero, tx, hero.footY);
+
+            var action = new Move(hero, tx, hero.footY, new None(hero));
+            if (action.canBePerformed())
+                return action;
         }
         return null;
     }
 
-    public override function execute() {
-        super.execute();
+    override function canBePerformed(): Null<Bool> {
+        return hero.grabbedMob == null;
+    }
 
+    function _execute() {
         this.hero.spr.anim.stopWithStateAnims();
-        this.hero.moveTarget = new FPoint(this.x, this.y);
-        // this.hero.cd.setS("rolling",0.5);
-        this.hero.cd.setS("rollBraking", this.hero.cd.getS("rolling") + 0.1);
-        this.hero.afterMoveAction = new action.None(this.hero);
         this.hero.leaveCover();
         this.hero.stopGrab();
+
+        if (this.then.canBePerformed())
+            then.execute();
+        else {
+            this.hero.moveTarget = new FPoint(this.x, this.y);
+            this.hero.cd.setS(
+                "rollBraking", this.hero.cd.getS("rolling") + 0.1
+            );
+            this.hero.afterMoveAction = then ?? new None(this.hero);
+        }
+    }
+
+    public override function updateDisplay() {
+        this.then.updateDisplay();
     }
 }

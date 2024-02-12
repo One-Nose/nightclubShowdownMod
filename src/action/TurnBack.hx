@@ -4,8 +4,10 @@ class TurnBack extends Action {
     public static function getInstance(
         hero: entity.Hero, x: Float, y: Float
     ): Null<TurnBack> {
+        var action = new TurnBack(hero);
+
         if (
-            hero.grabbedMob != null &&
+            action.canBePerformed() &&
             M.fabs(x - hero.centerX) >= Const.GRID &&
             (
                 x > hero.centerX &&
@@ -14,13 +16,16 @@ class TurnBack extends Action {
                 hero.dir == 1
             )
         )
-            return new TurnBack(hero);
+            return action;
 
         return null;
     }
 
-    public override function execute() {
-        super.execute();
+    override function canBePerformed(): Null<Bool> {
+        return hero.grabbedMob != null;
+    }
+
+    function _execute() {
         this.hero.dir *= -1;
     }
 }

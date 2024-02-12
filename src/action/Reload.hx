@@ -8,19 +8,23 @@ class Reload extends Action {
     public static function getInstance(
         hero: entity.Hero, x: Float, y: Float
     ): Null<Reload> {
+        var action = new Reload(hero);
+
         if (
-            hero.ammo < hero.maxAmmo &&
+            action.canBePerformed() &&
             M.fabs(hero.centerX - x) <= Const.GRID * 0.3 &&
             M.fabs(hero.centerY - y + Const.GRID / 3) <= Const.GRID * 0.7
         )
-            return new Reload(hero);
+            return action;
 
         return null;
     }
 
-    public override function execute() {
-        super.execute();
+    override function canBePerformed(): Null<Bool> {
+        return this.hero.ammo < this.hero.maxAmmo;
+    }
 
+    function _execute() {
         this.hero.spr.anim.stopWithStateAnims();
         this.hero.spr.anim.play("heroReload");
         Assets.SFX.reload0(1);

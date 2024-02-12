@@ -12,24 +12,30 @@ class HeadShot extends Action {
     public static function getInstance(
         hero: entity.Hero, x: Float, y: Float
     ): Null<HeadShot> {
-        var best: Null<entity.Mob> = null;
-        for (mob in entity.Mob.ALL) {
-            if (
-                mob.canBeShot() &&
-                mob.head.contains(x, y) &&
-                (best == null || mob.distPxFree(x, y) <= best.distPxFree(x, y))
-            )
-                best = mob;
-        }
-        if (best != null)
-            return new HeadShot(hero, best);
+        var bestAction: Null<HeadShot> = null;
 
-        return null;
+        for (mob in entity.Mob.ALL) {
+            var action = new HeadShot(hero, mob);
+
+            if (
+                action.canBePerformed() &&
+                mob.head.contains(x, y) &&
+                (
+                    bestAction == null ||
+                    mob.distPxFree(x, y) <= bestAction.mob.distPxFree(x, y)
+                )
+            )
+                bestAction = action;
+        }
+
+        return bestAction;
     }
 
-    public override function execute() {
-        super.execute();
+    override function canBePerformed(): Null<Bool> {
+        return this.mob.canBeShot();
+    }
 
+    function _execute() {
         this.hero.getSkill("headShot")
             .prepareOn(this.mob, if (this.mob.isGrabbed()) 0.5 else 1);
     }

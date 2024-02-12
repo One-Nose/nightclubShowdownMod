@@ -12,27 +12,34 @@ class BlindShot extends Action {
     public static function getInstance(
         hero: entity.Hero, x: Float, y: Float
     ): Null<BlindShot> {
-        var best: Null<entity.Mob> = null;
+        var bestAction: Null<BlindShot> = null;
+
         for (mob in entity.Mob.ALL) {
+            var action = new BlindShot(hero, mob);
+
             if (
-                mob.canBeShot() &&
+                action.canBePerformed() &&
                 (
                     mob.head.contains(x, y) ||
                     mob.torso.contains(x, y) ||
                     mob.legs.contains(x, y)
                 ) &&
-                (best == null || mob.distPxFree(x, y) <= best.distPxFree(x, y))
+                (
+                    bestAction == null ||
+                    mob.distPxFree(x, y) <= bestAction.mob.distPxFree(x, y)
+                )
             )
-                best = mob;
+                bestAction = action;
         }
-        if (best != null)
-            return new BlindShot(hero, best);
 
-        return null;
+        return bestAction;
     }
 
-    public override function execute() {
-        super.execute();
+    override function canBePerformed(): Null<Bool> {
+        return this.mob.canBeShot();
+    }
+
+    function _execute() {
         this.hero.getSkill("blindShot")
             .prepareOn(this.mob, if (this.mob.isGrabbed()) 0.5 else 1);
     }

@@ -12,19 +12,23 @@ class Wait extends Action {
     public static function getInstance(
         hero: entity.Hero, x: Float, y: Float
     ): Null<Wait> {
+        var action = new Wait(hero, 0.6);
+
         if (
-            hero.game.isSlowMo() &&
+            action.canBePerformed() &&
             M.fabs(hero.centerX - x) <= Const.GRID * 0.3 &&
             M.fabs(hero.centerY - y + Const.GRID / 3) <= Const.GRID * 0.7
         )
-            return new Wait(hero, 0.6);
+            return action;
 
         return null;
     }
 
-    public override function execute() {
-        super.execute();
+    override function canBePerformed(): Null<Bool> {
+        return hero.game.isSlowMo();
+    }
 
+    function _execute() {
         this.hero.spr.anim.stopWithStateAnims();
         this.hero.lockControlsS(this.seconds);
     }
