@@ -69,7 +69,7 @@ class Mob extends Entity {
 
     override function onDie() {
         super.onDie();
-        level.waveMobCount--;
+        this.level.wave.mobCount--;
 
         for (mob in Mob.ALL)
             if (mob.isAlive())

@@ -4,7 +4,7 @@ class Wave {
 
     var color: dn.Col;
 
-    public var mobCount(default, null): Int = 0;
+    public var mobCount = 0;
 
     public function new(
         color: dn.Col, ...registries: {entity: Entity, ?delay: Float}) {
@@ -23,6 +23,7 @@ class Wave {
     }
 
     public function start() {
+        Game.ME.level.wave = this;
         Game.ME.level.hue(Color.intToHsl(this.color).h * 6.28, 2.5);
 
         for (delay => delayEntities in this.entities)
@@ -34,6 +35,10 @@ class Wave {
                     } catch (e) {}
                 }
             }, delay);
+    }
+
+    public function isOver(): Bool {
+        return this.mobCount <= 0;
     }
 }
 

@@ -17,6 +17,8 @@ class Level extends dn.Process {
     var circle: HSprite;
     var people: Array<HSprite>;
 
+    public var wave: Wave;
+
     var waves: Array<Wave>;
 
     public function new() {
@@ -267,12 +269,8 @@ class Level extends dn.Process {
         }
     }
 
-    public var waveMobCount: Int;
-
     public function attacheWaveEntities() {
-        var wave = this.waves[this.curWaveId];
-        this.waveMobCount = wave.mobCount;
-        wave.start();
+        this.waves[this.curWaveId].start();
     }
 
     public function isValid(cx: Float, cy: Float) {

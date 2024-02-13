@@ -19,7 +19,7 @@ class Dash extends Action {
             tx = M.fclamp(tx, 5, hero.level.wid * Const.GRID - 5);
             if (
                 hero.game.waveId <= 1 &&
-                hero.level.waveMobCount > 0 &&
+                !hero.level.wave.isOver() &&
                 tx >= (hero.level.wid - 3) * Const.GRID
             )
                 tx = (hero.game.level.wid - 3) * Const.GRID;

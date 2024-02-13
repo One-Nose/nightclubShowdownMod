@@ -277,7 +277,6 @@ class Game extends dn.Process {
                 cover.destroy();
         }
 
-        this.level.waveMobCount = 1;
         if (this.waveId > 7)
             announce(
                 "Thank you for playing ^_^\nA 20h game by Sebastien Benard\ndeepnight.net",
@@ -351,18 +350,15 @@ class Game extends dn.Process {
     }
 
     function canStartNextWave() {
-        if (this.level.waveMobCount > 0)
-            return false;
-
         if (this.cd.has("lockNext") || this.hasCinematic())
             return false;
 
-        return switch (this.waveId) {
-            case 0: this.level.waveMobCount <= 0;
-            case 1: this.hero.cx >= this.level.wid - 2;
+        if (this.waveId == 1)
+            return
+                this.level.wave.isOver() &&
+                this.hero.cx >= this.level.wid - 2;
 
-            default: this.level.waveMobCount <= 0;
-        }
+        return this.level.wave.isOver();
     }
 
     override public function update() {
