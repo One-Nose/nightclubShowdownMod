@@ -31,7 +31,8 @@ class Reload extends Action {
         this.hero.game.delayer.addS(Assets.SFX.reload1.bind(1), 0.25);
         this.hero.game.delayer.addS(Assets.SFX.reload1.bind(1), 0.7);
         this.hero.fx.charger(
-            this.hero.centerX - this.hero.dir * 6, this.hero.centerY - 4,
+            this.hero.centerX - this.hero.dir * 6,
+            this.hero.centerY - 4,
             -this.hero.dir
         );
         this.hero.cd.setS("reloading", 0.8);

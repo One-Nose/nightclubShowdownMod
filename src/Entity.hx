@@ -138,7 +138,9 @@ class Entity {
         this.head.color = 0xFF0000;
 
         this.torso = new Area(
-            this, 8, () -> (this.headX + this.footX) * 0.5,
+            this,
+            8,
+            () -> (this.headX + this.footX) * 0.5,
             () -> (this.headY + this.footY - 4) * 0.5
         );
         this.torso.color = 0x0080FF;
@@ -492,7 +494,8 @@ class Entity {
                     this.debug.beginFill(area.color, 0.2);
                     this.debug.lineStyle(1, area.color, 0.4);
                     this.debug.drawCircle(
-                        area.centerX - this.footX, area.centerY - this.footY,
+                        area.centerX - this.footX,
+                        area.centerY - this.footY,
                         area.radius
                     );
                 }

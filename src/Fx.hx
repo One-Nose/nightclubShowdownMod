@@ -296,8 +296,10 @@ class Fx extends dn.Process {
             var a = a + rnd(0, 0.03, true);
             var d = rnd(0, 15);
             var p = allocTopNormal(
-                getTile("dot"), x + Math.cos(a) * d,
-                y + Math.sin(a) * d + rnd(0, 1, true));
+                getTile("dot"),
+                x + Math.cos(a) * d,
+                y + Math.sin(a) * d + rnd(0, 1, true)
+            );
             p.colorize(Color.interpolateInt(0xFF0000, 0x6F0000, rnd(0, 1)));
             p.scaleX = rnd(1, 3);
             p.scaleXMul = rnd(0.92, 0.97);
@@ -344,8 +346,10 @@ class Fx extends dn.Process {
             var a = a + rnd(0, 0.03, true);
             var d = rnd(0, 15);
             var p = allocTopNormal(
-                getTile("dot"), x + Math.cos(a) * d,
-                y + Math.sin(a) * d + rnd(0, 1, true));
+                getTile("dot"),
+                x + Math.cos(a) * d,
+                y + Math.sin(a) * d + rnd(0, 1, true)
+            );
             p.colorize(Color.interpolateInt(0xFF0000, 0x6F0000, rnd(0, 1)));
             p.scaleX = rnd(1, 3);
             p.scaleXMul = rnd(0.92, 0.97);
@@ -367,8 +371,10 @@ class Fx extends dn.Process {
             var a = a + rnd(0, 0.06, true);
             var d = rnd(0, 15);
             var p = allocTopNormal(
-                getTile("bigDirt"), x + Math.cos(a) * d,
-                y + Math.sin(a) * d + rnd(0, 1, true));
+                getTile("bigDirt"),
+                x + Math.cos(a) * d,
+                y + Math.sin(a) * d + rnd(0, 1, true)
+            );
             p.colorize(i % 3 == 0 ? 0x950000 : 0xE1C684);
             p.setFadeS(rnd(0.7, 1), 0, rnd(3, 7));
 
@@ -698,8 +704,10 @@ class Fx extends dn.Process {
         var n = 6;
         for (i in 0...n) {
             var p = allocTopAdd(
-                getTile("dot"), rnd(0, game.viewport.wid),
-                rnd(0, game.viewport.hei));
+                getTile("dot"),
+                rnd(0, game.viewport.wid),
+                rnd(0, game.viewport.hei)
+            );
             // var p = allocTopAdd(getTile("dot"), rnd(0,game.vp.wid), rnd(-30,0));
             p.setFadeS(rnd(0.07, 0.12), rnd(0.6, 1), rnd(2, 3));
             p.scaleX = rnd(5, 10);
@@ -740,8 +748,10 @@ class Fx extends dn.Process {
         for (i in 0...n) {
             var xr = rnd(0, 1);
             var p = allocTopAdd(
-                getTile("largeSmoke"), xr * game.viewport.wid,
-                game.level.hei * Const.GRID * rnd(0.6, 1));
+                getTile("largeSmoke"),
+                xr * game.viewport.wid,
+                game.level.hei * Const.GRID * rnd(0.6, 1)
+            );
             p.colorize(Color.interpolateInt(0x236CC7, 0xBC2E38, xr));
             p.setFadeS(rnd(0.05, 0.08), rnd(0.6, 1), rnd(2, 3));
             p.setScale(rnd(0.9, 1.7));

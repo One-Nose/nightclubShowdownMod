@@ -35,8 +35,10 @@ class GrabMob extends Action {
             return null;
 
         return new Move(
-            hero, bestAction.mob.footX + bestAction.side * 10,
-            bestAction.mob.footY, bestAction
+            hero,
+            bestAction.mob.footX + bestAction.side * 10,
+            bestAction.mob.footY,
+            bestAction
         );
     }
 

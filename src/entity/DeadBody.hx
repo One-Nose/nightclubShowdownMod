@@ -29,8 +29,10 @@ class DeadBody extends Entity {
         ALL.push(this);
 
         spr.anim.registerStateAnim(
-            sid + "DeathBounce", 2,
-            function() return !onGround && cd.has("hitGround"));
+            sid + "DeathBounce",
+            2,
+            function() return !onGround && cd.has("hitGround")
+        );
         spr.anim.registerStateAnim(
             sid + "DeathFly", 1, function() return !onGround
         );

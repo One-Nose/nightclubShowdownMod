@@ -21,6 +21,20 @@
     "callParameter": {
       "rules": [
         {
+          "conditions": [
+            { "cond": "lineLength >= n", "value": 100 },
+            { "cond": "anyItemLength >= n", "value": 25 }
+          ],
+          "type": "onePerLine"
+        },
+        {
+          "conditions": [
+            { "cond": "exceedsMaxLineLength" },
+            { "cond": "itemCount <= n", "value": 1 }
+          ],
+          "type": "onePerLine"
+        },
+        {
           "conditions": [{ "cond": "exceedsMaxLineLength" }],
           "type": "fillLineWithLeadingBreak"
         }

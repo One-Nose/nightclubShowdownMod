@@ -132,7 +132,8 @@ class Hero extends Entity {
             "heroCover", 10, function() return cover != null
         );
         spr.anim.registerStateAnim(
-            "heroRoll", 9,
+            "heroRoll",
+            9,
             function() return
                 onGround &&
                 moveTarget != null &&
@@ -140,7 +141,8 @@ class Hero extends Entity {
                 cd.has("rolling")
         );
         spr.anim.registerStateAnim(
-            "heroBrake", 6,
+            "heroBrake",
+            6,
             function() return
                 onGround &&
                 moveTarget != null &&
@@ -148,15 +150,18 @@ class Hero extends Entity {
                 cd.has("rollBraking")
         );
         spr.anim.registerStateAnim(
-            "heroRun", 5,
+            "heroRun",
+            5,
             function() return
                 onGround &&
                 moveTarget != null &&
                 !movementLocked()
         );
         spr.anim.registerStateAnim(
-            "heroBrake", 2,
-            function() return cd.has("braking") && grabbedMob == null);
+            "heroBrake",
+            2,
+            function() return cd.has("braking") && grabbedMob == null,
+        );
         spr.anim.registerStateAnim(
             "heroIdleGrab", 1, function() return grabbedMob != null
         );
