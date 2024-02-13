@@ -1,5 +1,3 @@
-import haxe.Json;
-
 class Wave {
     /** Sorted by the delay in seconds before appearing **/
     var entities: EntitiesMap;
@@ -32,25 +30,25 @@ abstract EntitiesMap(Map<String, Array<Entity>>) {
     }
 
     public inline function set(key: Float, value: Array<Entity>)
-        this.set(Json.stringify(key), value);
+        this.set(Std.string(key), value);
 
     @:arrayAccess public inline function get(key: Float) {
         if (!exists(key))
             set(key, []);
-        return this[Json.stringify(key)];
+        return this[Std.string(key)];
     }
 
     public inline function exists(key: Float)
-        return this.exists(Json.stringify(key));
+        return this.exists(Std.string(key));
 
     public inline function remove(key: Float)
-        return this.remove(Json.stringify(key));
+        return this.remove(Std.string(key));
 
     public inline function keys(): Iterator<Float> {
         var keys = this.keys();
         return {
             hasNext: keys.hasNext,
-            next: () -> Json.parse(keys.next())
+            next: () -> Std.parseFloat(keys.next())
         }
     }
 
@@ -61,7 +59,7 @@ abstract EntitiesMap(Map<String, Array<Entity>>) {
             hasNext: iterator.hasNext,
             next: () -> {
                 var next = iterator.next();
-                return {key: Json.parse(next.key), value: next.value};
+                return {key: Std.parseFloat(next.key), value: next.value};
             }
         }
     }
