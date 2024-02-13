@@ -1,8 +1,8 @@
 package entity.mob;
 
 class Heavy extends entity.Mob {
-    public function new(x, y) {
-        super(x, y);
+    public function new(x, y, ?dir) {
+        super(x, y, dir);
 
         initLife(6);
         sprScaleX = sprScaleY = 1.25;

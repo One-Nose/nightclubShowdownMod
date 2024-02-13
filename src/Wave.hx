@@ -2,8 +2,11 @@ class Wave {
     /** Sorted by the delay in seconds before appearing **/
     var entities: EntitiesMap;
 
-    public function new() {
+    public function new(...registries: {entity: Entity, ?delay: Float}) {
         this.entities = new EntitiesMap();
+
+        for (registry in registries)
+            this.registerEntity(registry.entity, registry.delay);
     }
 
     public function registerEntity(entity: Entity, delaySeconds: Float = 0) {

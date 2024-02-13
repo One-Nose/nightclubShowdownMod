@@ -1,3 +1,6 @@
+import entity.Cover;
+import entity.mob.*;
+
 class Level extends dn.Process {
     var curWaveId: Int;
 
@@ -15,6 +18,8 @@ class Level extends dn.Process {
     var people: Array<HSprite>;
     var pixels: Map<UInt, Array<CPoint>>;
 
+    var waves: Array<Wave>;
+
     public function new() {
         super(Game.ME);
 
@@ -27,6 +32,91 @@ class Level extends dn.Process {
         var mask = new h2d.Graphics(root);
         mask.beginFill(0x0, 1);
         mask.drawRect(0, 0, wid * Const.GRID, hei * Const.GRID);
+
+        this.waves = [
+            new Wave(
+                {entity: new BasicGun(14, 6, -1)},
+                {entity: new BasicGun(19, 6, -1)},
+            ),
+            new Wave(
+                {entity: new BasicGun(3, 6, 1)},
+                {entity: new BasicGun(19, 6, -1)},
+
+                {entity: new BasicGun(0, 6, 1), delay: 3.5},
+                {entity: new BasicGun(9, 6, -1), delay: 3.5},
+                {entity: new BasicGun(14, 6, -1), delay: 3.5},
+                {entity: new BasicGun(19, 6, -1), delay: 3.5},
+            ),
+            new Wave(
+                {entity: new Cover(14, 3)},
+                {entity: new BasicGun(6, 4, -1)},
+                {entity: new BasicGun(10, 4, -1)},
+                {entity: new BasicGun(18, 4, -1)},
+
+                {entity: new BasicGun(1, 4, 1), delay: 3.5},
+                {entity: new BasicGun(15, 4, -1), delay: 3.5},
+                {entity: new Heavy(19, 4, -1), delay: 3.5},
+            ),
+            new Wave(
+                {entity: new Cover(7, 3)},
+                {entity: new BasicGun(4, 4, 1)},
+                {entity: new Grenader(12, 4, 1)},
+
+                {entity: new BasicGun(1, 4, 1), delay: 3.5},
+            ),
+            new Wave(
+                {entity: new Cover(15, 3)},
+                {entity: new BasicGun(5, 4, 1)},
+                {entity: new BasicGun(18, 4, -1)},
+                {entity: new Grenader(1, 4, 1)},
+
+                {entity: new BasicGun(1, 4, 1), delay: 3.5},
+                {entity: new Heavy(19, 4, -1), delay: 3.5},
+
+                {entity: new BasicGun(11, 4, -1), delay: 7},
+            ),
+            new Wave(
+                {entity: new Cover(6, 3)},
+                {entity: new BasicGun(5, 4, 1)},
+                {entity: new Grenader(18, 4, -1)},
+
+                {entity: new BasicGun(10, 4, -1), delay: 3.5},
+                {entity: new Grenader(1, 4, 1), delay: 3.5},
+
+                {entity: new BasicGun(13, 4, -1), delay: 7},
+            ),
+            new Wave(
+                {entity: new Cover(5, 3)},
+                {entity: new BasicGun(1, 4, 1)},
+                {entity: new BasicGun(16, 4, -1)},
+
+                {entity: new BasicGun(7, 4, 1), delay: 3.5},
+                {entity: new Grenader(3, 4, 1), delay: 3.5},
+
+                {entity: new BasicGun(4, 4, 1), delay: 7},
+                {entity: new BasicGun(10, 4, -1), delay: 7},
+                {entity: new Grenader(18, 4, -1), delay: 7},
+            ),
+            new Wave(
+                {entity: new Cover(1, 3)},
+                {entity: new Cover(6, 3)},
+                {entity: new Cover(9, 3)},
+                {entity: new Cover(13, 3)},
+                {entity: new Cover(17, 3)},
+                {entity: new BasicGun(2, 4, 1)},
+                {entity: new BasicGun(7, 4, 1)},
+                {entity: new BasicGun(11, 4, 1)},
+
+                {entity: new BasicGun(4, 4, -1), delay: 3.5},
+                {entity: new BasicGun(18, 4, -1), delay: 3.5},
+                {entity: new Grenader(9, 4, 1), delay: 3.5},
+
+                {entity: new BasicGun(5, 4, -1), delay: 7},
+                {entity: new Grenader(11, 4, -1), delay: 7},
+                {entity: new Grenader(15, 4, -1), delay: 7},
+                {entity: new Grenader(18, 4, -1), delay: 7},
+            ),
+        ];
     }
 
     public function startWave(waveId: Int) {
@@ -173,61 +263,29 @@ class Level extends dn.Process {
     public var waveMobCount: Int;
 
     public function attacheWaveEntities() {
-        var wave = new Wave();
-
-        if (curWaveId >= 2)
-            Game.ME.fx.allSpots(25, wid * Const.GRID);
+        if (this.curWaveId >= 2)
+            Game.ME.fx.allSpots(25, this.wid * Const.GRID);
 
         var bd = hxd.Res.levels.toBitmap();
-        pixels = new Map();
+        this.pixels = new Map();
         for (cy in 0...5)
-            for (cx in 0...wid) {
-                var c = Color.removeAlpha(bd.getPixel(cx, cy + curWaveId * 6));
-                if (!pixels.exists(c))
-                    pixels.set(c, []);
-                pixels.get(c).push(new CPoint(cx, cy));
+            for (cx in 0...this.wid) {
+                var c = Color.removeAlpha(
+                    bd.getPixel(cx, cy + this.curWaveId * 6)
+                );
+                if (!this.pixels.exists(c))
+                    this.pixels[c] = [];
+                this.pixels[c].push(new CPoint(cx, cy));
             }
 
-        var c = Color.removeAlpha(bd.getPixel(0, curWaveId * 6));
-        hue(Color.intToHsl(c).h * 6.28, 2.5);
+        var c = Color.removeAlpha(bd.getPixel(0, this.curWaveId * 6));
+        this.hue(Color.intToHsl(c).h * 6.28, 2.5);
 
-        waveMobCount = getPixels(0xff6600).length
-            + getPixels(0x20d5fc).length
-            + getPixels(0x00ff00).length;
+        this.waveMobCount = this.getPixels(0xff6600).length
+            + this.getPixels(0x20d5fc).length
+            + this.getPixels(0x00ff00).length;
 
-        for (pt in getPixels(0x704621))
-            wave.registerEntity(new entity.Cover(pt.cx, 3));
-
-        function initMob(cx: Int, cy: Int, mob: entity.Mob) {
-            if (hasPixel(0x363c60, cx - 1, cy))
-                mob.dir = -1;
-            else if (hasPixel(0x363c60, cx - 1, cy))
-                mob.dir = 1;
-
-            wave.registerEntity(
-                mob,
-                hasPixel(
-                    0x363c60, cx, cy - 2
-                ) ? 7 : hasPixel(0x363c60, cx, cy - 1) ? 3.5 : 0
-            );
-        }
-
-        for (pt in getPixels(0x00ff00))
-            initMob(
-                pt.cx, pt.cy,
-                new entity.mob.Heavy(pt.cx, curWaveId <= 1 ? 6 : 4));
-
-        for (pt in getPixels(0xff6600))
-            initMob(
-                pt.cx, pt.cy,
-                new entity.mob.BasicGun(pt.cx, curWaveId <= 1 ? 6 : 4));
-
-        for (pt in getPixels(0x20d5fc))
-            initMob(
-                pt.cx, pt.cy,
-                new entity.mob.Grenader(pt.cx, curWaveId <= 1 ? 6 : 4));
-
-        wave.start();
+        this.waves[this.curWaveId].start();
     }
 
     public function iteratePixels(c: UInt, cb: (Int, Int) -> Void) {

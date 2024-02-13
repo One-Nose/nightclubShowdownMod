@@ -1,8 +1,8 @@
 package entity.mob;
 
 class BasicGun extends entity.Mob {
-    public function new(x, y) {
-        super(x, y);
+    public function new(x, y, ?dir) {
+        super(x, y, dir);
 
         initLife(2);
 
