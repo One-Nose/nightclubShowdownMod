@@ -274,8 +274,8 @@ class Level extends dn.Process {
                     bd.getPixel(cx, cy + this.curWaveId * 6)
                 );
                 if (!this.pixels.exists(c))
-                    this.pixels[c] = [];
-                this.pixels[c].push(new CPoint(cx, cy));
+                    this.pixels.set(c, []);
+                this.pixels.get(c).push(new CPoint(cx, cy));
             }
 
         var c = Color.removeAlpha(bd.getPixel(0, this.curWaveId * 6));

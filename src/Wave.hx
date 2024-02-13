@@ -38,7 +38,7 @@ abstract EntitiesMap(Map<String, Array<Entity>>) {
     @:arrayAccess public inline function get(key: Float) {
         if (!exists(key))
             set(key, []);
-        return this[Std.string(key)];
+        return this.get(Std.string(key));
     }
 
     public inline function exists(key: Float)
