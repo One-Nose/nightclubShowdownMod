@@ -12,6 +12,7 @@ class Reload extends Action {
 
         if (
             action.canBePerformed() &&
+            hero.ammo < hero.maxAmmo &&
             M.fabs(hero.centerX - x) <= Const.GRID * 0.3 &&
             M.fabs(hero.centerY - y + Const.GRID / 3) <= Const.GRID * 0.7
         )
@@ -21,7 +22,7 @@ class Reload extends Action {
     }
 
     override function canBePerformed(): Null<Bool> {
-        return this.hero.ammo < this.hero.maxAmmo;
+        return true;
     }
 
     function _execute() {
