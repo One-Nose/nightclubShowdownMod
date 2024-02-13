@@ -20,7 +20,7 @@ class Move extends Action {
             var tx = x;
             tx = M.fclamp(tx, 5, hero.level.wid * Const.GRID - 5);
             if (
-                hero.game.waveId <= 1 &&
+                hero.game.level.waveId <= 1 &&
                 !hero.level.wave.isOver() &&
                 tx >= (hero.level.wid - 3) * Const.GRID
             )

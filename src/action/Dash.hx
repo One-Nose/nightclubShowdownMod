@@ -18,7 +18,7 @@ class Dash extends Action {
             var tx = hero.footX + M.sign(x - hero.footX) * 5 * Const.GRID;
             tx = M.fclamp(tx, 5, hero.level.wid * Const.GRID - 5);
             if (
-                hero.game.waveId <= 1 &&
+                hero.game.level.waveId <= 1 &&
                 !hero.level.wave.isOver() &&
                 tx >= (hero.level.wid - 3) * Const.GRID
             )

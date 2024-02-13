@@ -14,7 +14,6 @@ class Game extends dn.Process {
     var clickTrap: h2d.Interactive;
     var mask: h2d.Graphics;
 
-    public var waveId: Int;
     public var isReplay: Bool;
     public var heroHistory: Array<HistoryEntry>;
 
@@ -259,14 +258,12 @@ class Game extends dn.Process {
     }
 
     public function startWave(id: Int) {
-        this.waveId = id;
-
         for (mob in entity.Mob.ALL)
             mob.destroy();
 
-        this.level.startWave(waveId);
+        this.level.prepareWave(id);
 
-        if (this.waveId == 2) {
+        if (this.level.waveId == 2) {
             this.fx.clear();
             this.fx.allSpots(25, this.level.wid * Const.GRID);
             this.fx.flashBangS(0xFFCC00, 0.5, 0.5);
@@ -277,23 +274,23 @@ class Game extends dn.Process {
                 cover.destroy();
         }
 
-        if (this.waveId > 7)
+        if (this.level.waveId > 7)
             announce(
                 "Thank you for playing ^_^\nA 20h game by Sebastien Benard\ndeepnight.net",
                 true
             );
         else {
-            if (this.waveId <= 0)
-                this.level.attacheWaveEntities();
+            if (this.level.waveId <= 0)
+                this.level.startWave();
             else {
-                this.announce('Wave ${this.waveId}...', 0xFFD11C);
+                this.announce('Wave ${this.level.waveId}...', 0xFFD11C);
                 this.delayer.addS(function() {
                     this.announce("          Fight!", 0xEF4810);
                 }, 0.5);
                 this.delayer.addS(function() {
-                    if (this.waveId >= 2)
+                    if (this.level.waveId >= 2)
                         this.fx.allSpots(25, this.level.wid * Const.GRID);
-                    this.level.attacheWaveEntities();
+                    this.level.startWave();
                     this.cd.unset("lockNext");
                 }, 1);
             }
@@ -302,14 +299,14 @@ class Game extends dn.Process {
 
     function exitLevel() {
         this.cd.setS("lockNext", Const.INFINITE);
-        switch (this.waveId) {
+        switch (this.level.waveId) {
             case 1:
                 this.cinematic.create({
                     this.mask.visible = true;
                     this.tw.createS(this.mask.alpha, 0 > 1, 0.6);
                     600;
                     this.hero.setPosCase(0, this.level.hei - 3);
-                    this.startWave(this.waveId + 1);
+                    this.startWave(this.level.waveId + 1);
                     this.tw.createS(this.mask.alpha, 0, 0.3);
                     this.mask.visible = false;
                     this.hero.moveTarget = new FPoint(
@@ -319,7 +316,7 @@ class Game extends dn.Process {
                 });
 
             default:
-                this.startWave(this.waveId + 1);
+                this.startWave(this.level.waveId + 1);
         }
     }
 
@@ -353,7 +350,7 @@ class Game extends dn.Process {
         if (this.cd.has("lockNext") || this.hasCinematic())
             return false;
 
-        if (this.waveId == 1)
+        if (this.level.waveId == 1)
             return
                 this.level.wave.isOver() &&
                 this.hero.cx >= this.level.wid - 2;
@@ -401,7 +398,7 @@ class Game extends dn.Process {
 
         #if debug
         if (Main.ME.keyPressed(Key.N))
-            this.startWave(this.waveId + 1);
+            this.startWave(this.level.waveId + 1);
         if (Main.ME.keyPressed(Key.K))
             for (mob in entity.Mob.ALL)
                 if (mob.isAlive())

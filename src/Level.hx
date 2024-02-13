@@ -2,7 +2,7 @@ import entity.Cover;
 import entity.mob.*;
 
 class Level extends dn.Process {
-    var curWaveId: Int;
+    public var waveId: Int;
 
     public var wid: Int;
     public var hei: Int;
@@ -128,9 +128,9 @@ class Level extends dn.Process {
         ];
     }
 
-    public function startWave(waveId: Int) {
-        curWaveId = waveId;
-        render();
+    public function prepareWave(waveId: Int) {
+        this.waveId = waveId;
+        this.render();
     }
 
     function render() {
@@ -147,10 +147,10 @@ class Level extends dn.Process {
         collMap = new haxe.ds.Vector(wid * hei);
         var game = Game.ME;
 
-        if (curWaveId == 2)
+        if (waveId == 2)
             Assets.playMusic(true);
 
-        switch (curWaveId) {
+        switch (waveId) {
             case 0, 1:
                 bg = Assets.gameElements.h_get("bgOut", root);
 
@@ -269,8 +269,8 @@ class Level extends dn.Process {
         }
     }
 
-    public function attacheWaveEntities() {
-        this.waves[this.curWaveId].start();
+    public function startWave() {
+        this.waves[this.waveId].start();
     }
 
     public function isValid(cx: Float, cy: Float) {
@@ -295,7 +295,7 @@ class Level extends dn.Process {
         for (e in people)
             e.anim.setGlobalSpeed(game.getSlowMoFactor());
 
-        switch (curWaveId) {
+        switch (waveId) {
             case 0, 1:
                 if (!cd.hasSetS("smoke", 0.06))
                     game.fx.envSmoke();
