@@ -2,7 +2,14 @@ class Wave {
     /** Sorted by the delay in seconds before appearing **/
     var entities: EntitiesMap;
 
-    public function new(...registries: {entity: Entity, ?delay: Float}) {
+    var color: dn.Col;
+
+    public var mobCount(default, null): Int = 0;
+
+    public function new(
+        color: dn.Col, ...registries: {entity: Entity, ?delay: Float}) {
+        this.color = color;
+
         this.entities = new EntitiesMap();
 
         for (registry in registries)
@@ -11,9 +18,13 @@ class Wave {
 
     public function registerEntity(entity: Entity, delaySeconds: Float = 0) {
         this.entities[delaySeconds].push(entity);
+        if (entity is entity.Mob)
+            this.mobCount++;
     }
 
     public function start() {
+        Game.ME.level.hue(Color.intToHsl(this.color).h * 6.28, 2.5);
+
         for (delay => delayEntities in this.entities)
             Game.ME.level.delayer.addS(() -> {
                 for (entity in delayEntities ?? []) {

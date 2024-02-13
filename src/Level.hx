@@ -16,7 +16,6 @@ class Level extends dn.Process {
     var front: HSprite;
     var circle: HSprite;
     var people: Array<HSprite>;
-    var pixels: Map<UInt, Array<CPoint>>;
 
     var waves: Array<Wave>;
 
@@ -35,10 +34,12 @@ class Level extends dn.Process {
 
         this.waves = [
             new Wave(
+                0xF60000,
                 {entity: new BasicGun(14, 6, -1)},
                 {entity: new BasicGun(19, 6, -1)},
             ),
             new Wave(
+                0xF60000,
                 {entity: new BasicGun(3, 6, 1)},
                 {entity: new BasicGun(19, 6, -1)},
 
@@ -48,6 +49,7 @@ class Level extends dn.Process {
                 {entity: new BasicGun(19, 6, -1), delay: 3.5},
             ),
             new Wave(
+                0xF60000,
                 {entity: new Cover(14, 3)},
                 {entity: new BasicGun(6, 4, -1)},
                 {entity: new BasicGun(10, 4, -1)},
@@ -58,6 +60,7 @@ class Level extends dn.Process {
                 {entity: new Heavy(19, 4, -1), delay: 3.5},
             ),
             new Wave(
+                0x0D54F6,
                 {entity: new Cover(7, 3)},
                 {entity: new BasicGun(4, 4, 1)},
                 {entity: new Grenader(12, 4, 1)},
@@ -65,6 +68,7 @@ class Level extends dn.Process {
                 {entity: new BasicGun(1, 4, 1), delay: 3.5},
             ),
             new Wave(
+                0xF60000,
                 {entity: new Cover(15, 3)},
                 {entity: new BasicGun(5, 4, 1)},
                 {entity: new BasicGun(18, 4, -1)},
@@ -76,6 +80,7 @@ class Level extends dn.Process {
                 {entity: new BasicGun(11, 4, -1), delay: 7},
             ),
             new Wave(
+                0x0D54F6,
                 {entity: new Cover(6, 3)},
                 {entity: new BasicGun(5, 4, 1)},
                 {entity: new Grenader(18, 4, -1)},
@@ -86,6 +91,7 @@ class Level extends dn.Process {
                 {entity: new BasicGun(13, 4, -1), delay: 7},
             ),
             new Wave(
+                0xD600F6,
                 {entity: new Cover(5, 3)},
                 {entity: new BasicGun(1, 4, 1)},
                 {entity: new BasicGun(16, 4, -1)},
@@ -98,6 +104,7 @@ class Level extends dn.Process {
                 {entity: new Grenader(18, 4, -1), delay: 7},
             ),
             new Wave(
+                0xF60000,
                 {entity: new Cover(1, 3)},
                 {entity: new Cover(6, 3)},
                 {entity: new Cover(9, 3)},
@@ -263,52 +270,9 @@ class Level extends dn.Process {
     public var waveMobCount: Int;
 
     public function attacheWaveEntities() {
-        if (this.curWaveId >= 2)
-            Game.ME.fx.allSpots(25, this.wid * Const.GRID);
-
-        var bd = hxd.Res.levels.toBitmap();
-        this.pixels = new Map();
-        for (cy in 0...5)
-            for (cx in 0...this.wid) {
-                var c = Color.removeAlpha(
-                    bd.getPixel(cx, cy + this.curWaveId * 6)
-                );
-                if (!this.pixels.exists(c))
-                    this.pixels.set(c, []);
-                this.pixels.get(c).push(new CPoint(cx, cy));
-            }
-
-        var c = Color.removeAlpha(bd.getPixel(0, this.curWaveId * 6));
-        this.hue(Color.intToHsl(c).h * 6.28, 2.5);
-
-        this.waveMobCount = this.getPixels(0xff6600).length
-            + this.getPixels(0x20d5fc).length
-            + this.getPixels(0x00ff00).length;
-
-        this.waves[this.curWaveId].start();
-    }
-
-    public function iteratePixels(c: UInt, cb: (Int, Int) -> Void) {
-        if (!pixels.exists(c))
-            return;
-
-        for (pt in pixels.get(c))
-            cb(pt.cx, pt.cy);
-    }
-
-    public inline function getPixel(c: UInt): Null<CPoint> {
-        return pixels.exists(c) ? pixels.get(c)[0] : null;
-    }
-
-    public function getPixels(c: UInt): Array<CPoint> {
-        return pixels.exists(c) ? pixels.get(c) : [];
-    }
-
-    public function hasPixel(c: UInt, cx: Int, cy: Int) {
-        for (pt in getPixels(c))
-            if (pt.cx == cx && pt.cy == cy)
-                return true;
-        return false;
+        var wave = this.waves[this.curWaveId];
+        this.waveMobCount = wave.mobCount;
+        wave.start();
     }
 
     public function isValid(cx: Float, cy: Float) {

@@ -292,6 +292,8 @@ class Game extends dn.Process {
                     this.announce("          Fight!", 0xEF4810);
                 }, 0.5);
                 this.delayer.addS(function() {
+                    if (this.waveId >= 2)
+                        this.fx.allSpots(25, this.level.wid * Const.GRID);
                     this.level.attacheWaveEntities();
                     this.cd.unset("lockNext");
                 }, 1);
