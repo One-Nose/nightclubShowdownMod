@@ -334,7 +334,27 @@ class Level extends dn.Process {
     public function startUpgrades() {
         this.wave = new wave.Upgrades();
 
-        var upgradeOptions = Game.ME.unlockableUpgrades.copy();
+        function heal() {
+            Game.ME.hero.life++;
+            Game.ME.updateHud();
+        }
+
+        if (
+            this.waveId % 4 == 3 &&
+            !Lambda.exists(
+                Game.ME.unlockableUpgrades, upgrade -> upgrade.onUnlock == heal
+            )
+        )
+            Game.ME.unlockableUpgrades.push(
+                new Upgrade(
+                    "Heal", heal,
+                    () -> Game.ME.hero.life < Game.ME.hero.maxLife
+                )
+            );
+
+        var upgradeOptions = Game.ME.unlockableUpgrades.filter(
+            upgrade -> upgrade.isUnlockable()
+        );
 
         for (x in (if (upgradeOptions.length <= 1) [10] else [6, 13])) {
             var upgrade = upgradeOptions[M.randRange(
