@@ -8,13 +8,10 @@ class Mob extends Entity {
 
     var hitSounds: Array<(Float) -> dn.heaps.Sfx>;
 
-    public function new(x, y, ?dir: Int) {
+    public function new(x, y, dir: Int) {
         super(x, y);
 
-        if (dir == null)
-            this.dir = if (x < this.level.wid * 0.5) 1 else -1;
-        else
-            this.dir = dir;
+        this.dir = dir;
 
         hitSounds = [
             Assets.SFX.grunt0, Assets.SFX.grunt1, Assets.SFX.grunt2,

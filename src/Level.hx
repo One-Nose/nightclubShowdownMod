@@ -331,6 +331,7 @@ class Level extends dn.Process {
                 entry -> Reflect.copy(entry)
             );
             var availableXs = [for (x in 0...this.wid) x];
+            var dirByX = new Map<Int, Int>();
             while (registeredMobs < batchSize) {
                 batchShop = batchShop.filter(
                     entry -> entry.price <= batchPoints - totalPrice
@@ -348,12 +349,24 @@ class Level extends dn.Process {
                 availableXs.remove(x);
                 availableXs.remove(x - 1);
                 availableXs.remove(x + 1);
-                var dir = if (M.fabs(x - 10) > 6) 0 else M.randRange(-1, 1);
+
+                var dir: Int;
+                if (M.fabs(x - 10) > 6)
+                    dir = 0;
+                else if (M.fabs(dirByX[x]) > 0)
+                    dir = dirByX[x];
+                else
+                    dir = M.randRange(-1, 1);
+
+                if (dir == 0)
+                    dir = if (x < this.wid * 0.5) 1 else -1;
+
+                for (closeX in (x - 4)...(x + 5))
+                    dirByX[closeX] = if (dirByX.exists(closeX)) 0 else dir;
+
                 wave.registerEntity(
                     chosenEntry.createMob(
-                        x,
-                        if (this.waveId <= 1) 6 else 4,
-                        if (dir == 0) null else dir
+                        x, if (this.waveId <= 1) 6 else 4, dir
                     ),
                     delay
                 );
