@@ -289,8 +289,9 @@ class Fx extends dn.Process {
 
         // Line
         var n = 40;
-        var a = 3.14
-            + Math.atan2(y + rnd(0, 3, true) - fy, x + rnd(0, 3, true) - fx);
+        var a = 3.14 + Math.atan2(
+            y + rnd(0, 3, true) - fy, x + rnd(0, 3, true) - fx
+        );
         a = M.radClamp(a, dir == 1 ? 3.14 : 0, 0.2);
         for (i in 0...n) {
             var a = a + rnd(0, 0.03, true);
@@ -339,8 +340,9 @@ class Fx extends dn.Process {
 
         // Line
         var n = 40;
-        var a = 3.14
-            + Math.atan2(y + rnd(0, 3, true) - fy, x + rnd(0, 3, true) - fx);
+        var a = 3.14 + Math.atan2(
+            y + rnd(0, 3, true) - fy, x + rnd(0, 3, true) - fx
+        );
         a = M.radClamp(a, dir == 1 ? 3.14 : 0, 0.2);
         for (i in 0...n) {
             var a = a + rnd(0, 0.03, true);

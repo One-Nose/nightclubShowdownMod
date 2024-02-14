@@ -48,6 +48,14 @@
         }
       ]
     },
+    "opAddSubChain": {
+      "rules": [
+        {
+          "conditions": [{ "cond": "exceedsMaxLineLength" }],
+          "type": "equalNumber"
+        }
+      ]
+    },
     "opBoolChain": {
       "rules": [
         {

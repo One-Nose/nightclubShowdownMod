@@ -90,9 +90,8 @@ class Viewport extends dn.Process {
         // }
         // else {
         game.scroller.x = Std.int(
-            -(x
-                + prioCenter * level.wid * 0.5 * Const.GRID) / (1
-                    + prioCenter) + wid * 0.5
+            -(x + prioCenter * level.wid * 0.5 * Const.GRID) / (1 +
+                prioCenter) + wid * 0.5
         );
         game.scroller.y = 0;
         // game.scroller.y = Std.int( -(y+prioCenter*level.hei*0.5*Const.GRID)/(1+prioCenter) + hei*0.5 );
