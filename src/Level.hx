@@ -240,7 +240,8 @@ class Level extends dn.Process {
             .map(entry -> Reflect.copy(entry));
 
         var delay = 0.0;
-        while (true) {
+        var lastBatch = false;
+        while (!lastBatch) {
             var maxBatchSize = 0;
             for (batchSize in 1...5) {
                 if (batchSize * Math.log(batchSize + 1) <= points)
@@ -254,7 +255,7 @@ class Level extends dn.Process {
             var batchSize: Int;
             if (delay >= 7 || (delay >= 3.5 && mod <= 1)) {
                 batchSize = maxBatchSize;
-                points = batchSize * Math.log(batchSize + 1);
+                lastBatch = true;
             } else
                 batchSize = M.randRange(M.imin(maxBatchSize, 2), maxBatchSize);
 
