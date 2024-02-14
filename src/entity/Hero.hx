@@ -38,7 +38,7 @@ class Hero extends Entity {
         icon.setCenterRatio(0.5, 0.5);
         icon.blendMode = Add;
 
-        setAmmo(6);
+        setAmmo(4);
         initLife(3);
         // initLife(Const.INFINITE);
 

@@ -97,16 +97,16 @@ class Game extends dn.Process {
         this.onResize();
 
         this.unlockableUpgrades = [
+            new Upgrade("Dash", () -> this.hero.unlockAction(action.Dash)),
             new Upgrade(
-                this, "Dash", () -> this.hero.unlockAction(action.Dash),
+                "Grab Enemies", () -> this.hero.unlockAction(action.GrabMob),
             ),
             new Upgrade(
-                this, "Head Shot",
-                () -> this.hero.unlockAction(action.HeadShot),
+                "Head Shot", () -> this.hero.unlockAction(action.HeadShot),
             ),
             new Upgrade(
-                this, "Grab Enemies",
-                () -> this.hero.unlockAction(action.GrabMob),
+                "Bigger Mags", () -> this.hero.setAmmo(this.hero.maxAmmo + 2),
+                2
             ),
         ];
     }
