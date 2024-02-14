@@ -60,7 +60,7 @@
       "rules": [
         {
           "conditions": [{ "cond": "exceedsMaxLineLength" }],
-          "type": "equalNumber"
+          "type": "onePerLine"
         }
       ]
     },

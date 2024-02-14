@@ -9,7 +9,7 @@ typedef ActionType = {
 class Hero extends Entity {
     var actionsByPriority: Array<ActionType> = [
         Reload, Wait, HeadShot, BlindShot, KickGrab, GrabMob, TakeCover, Dash,
-        Move, TurnBack
+        ChooseUpgrade, Move, TurnBack
     ];
     var availableActions: Array<ActionType> = [];
 
@@ -28,9 +28,9 @@ class Hero extends Entity {
         super(x, y);
 
         this.unlockAction(
-            BlindShot, Dash, GrabMob, HeadShot, KickGrab, Move, Reload,
-            TakeCover, TurnBack, Wait
+            BlindShot, KickGrab, Move, Reload, TakeCover, TurnBack, Wait
         );
+        this.unlockAction(ChooseUpgrade);
 
         afterMoveAction = new None(this);
 
@@ -168,7 +168,7 @@ class Hero extends Entity {
         spr.anim.registerStateAnim("heroIdle", 0);
     }
 
-    function unlockAction(...actions: ActionType) {
+    public function unlockAction(...actions: ActionType) {
         for (action in actions) {
             var index = 0;
 

@@ -11,6 +11,10 @@ class Game extends dn.Process {
     public var level: Level;
     public var hero: entity.Hero;
 
+    public var upgrades(default, null): Array<Upgrade> = [];
+    public var unlockableUpgrades(default, null): Array<Upgrade>;
+    public var upgradeMessage: Null<h2d.Text>;
+
     var clickTrap: h2d.Interactive;
     var mask: h2d.Graphics;
 
@@ -91,6 +95,20 @@ class Game extends dn.Process {
         this.viewport.repos();
 
         this.onResize();
+
+        this.unlockableUpgrades = [
+            new Upgrade(
+                this, "Dash", () -> this.hero.unlockAction(action.Dash),
+            ),
+            new Upgrade(
+                this, "Head Shot",
+                () -> this.hero.unlockAction(action.HeadShot),
+            ),
+            new Upgrade(
+                this, "Grab Enemies",
+                () -> this.hero.unlockAction(action.GrabMob),
+            ),
+        ];
     }
 
     // function updateWave() {
@@ -260,9 +278,7 @@ class Game extends dn.Process {
     }
 
     public function startWave(id: Int) {
-        for (mob in entity.Mob.ALL)
-            mob.destroy();
-
+        this.clearLevel();
         this.level.prepareWave(id);
 
         if (this.level.waveId == 2) {
@@ -292,27 +308,55 @@ class Game extends dn.Process {
         }
     }
 
+    function startUpgrades() {
+        this.clearLevel();
+
+        this.upgradeMessage = new h2d.Text(Assets.font, this.root);
+        this.upgradeMessage.text = "Choose an upgrade";
+        this.upgradeMessage.textColor = 0x44F774;
+        this.upgradeMessage.y = 20;
+
+        var messageDest =
+            this.level.wid * Const.GRID / 2 -
+            this.upgradeMessage.textWidth / 2;
+
+        this.tw.createMs(
+            this.upgradeMessage.x,
+            -this.upgradeMessage.textWidth > messageDest, 200
+        );
+
+        this.delayer.addS(() -> {
+            this.level.startUpgrades();
+            this.cd.unset("lockNext");
+        }, 0.8);
+    }
+
+    function clearLevel() {
+        for (mob in entity.Mob.ALL)
+            mob.destroy();
+    }
+
     function exitLevel() {
         this.cd.setS("lockNext", Const.INFINITE);
-        switch (this.level.waveId) {
-            case 1:
-                this.cinematic.create({
-                    this.mask.visible = true;
-                    this.tw.createS(this.mask.alpha, 0 > 1, 0.6);
-                    600;
-                    this.hero.setPosCase(0, this.level.hei - 3);
-                    this.startWave(this.level.waveId + 1);
-                    this.tw.createS(this.mask.alpha, 0, 0.3);
-                    this.mask.visible = false;
-                    this.hero.moveTarget = new FPoint(
-                        this.hero.centerX + 30, this.hero.footY
-                    );
-                    end("move");
-                });
-
-            default:
+        if (this.level.wave.isRewarding && this.unlockableUpgrades.length > 0) {
+            this.cd.unset("lastMobDiedRecently");
+            this.startUpgrades();
+        } else if (this.level.waveId == 1) {
+            this.cinematic.create({
+                this.mask.visible = true;
+                this.tw.createS(this.mask.alpha, 0 > 1, 0.6);
+                600;
+                this.hero.setPosCase(0, this.level.hei - 3);
                 this.startWave(this.level.waveId + 1);
-        }
+                this.tw.createS(this.mask.alpha, 0, 0.3);
+                this.mask.visible = false;
+                this.hero.moveTarget = new FPoint(
+                    this.hero.centerX + 30, this.hero.footY
+                );
+                end("move");
+            });
+        } else
+            this.startWave(this.level.waveId + 1);
     }
 
     public function isSlowMo() {
@@ -345,7 +389,7 @@ class Game extends dn.Process {
         if (this.cd.has("lockNext") || this.hasCinematic())
             return false;
 
-        if (this.level.waveId == 1)
+        if (this.level.waveId == 1 && !this.level.wave.isRewarding)
             return
                 this.level.wave.isOver() &&
                 this.hero.cx >= this.level.wid - 2;

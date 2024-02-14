@@ -198,7 +198,7 @@ class Level extends dn.Process {
         else
             waveColorIndex = (this.waveId - 1) % 3;
 
-        this.wave = new Wave(waveColors[waveColorIndex]);
+        this.wave = new wave.Battle(waveColors[waveColorIndex]);
 
         var mod = this.waveId % 8;
         var difficulty = M.floor(this.waveId / 8) + mod;
@@ -326,6 +326,28 @@ class Level extends dn.Process {
             }
             points -= totalPrice * Math.log(registeredMobs + 1);
             delay += 3.5;
+        }
+
+        this.wave.start();
+    }
+
+    public function startUpgrades() {
+        this.wave = new wave.Upgrades();
+
+        var upgradeOptions = Game.ME.unlockableUpgrades.copy();
+
+        for (x in (if (upgradeOptions.length <= 1) [10] else [6, 13])) {
+            var upgrade = upgradeOptions[M.randRange(
+                0, upgradeOptions.length - 1
+            )];
+
+            upgradeOptions.remove(upgrade);
+
+            this.wave.registerEntity(
+                new entity.UpgradeEntity(
+                    x, if (this.waveId < 2) 5 else 3, upgrade
+                )
+            );
         }
 
         this.wave.start();
