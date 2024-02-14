@@ -25,7 +25,6 @@ class Level extends dn.Process {
 
     public var wave: Wave;
 
-    var waves: Array<Wave>;
     var mobShop: Array<ShopEntry> = [
         {price: 1, createMob: BasicGun.new},
         {price: 3, createMob: Heavy.new, accumulativePrice: 5},
@@ -44,99 +43,6 @@ class Level extends dn.Process {
         var mask = new h2d.Graphics(root);
         mask.beginFill(0x0, 1);
         mask.drawRect(0, 0, wid * Const.GRID, hei * Const.GRID);
-
-        this.waves = [
-            new Wave(
-                0xF60000,
-                {entity: new BasicGun(14, 6, -1)},
-                {entity: new BasicGun(19, 6, -1)},
-            ),
-            new Wave(
-                0xF60000,
-                {entity: new BasicGun(3, 6, 1)},
-                {entity: new BasicGun(19, 6, -1)},
-
-                {entity: new BasicGun(0, 6, 1), delay: 3.5},
-                {entity: new BasicGun(9, 6, -1), delay: 3.5},
-                {entity: new BasicGun(14, 6, -1), delay: 3.5},
-                {entity: new BasicGun(19, 6, -1), delay: 3.5},
-            ),
-            new Wave(
-                0xF60000,
-                {entity: new Cover(14, 3)},
-                {entity: new BasicGun(6, 4, -1)},
-                {entity: new BasicGun(10, 4, -1)},
-                {entity: new BasicGun(18, 4, -1)},
-
-                {entity: new BasicGun(1, 4, 1), delay: 3.5},
-                {entity: new BasicGun(15, 4, -1), delay: 3.5},
-                {entity: new Heavy(19, 4, -1), delay: 3.5},
-            ),
-            new Wave(
-                0x0D54F6,
-                {entity: new Cover(7, 3)},
-                {entity: new BasicGun(4, 4, 1)},
-                {entity: new Grenader(12, 4, 1)},
-
-                {entity: new BasicGun(1, 4, 1), delay: 3.5},
-            ),
-            new Wave(
-                0xF60000,
-                {entity: new Cover(15, 3)},
-                {entity: new BasicGun(5, 4, 1)},
-                {entity: new BasicGun(18, 4, -1)},
-                {entity: new Grenader(1, 4, 1)},
-
-                {entity: new BasicGun(1, 4, 1), delay: 3.5},
-                {entity: new Heavy(19, 4, -1), delay: 3.5},
-
-                {entity: new BasicGun(11, 4, -1), delay: 7},
-            ),
-            new Wave(
-                0x0D54F6,
-                {entity: new Cover(6, 3)},
-                {entity: new BasicGun(5, 4, 1)},
-                {entity: new Grenader(18, 4, -1)},
-
-                {entity: new BasicGun(10, 4, -1), delay: 3.5},
-                {entity: new Grenader(1, 4, 1), delay: 3.5},
-
-                {entity: new BasicGun(13, 4, -1), delay: 7},
-            ),
-            new Wave(
-                0xD600F6,
-                {entity: new Cover(5, 3)},
-                {entity: new BasicGun(1, 4, 1)},
-                {entity: new BasicGun(16, 4, -1)},
-
-                {entity: new BasicGun(7, 4, 1), delay: 3.5},
-                {entity: new Grenader(3, 4, 1), delay: 3.5},
-
-                {entity: new BasicGun(4, 4, 1), delay: 7},
-                {entity: new BasicGun(10, 4, -1), delay: 7},
-                {entity: new Grenader(18, 4, -1), delay: 7},
-            ),
-            new Wave(
-                0xF60000,
-                {entity: new Cover(1, 3)},
-                {entity: new Cover(6, 3)},
-                {entity: new Cover(9, 3)},
-                {entity: new Cover(13, 3)},
-                {entity: new Cover(17, 3)},
-                {entity: new BasicGun(2, 4, 1)},
-                {entity: new BasicGun(7, 4, 1)},
-                {entity: new BasicGun(11, 4, 1)},
-
-                {entity: new BasicGun(4, 4, -1), delay: 3.5},
-                {entity: new BasicGun(18, 4, -1), delay: 3.5},
-                {entity: new Grenader(9, 4, 1), delay: 3.5},
-
-                {entity: new BasicGun(5, 4, -1), delay: 7},
-                {entity: new Grenader(11, 4, -1), delay: 7},
-                {entity: new Grenader(15, 4, -1), delay: 7},
-                {entity: new Grenader(18, 4, -1), delay: 7},
-            ),
-        ];
     }
 
     public function prepareWave(waveId: Int) {

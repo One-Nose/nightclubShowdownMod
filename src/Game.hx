@@ -276,26 +276,19 @@ class Game extends dn.Process {
                 cover.destroy();
         }
 
-        if (this.level.waveId > 7)
-            announce(
-                "Thank you for playing ^_^\nA 20h game by Sebastien Benard\ndeepnight.net",
-                true
-            );
+        if (this.level.waveId <= 0)
+            this.level.startWave();
         else {
-            if (this.level.waveId <= 0)
+            this.announce('Wave ${this.level.waveId}...', 0xFFD11C);
+            this.delayer.addS(function() {
+                this.announce("          Fight!", 0xEF4810);
+            }, 0.5);
+            this.delayer.addS(function() {
+                if (this.level.waveId >= 2)
+                    this.fx.allSpots(25, this.level.wid * Const.GRID);
                 this.level.startWave();
-            else {
-                this.announce('Wave ${this.level.waveId}...', 0xFFD11C);
-                this.delayer.addS(function() {
-                    this.announce("          Fight!", 0xEF4810);
-                }, 0.5);
-                this.delayer.addS(function() {
-                    if (this.level.waveId >= 2)
-                        this.fx.allSpots(25, this.level.wid * Const.GRID);
-                    this.level.startWave();
-                    this.cd.unset("lockNext");
-                }, 1);
-            }
+                this.cd.unset("lockNext");
+            }, 1);
         }
     }
 

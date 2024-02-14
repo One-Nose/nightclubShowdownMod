@@ -227,7 +227,11 @@ class Hero extends Entity {
         super.onDie();
         stopGrab();
         new entity.DeadBody(this, "hero").init();
-        game.announce("T to restart", 0xFF0000, true);
+        game.announce(
+            'You survived ${this.level.waveId} waves\n' + "T to restart",
+            0xFF0000,
+            true
+        );
     }
 
     override public function dispose() {
