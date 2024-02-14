@@ -336,7 +336,8 @@ class Entity {
         tween.onEnd = function() {
             var tf = this.label;
             this.game.cinematic.signal("say");
-            this.game.tw.createS(tf.alpha, 0.5 | 0, 1)
+            this.game.tw
+                .createS(tf.alpha, 0.5 | 0, 1)
                 .end(function() this.setLabel());
         }
     }

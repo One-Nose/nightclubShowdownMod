@@ -36,7 +36,8 @@ class HeadShot extends Action {
     }
 
     function _execute() {
-        this.hero.getSkill("headShot")
+        this.hero
+            .getSkill("headShot")
             .prepareOn(this.mob, if (this.mob.isGrabbed()) 0.5 else 1);
     }
 

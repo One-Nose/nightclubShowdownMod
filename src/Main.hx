@@ -73,13 +73,15 @@ class Main extends dn.Process {
     ) {
         if (fadeIn) {
             this.black.visible = true;
-            this.tw.createS(this.black.alpha, 0 > 1, seconds ?? 0.6)
+            this.tw
+                .createS(this.black.alpha, 0 > 1, seconds ?? 0.6)
                 .onEnd = function() {
                     if (callback != null)
                         callback();
                 };
         } else {
-            this.tw.createS(this.black.alpha, 0, seconds ?? 0.3)
+            this.tw
+                .createS(this.black.alpha, 0, seconds ?? 0.3)
                 .onEnd = function() {
                     this.black.visible = false;
                     if (callback != null)

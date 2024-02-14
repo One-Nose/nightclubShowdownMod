@@ -48,6 +48,14 @@
         }
       ]
     },
+    "methodChain": {
+      "rules": [
+        {
+          "conditions": [{ "cond": "exceedsMaxLineLength" }],
+          "type": "onePerLine"
+        }
+      ]
+    },
     "opAddSubChain": {
       "rules": [
         {

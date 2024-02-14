@@ -210,11 +210,13 @@ class Game extends dn.Process {
         logo.y = 30;
         logo.colorize(0x3D65C2);
         logo.blendMode = Add;
-        this.tw.createMs(logo.x, 500 | -logo.tile.width > 12, 250)
+        this.tw
+            .createMs(logo.x, 500 | -logo.tile.width > 12, 250)
             .onEnd = function() {
                 var d = 5000;
                 this.tw.createMs(logo.alpha, d | 0, 1500).onEnd = logo.remove;
-            }}
+            }
+    }
 
     public function announce(
         str: String, ?color = 0xFFFFFF, ?permanent = false, ?delayMs = 500

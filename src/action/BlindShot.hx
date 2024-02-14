@@ -40,7 +40,8 @@ class BlindShot extends Action {
     }
 
     function _execute() {
-        this.hero.getSkill("blindShot")
+        this.hero
+            .getSkill("blindShot")
             .prepareOn(this.mob, if (this.mob.isGrabbed()) 0.5 else 1);
     }
 
