@@ -30,6 +30,8 @@ class UpgradeEntity extends Entity {
     public function claim() {
         this.upgrade.claim();
 
+        Assets.SFX.reload2(1);
+
         this.game.tw
             .createMs(this.game.upgradeMessage.alpha, 0, 1500)
             .onEnd = this.game.upgradeMessage.remove;
