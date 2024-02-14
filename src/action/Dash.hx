@@ -14,7 +14,7 @@ class Dash extends Action {
     public static function getInstance(
         hero: entity.Hero, x: Float, y: Float
     ): Null<Dash> {
-        if (M.fabs(y - hero.footY - Const.GRID / 2) <= Const.GRID / 2) {
+        if (M.fabs(y - hero.footY - Const.GRID / 1.5) <= Const.GRID / 1.5) {
             var tx = hero.footX + M.sign(x - hero.footX) * 5 * Const.GRID;
             tx = M.fclamp(tx, 5, hero.level.wid * Const.GRID - 5);
             if (

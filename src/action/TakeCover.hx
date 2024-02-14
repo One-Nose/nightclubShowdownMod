@@ -20,14 +20,14 @@ class TakeCover extends Action {
             var rightCover = new TakeCover(hero, entity, -1);
             if (
                 rightCover.canBePerformed() != false &&
-                entity.left.contains(x, y - Const.GRID)
+                entity.left.contains(x, y - Const.GRID * 1.5)
             )
                 action = rightCover;
 
             var leftCover = new TakeCover(hero, entity, 1);
             if (
                 leftCover.canBePerformed() != false &&
-                entity.right.contains(x, y - Const.GRID)
+                entity.right.contains(x, y - Const.GRID * 1.5)
             )
                 action = leftCover;
         }
