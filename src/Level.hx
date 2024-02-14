@@ -28,7 +28,7 @@ class Level extends dn.Process {
     var waves: Array<Wave>;
     var mobShop: Array<ShopEntry> = [
         {price: 1, createMob: BasicGun.new},
-        {price: 3, createMob: Heavy.new, accumulativePrice: 3},
+        {price: 3, createMob: Heavy.new, accumulativePrice: 5},
         {price: 5, createMob: Grenader.new},
     ];
 
