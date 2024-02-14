@@ -296,6 +296,27 @@ class Level extends dn.Process {
 
         var mod = this.waveId % 8;
         var difficulty = M.floor(this.waveId / 8) + mod;
+
+        var covers = if (difficulty < 2) {
+            0;
+        } else if (difficulty < 7) {
+            1;
+        } else {
+            M.randRange(2, 3);
+        }
+        if (mod == 7)
+            covers += 2;
+
+        for (_ in 0...covers) {
+            var availableXs = [for (i in 1...(this.wid - 1)) i];
+            var x = availableXs[M.randRange(0, availableXs.length)];
+            availableXs.remove(x);
+            availableXs.remove(x - 1);
+            availableXs.remove(x + 1);
+
+            wave.registerEntity(new Cover(x, 3));
+        }
+
         var points: Float = M.floor(this.waveId / 8) * 10;
 
         points += 2.16 * Math.pow(1.47, mod + Math.random() * 0.8 - 0.5);
