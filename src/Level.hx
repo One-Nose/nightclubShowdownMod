@@ -302,9 +302,10 @@ class Level extends dn.Process {
             points += 5.9;
         points = M.fmax(points, 2.2);
 
-        var shop = this.mobShop.filter(
-            entry -> entry.price <= M.fmax(this.waveId, 1) * 2
-        );
+        var shop: Array<ShopEntry> = this.mobShop
+            .filter(entry -> entry.price <= M.fmax(this.waveId, 1) * 2)
+            .map(entry -> Reflect.copy(entry));
+
         var delay = 0.0;
         while (true) {
             var maxBatchSize = 0;
@@ -327,9 +328,7 @@ class Level extends dn.Process {
             var batchPoints = points / Math.log(batchSize + 1);
             var registeredMobs = 0;
             var totalPrice = 0.0;
-            var batchShop: Array<ShopEntry> = shop.map(
-                entry -> Reflect.copy(entry)
-            );
+            var batchShop = shop;
             var availableXs = [for (x in 0...this.wid) x];
             var dirByX = new Map<Int, Int>();
             while (registeredMobs < batchSize) {
