@@ -20,6 +20,13 @@ class Level extends dn.Process {
     public var wave: Wave;
 
     var waves: Array<Wave>;
+    var mobShop: Array<{
+        price: Int,
+        createMob: (x: Int, y: Int, dir: Null<Int>) -> entity.Mob
+    }> = [
+        {price: 1, createMob: BasicGun.new}, {price: 3, createMob: Heavy.new},
+        {price: 5, createMob: Grenader.new},
+        ];
 
     public function new() {
         super(Game.ME);
@@ -270,7 +277,87 @@ class Level extends dn.Process {
     }
 
     public function startWave() {
-        this.waves[this.waveId].start();
+        var waveColors = [0xF60000, 0x0D54F6, 0xD600F6];
+
+        var waveColorIndex: dn.Col;
+
+        if (this.waveId <= 1)
+            waveColorIndex = 0;
+        else if (this.waveId <= 5)
+            waveColorIndex = this.waveId % 2;
+        else
+            waveColorIndex = (this.waveId - 1) % 3;
+
+        var wave = new Wave(waveColors[waveColorIndex]);
+
+        var mod = this.waveId % 8;
+        var points: Float = M.floor(this.waveId / 8) * 10;
+
+        points += 2.16 * Math.pow(1.47, mod + Math.random() * 0.8 - 0.5);
+        if ([1, 2, 4, 7].contains(mod))
+            points += 5.9;
+        points = M.fmax(points, 2.2);
+
+        var shop = this.mobShop.filter(
+            entry -> entry.price <= M.fmax(this.waveId, 1) * 2
+        );
+        var delay = 0.0;
+        while (true) {
+            var maxBatchSize = 0;
+            for (batchSize in 1...5) {
+                if (batchSize * Math.log(batchSize + 1) <= points)
+                    maxBatchSize = batchSize;
+                else
+                    break;
+            }
+            if (maxBatchSize == 0)
+                break;
+
+            var batchSize: Int;
+            if (delay >= 7 || (delay >= 3.5 && mod <= 1)) {
+                batchSize = maxBatchSize;
+                points = batchSize * Math.log(batchSize + 1);
+            } else
+                batchSize = M.randRange(M.imin(maxBatchSize, 2), maxBatchSize);
+
+            var batchPoints = points / Math.log(batchSize + 1);
+            var registeredMobs = 0;
+            var totalPrice = 0.0;
+            var batchShop = shop;
+            var availableXs = [for (x in 0...this.wid) x];
+            while (registeredMobs < batchSize) {
+                batchShop = batchShop.filter(
+                    entry -> entry.price <= batchPoints - totalPrice
+                );
+                if (batchShop.length == 0)
+                    break;
+
+                var chosenEntry = batchShop[M.randRange(
+                    0, batchShop.length - 1
+                )];
+                totalPrice += chosenEntry.price;
+
+                var x = availableXs[M.randRange(0, availableXs.length)];
+                availableXs.remove(x);
+                availableXs.remove(x - 1);
+                availableXs.remove(x + 1);
+                var dir = if (M.fabs(x - 10) > 6) 0 else M.randRange(-1, 1);
+                wave.registerEntity(
+                    chosenEntry.createMob(
+                        x,
+                        if (this.waveId <= 1) 6 else 4,
+                        if (dir == 0) null else dir
+                    ),
+                    delay
+                );
+
+                registeredMobs++;
+            }
+            points -= totalPrice * Math.log(registeredMobs + 1);
+            delay += 3.5;
+        }
+
+        wave.start();
     }
 
     public function isValid(cx: Float, cy: Float) {

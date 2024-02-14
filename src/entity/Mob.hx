@@ -11,7 +11,9 @@ class Mob extends Entity {
     public function new(x, y, ?dir: Int) {
         super(x, y);
 
-        if (dir != null)
+        if (dir == null)
+            this.dir = if (x < this.level.wid * 0.5) 1 else -1;
+        else
             this.dir = dir;
 
         hitSounds = [
