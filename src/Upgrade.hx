@@ -1,23 +1,28 @@
 class Upgrade {
-    var game: Game;
-
     public var name(default, null): String;
 
     var onUnlock: () -> Void;
-    var children: Array<Upgrade> = [];
+    var children: Array<Upgrade>;
 
-    public function new(game: Game, name: String, onUnlock: () -> Void) {
-        this.game = game;
+    public function new(
+        name: String, onUnlock: () -> Void, maxLevel = 1,
+        ?children: Array<Upgrade>
+    ) {
         this.name = name;
         this.onUnlock = onUnlock;
+        this.children = children ?? [];
+        if (maxLevel > 1)
+            this.children.push(
+                new Upgrade(name, onUnlock, maxLevel - 1, children)
+            );
     }
 
     public function claim() {
         this.onUnlock();
 
-        this.game.unlockableUpgrades.remove(this);
-        this.game.upgrades.push(this);
+        Game.ME.unlockableUpgrades.remove(this);
+        Game.ME.upgrades.push(this);
         for (upgrade in this.children)
-            this.game.unlockableUpgrades.push(upgrade);
+            Game.ME.unlockableUpgrades.push(upgrade);
     }
 }
