@@ -213,8 +213,8 @@ class Level extends dn.Process {
         if (mod == 7)
             covers += 2;
 
+        var availableXs = [for (i in 1...(this.wid - 1)) i];
         for (_ in 0...covers) {
-            var availableXs = [for (i in 1...(this.wid - 1)) i];
             var x = availableXs[M.randRange(0, availableXs.length)];
             availableXs.remove(x);
             availableXs.remove(x - 1);
