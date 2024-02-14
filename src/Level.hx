@@ -1,6 +1,12 @@
 import entity.Cover;
 import entity.mob.*;
 
+typedef ShopEntry = {
+    price: Int,
+    createMob: (x: Int, y: Int, dir: Null<Int>) -> entity.Mob,
+    ?accumulativePrice: Int,
+}
+
 class Level extends dn.Process {
     public var waveId: Int;
 
@@ -20,13 +26,11 @@ class Level extends dn.Process {
     public var wave: Wave;
 
     var waves: Array<Wave>;
-    var mobShop: Array<{
-        price: Int,
-        createMob: (x: Int, y: Int, dir: Null<Int>) -> entity.Mob
-    }> = [
-        {price: 1, createMob: BasicGun.new}, {price: 3, createMob: Heavy.new},
+    var mobShop: Array<ShopEntry> = [
+        {price: 1, createMob: BasicGun.new},
+        {price: 3, createMob: Heavy.new, accumulativePrice: 3},
         {price: 5, createMob: Grenader.new},
-        ];
+    ];
 
     public function new() {
         super(Game.ME);
@@ -323,7 +327,9 @@ class Level extends dn.Process {
             var batchPoints = points / Math.log(batchSize + 1);
             var registeredMobs = 0;
             var totalPrice = 0.0;
-            var batchShop = shop;
+            var batchShop: Array<ShopEntry> = shop.map(
+                entry -> Reflect.copy(entry)
+            );
             var availableXs = [for (x in 0...this.wid) x];
             while (registeredMobs < batchSize) {
                 batchShop = batchShop.filter(
@@ -336,6 +342,7 @@ class Level extends dn.Process {
                     0, batchShop.length - 1
                 )];
                 totalPrice += chosenEntry.price;
+                chosenEntry.price += chosenEntry.accumulativePrice ?? 0;
 
                 var x = availableXs[M.randRange(0, availableXs.length)];
                 availableXs.remove(x);
