@@ -62,6 +62,14 @@ class Viewport extends dn.Process {
         }
         tx /= n;
         ty /= n;
+
+        var furthestFromPlayer = this.level.wid * Const.GRID / 2 - Const.GRID * 1.2;
+        tx = M.fclamp(
+            tx,
+            this.game.hero.centerX - furthestFromPlayer,
+            this.game.hero.centerX + furthestFromPlayer
+        );
+
         var a = Math.atan2(ty - y, tx - x);
         var d = dn.M.dist(x, y, tx, ty);
         if (d >= 10) {
