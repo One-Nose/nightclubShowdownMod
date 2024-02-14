@@ -42,6 +42,7 @@ class Dash extends Action {
     }
 
     function _execute() {
+        Assets.SFX.land0(1);
         this.hero.spr.anim.stopWithStateAnims();
         this.hero.speed *= 2;
         this.hero.moveTarget = new FPoint(this.x, this.y);
