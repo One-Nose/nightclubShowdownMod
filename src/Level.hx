@@ -214,7 +214,12 @@ class Level extends dn.Process {
             covers += 2;
 
         var availableXs = [for (i in 1...(this.wid - 1)) i];
+        for (cover in Cover.ALL)
+            availableXs.remove(cover.cx);
+
         for (_ in 0...covers) {
+            if (availableXs.length == 0)
+                break;
             var x = availableXs[M.randRange(0, availableXs.length)];
             availableXs.remove(x);
             availableXs.remove(x - 1);
