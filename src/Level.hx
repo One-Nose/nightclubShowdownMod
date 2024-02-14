@@ -235,9 +235,9 @@ class Level extends dn.Process {
             points += 5.9;
         points = M.fmax(points, 2.2);
 
-        var shop: Array<ShopEntry> = this.mobShop
-            .filter(entry -> entry.price <= M.fmax(difficulty, 1) * 2)
-            .map(entry -> Reflect.copy(entry));
+        var shop: Array<ShopEntry> = this.mobShop.map(
+            entry -> Reflect.copy(entry)
+        );
 
         var delay = 0.0;
         var lastBatch = false;
@@ -266,8 +266,14 @@ class Level extends dn.Process {
             var availableXs = [for (x in 0...this.wid) x];
             var dirByX = new Map<Int, Int>();
             while (registeredMobs < batchSize) {
+                shop = shop.filter(
+                    entry -> entry.price <= M.fmax(difficulty, 1) * 2
+                );
+
                 batchShop = batchShop.filter(
-                    entry -> entry.price <= batchPoints - totalPrice
+                    entry ->
+                        shop.contains(entry) &&
+                        entry.price <= batchPoints - totalPrice
                 );
                 if (batchShop.length == 0)
                     break;
