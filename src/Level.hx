@@ -220,7 +220,7 @@ class Level extends dn.Process {
         for (_ in 0...covers) {
             if (availableXs.length == 0)
                 break;
-            var x = availableXs[M.randRange(0, availableXs.length)];
+            var x = availableXs[M.randRange(0, availableXs.length - 1)];
             availableXs.remove(x);
             availableXs.remove(x - 1);
             availableXs.remove(x + 1);
@@ -280,11 +280,14 @@ class Level extends dn.Process {
 
                 var x = availableXs[M.randRange(
                     if (
-                        difficulty <= 3 &&
-                        delay == 0.0 &&
-                        chosenEntry.price >= 3
+                        this.waveId == 0 ||
+                        (
+                            difficulty <= 3 &&
+                            delay == 0.0 &&
+                            chosenEntry.price >= 3
+                        )
                     ) availableXs.length - 8 else 0,
-                    availableXs.length
+                    availableXs.length - 1
                 )];
                 availableXs.remove(x);
                 availableXs.remove(x - 1);
@@ -293,6 +296,8 @@ class Level extends dn.Process {
                 var dir: Int;
                 if (M.fabs(x - 10) > 6)
                     dir = 0;
+                else if (this.waveId == 0)
+                    dir = -1;
                 else if (M.fabs(dirByX[x]) > 0)
                     dir = dirByX[x];
                 else
