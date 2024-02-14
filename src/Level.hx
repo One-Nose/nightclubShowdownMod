@@ -295,6 +295,7 @@ class Level extends dn.Process {
         var wave = new Wave(waveColors[waveColorIndex]);
 
         var mod = this.waveId % 8;
+        var difficulty = M.floor(this.waveId / 8) + mod;
         var points: Float = M.floor(this.waveId / 8) * 10;
 
         points += 2.16 * Math.pow(1.47, mod + Math.random() * 0.8 - 0.5);
@@ -303,7 +304,7 @@ class Level extends dn.Process {
         points = M.fmax(points, 2.2);
 
         var shop: Array<ShopEntry> = this.mobShop
-            .filter(entry -> entry.price <= M.fmax(this.waveId, 1) * 2)
+            .filter(entry -> entry.price <= M.fmax(difficulty, 1) * 2)
             .map(entry -> Reflect.copy(entry));
 
         var delay = 0.0;
@@ -346,7 +347,7 @@ class Level extends dn.Process {
 
                 var x = availableXs[M.randRange(
                     if (
-                        this.waveId <= 3 &&
+                        difficulty <= 3 &&
                         delay == 0.0 &&
                         chosenEntry.price >= 3
                     ) availableXs.length - 8 else 0,
