@@ -23,7 +23,6 @@ class Wave {
     }
 
     public function start() {
-        Game.ME.level.wave = this;
         Game.ME.level.hue(Color.intToHsl(this.color).h * 6.28, 2.5);
 
         for (delay => delayEntities in this.entities)

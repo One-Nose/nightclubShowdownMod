@@ -198,7 +198,7 @@ class Level extends dn.Process {
         else
             waveColorIndex = (this.waveId - 1) % 3;
 
-        var wave = new Wave(waveColors[waveColorIndex]);
+        this.wave = new Wave(waveColors[waveColorIndex]);
 
         var mod = this.waveId % 8;
         var difficulty = M.floor(this.waveId / 8) + mod;
@@ -220,7 +220,7 @@ class Level extends dn.Process {
             availableXs.remove(x - 1);
             availableXs.remove(x + 1);
 
-            wave.registerEntity(new Cover(x, 3));
+            this.wave.registerEntity(new Cover(x, 3));
         }
 
         var points: Float = M.floor(this.waveId / 8) * 10;
@@ -298,7 +298,7 @@ class Level extends dn.Process {
                 for (closeX in (x - 4)...(x + 5))
                     dirByX[closeX] = if (dirByX.exists(closeX)) 0 else dir;
 
-                wave.registerEntity(
+                this.wave.registerEntity(
                     chosenEntry.createMob(
                         x, if (this.waveId <= 1) 6 else 4, dir
                     ),
@@ -311,7 +311,7 @@ class Level extends dn.Process {
             delay += 3.5;
         }
 
-        wave.start();
+        this.wave.start();
     }
 
     public function isValid(cx: Float, cy: Float) {
