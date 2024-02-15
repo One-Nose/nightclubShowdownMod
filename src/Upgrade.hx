@@ -44,7 +44,6 @@ class Upgrade {
         this.onUnlock();
 
         Game.ME.unlockableUpgrades.remove(this);
-        Game.ME.upgrades.push(this);
         for (upgrade in this.children)
             Game.ME.unlockableUpgrades.push(upgrade);
     }

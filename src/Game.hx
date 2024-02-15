@@ -12,7 +12,6 @@ class Game extends dn.Process {
     public var level: Level;
     public var hero: entity.Hero;
 
-    public var upgrades(default, null): Array<Upgrade> = [];
     public var unlockableUpgrades(default, null): Array<Upgrade>;
     public var upgradeMessage: Null<h2d.Text>;
 
