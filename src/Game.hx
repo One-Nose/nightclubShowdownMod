@@ -367,6 +367,7 @@ class Game extends dn.Process {
         }
 
         if (
+            this.level.wave.isRewarding &&
             this.level.waveId % 4 == 3 &&
             !Lambda.exists(
                 this.unlockableUpgrades, upgrade -> upgrade.onUnlock == heal
