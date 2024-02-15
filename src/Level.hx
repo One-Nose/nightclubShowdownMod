@@ -235,7 +235,7 @@ class Level extends dn.Process {
         var points: Float = M.floor(this.waveId / 8) * 10;
 
         points += 2.16 * Math.pow(1.47, mod + Math.random() * 0.8 - 0.5);
-        if ([1, 2, 4, 7].contains(mod))
+        if ([1, 4, 7].contains(mod))
             points += 5.9;
         points = M.fmax(points, 2.2);
 
