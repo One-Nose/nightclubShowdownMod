@@ -335,12 +335,8 @@ class Level extends dn.Process {
         this.wave.start();
     }
 
-    public function startUpgrades() {
+    public function startUpgrades(upgradeOptions: Array<Upgrade>) {
         this.wave = new wave.Upgrades();
-
-        var upgradeOptions = Game.ME.unlockableUpgrades.filter(
-            upgrade -> upgrade.isUnlockable()
-        );
 
         for (x in (if (upgradeOptions.length <= 1) [10] else [6, 13])) {
             var upgrade = upgradeOptions[M.randRange(

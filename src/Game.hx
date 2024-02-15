@@ -330,7 +330,7 @@ class Game extends dn.Process {
         }
     }
 
-    function startUpgrades() {
+    function startUpgrades(upgradeOptions: Array<Upgrade>) {
         this.clearLevel();
 
         this.upgradeMessage = new h2d.Text(Assets.font, this.root);
@@ -348,7 +348,7 @@ class Game extends dn.Process {
         );
 
         this.delayer.addS(() -> {
-            this.level.startUpgrades();
+            this.level.startUpgrades(upgradeOptions);
             this.cd.unset("lockNext");
         }, 0.8);
     }
@@ -381,9 +381,13 @@ class Game extends dn.Process {
                 isUnlockable: () -> this.hero.life < this.hero.maxLife
             }));
 
-        if (this.level.wave.isRewarding && this.unlockableUpgrades.length > 0) {
+        var upgradeOptions = this.unlockableUpgrades.filter(
+            upgrade -> upgrade.isUnlockable()
+        );
+
+        if (this.level.wave.isRewarding && upgradeOptions.length > 0) {
             this.cd.unset("lastMobDiedRecently");
-            this.startUpgrades();
+            this.startUpgrades(upgradeOptions);
         } else if (this.level.waveId == 1) {
             this.cinematic.create({
                 this.mask.visible = true;
