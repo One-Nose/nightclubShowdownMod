@@ -342,6 +342,23 @@ class Game extends dn.Process {
 
     function exitLevel() {
         this.cd.setS("lockNext", Const.INFINITE);
+
+        function heal() {
+            this.hero.life++;
+            this.updateHud();
+        }
+
+        if (
+            this.level.waveId % 4 == 3 &&
+            !Lambda.exists(
+                this.unlockableUpgrades, upgrade -> upgrade.onUnlock == heal
+            )
+        )
+            this.unlockableUpgrades.push(new Upgrade("Heal", {
+                onUnlock: heal,
+                isUnlockable: () -> this.hero.life < this.hero.maxLife
+            }));
+
         if (this.level.wave.isRewarding && this.unlockableUpgrades.length > 0) {
             this.cd.unset("lastMobDiedRecently");
             this.startUpgrades();
