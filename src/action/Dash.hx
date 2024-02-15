@@ -3,12 +3,21 @@ package action;
 class Dash extends Action {
     public var x: Float;
     public var y: Float;
+    public var then: Action;
 
-    public function new(hero: entity.Hero, x: Float, y: Float) {
+    var rollSeconds: Float;
+
+    public function new(
+        hero: entity.Hero, x: Float, y: Float, rollSeconds = 0.3, ?then: Action
+    ) {
         super(hero, "Dash", 0x44A9F7);
 
         this.x = x;
         this.y = y;
+        this.rollSeconds = rollSeconds;
+        this.then = then ?? new None(hero);
+        this.then.helpText += " (dash)";
+        this.then.color = this.color;
     }
 
     public static function getInstance(
@@ -28,6 +37,7 @@ class Dash extends Action {
 
             if (
                 action.canBePerformed() &&
+                M.fabs(hero.footX - action.x) >= Const.GRID * 2 &&
                 M.fabs(action.x - x) <= Const.GRID * 3
             )
                 return action;
@@ -36,26 +46,36 @@ class Dash extends Action {
     }
 
     override function canBePerformed(): Null<Bool> {
-        return
-            hero.grabbedMob == null &&
-            M.fabs(this.hero.footX - this.x) >= Const.GRID * 2;
+        return this.hero.grabbedMob == null;
     }
 
     function _execute() {
-        Assets.SFX.land0(1);
         this.hero.spr.anim.stopWithStateAnims();
-        this.hero.speed *= 2;
-        this.hero.moveTarget = new FPoint(this.x, this.y);
-        this.hero.cd.setS("rolling", 0.3);
-        this.hero.cd.setS("rollBraking", this.hero.cd.getS("rolling") + 0.3);
-        this.hero.afterMoveAction = new action.None(this.hero);
         this.hero.leaveCover();
+        this.hero.stopGrab();
+
+        if (this.then.canBePerformed())
+            this.then.execute();
+        else {
+            Assets.SFX.land0(1);
+            this.hero.speed *= 2;
+            this.hero.moveTarget = new FPoint(this.x, this.y);
+            this.hero.cd.setS("rolling", this.rollSeconds);
+            this.hero.cd.setS(
+                "rollBraking", this.hero.cd.getS("rolling") + 0.3
+            );
+            this.hero.afterMoveAction = this.then;
+        }
     }
 
     public override function updateDisplay() {
-        this.hero.icon.setPos(this.x, this.y);
-        this.hero.icon.set("iconKickGrab");
+        if (this.then is None) {
+            this.hero.icon.setPos(this.x, this.y);
+            this.hero.icon.set("iconKickGrab");
 
-        super.updateDisplay();
+            super.updateDisplay();
+        } else {
+            this.then.updateDisplay();
+        }
     }
 }

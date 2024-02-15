@@ -108,7 +108,13 @@ class Game extends dn.Process {
                     "Move fast", "Dodge bullets",
                     "Makes you vulnerable for a moment"
                 ],
-                onUnlock: () -> this.hero.unlockAction(action.Dash)
+                onUnlock: () -> this.hero.unlockAction(action.Dash),
+                children: [new Upgrade("Cover Dash", {
+                    description: [
+                        "Dash into cover", "Skip the vulnerability moment"
+                    ],
+                    onUnlock: () -> this.hero.canCoverDash = true
+                })]
             }),
             new Upgrade("Head Shot", {
                 description: [

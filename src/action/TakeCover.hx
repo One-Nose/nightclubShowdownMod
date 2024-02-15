@@ -13,7 +13,7 @@ class TakeCover extends Action {
 
     public static function getInstance(
         hero: entity.Hero, x: Float, y: Float
-    ): Null<Move> {
+    ): Null<Action> {
         var action: Null<TakeCover> = null;
 
         for (entity in entity.Cover.ALL) {
@@ -34,9 +34,18 @@ class TakeCover extends Action {
 
         if (action == null)
             return null;
-        return new Move(
-            hero, action.cover.centerX + action.side * 10, hero.footY, action
-        );
+
+        var actionX = action.cover.centerX + action.side * 10;
+
+        if (
+            hero.canCoverDash &&
+            M.inRange(
+                M.fabs(hero.footX - actionX), Const.GRID * 2, Const.GRID * 5
+            )
+        )
+            return new Dash(hero, actionX, hero.footY, Const.INFINITE, action);
+
+        return new Move(hero, actionX, hero.footY, action);
     }
 
     override function canBePerformed(): Null<Bool> {
