@@ -8,8 +8,8 @@ typedef ActionType = {
 
 class Hero extends Entity {
     var actionsByPriority: Array<ActionType> = [
-        Reload, Wait, HeadShot, BlindShot, KickGrab, GrabMob, TakeCover, Dash,
-        ChooseUpgrade, Move, TurnBack
+        Reload, Wait, HeadShot, BlindShot, KickGrab, GrabMob, KickMob,
+        TakeCover, Dash, ChooseUpgrade, Move, TurnBack
     ];
     var availableActions: Array<ActionType> = [];
 
