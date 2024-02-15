@@ -24,6 +24,7 @@ class Hero extends Entity {
     public var help: Null<h2d.Text>;
     public var speed = 0.011;
     public var headShotDamage = 2;
+    public var piercingShot = false;
 
     public function new(x, y) {
         super(x, y);
@@ -101,6 +102,18 @@ class Hero extends Entity {
             }
 
             fx.flashBangS(0x477ADA, 0.1, 0.1);
+
+            if (this.piercingShot)
+                for (mob in Mob.ALL)
+                    if (
+                        mob != e &&
+                        M.inRange(
+                            mob.footX,
+                            M.fmin(this.footX, e.footX),
+                            M.fmax(this.footX, e.footX),
+                        )
+                    )
+                        mob.hit(1, this, true);
 
             if (e.hit(this.headShotDamage, this, true))
                 fx.headShot(shootX, shootY, e.headX, e.headY, dirTo(e));

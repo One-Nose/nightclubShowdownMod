@@ -124,6 +124,12 @@ class Game extends dn.Process {
                     }), new Upgrade("Fatal Shot", {
                         description: ["Head shots deal 1 more damage"],
                         onUnlock: () -> this.hero.headShotDamage++
+                    }), new Upgrade("Piercing Shot", {
+                        description: [
+                            "Head shots pierce through enemies",
+                            "Extra targets take only 1 damage"
+                        ],
+                        onUnlock: () -> this.hero.piercingShot = true
                     }),
                 ]
             }),
