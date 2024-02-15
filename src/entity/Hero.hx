@@ -23,6 +23,7 @@ class Hero extends Entity {
     public var grabbedMob: Null<entity.Mob>;
     public var help: Null<h2d.Text>;
     public var speed = 0.011;
+    public var headShotDamage = 2;
 
     public function new(x, y) {
         super(x, y);
@@ -101,7 +102,7 @@ class Hero extends Entity {
 
             fx.flashBangS(0x477ADA, 0.1, 0.1);
 
-            if (e.hit(2, this, true))
+            if (e.hit(this.headShotDamage, this, true))
                 fx.headShot(shootX, shootY, e.headX, e.headY, dirTo(e));
             fx.shoot(shootX, shootY, e.headX, e.headY, 0x2780D8);
             fx.bullet(shootX - dir * 5, shootY, dir);
