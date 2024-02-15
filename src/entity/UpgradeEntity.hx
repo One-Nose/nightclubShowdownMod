@@ -5,6 +5,9 @@ class UpgradeEntity extends Entity {
 
     var upgrade: Upgrade;
     var helpText: h2d.Text;
+    var description: h2d.Text;
+
+    var isHovered = false;
 
     public function new(x, y, upgrade: Upgrade) {
         super(x, y);
@@ -16,6 +19,20 @@ class UpgradeEntity extends Entity {
         this.helpText = new h2d.Text(Assets.font);
         this.helpText.text = upgrade.name;
         this.helpText.textColor = 0x44F1F7;
+
+        this.description = new h2d.Text(Assets.font);
+        this.description.text = upgrade.description;
+        this.description.textColor = 0x44F1F7;
+
+        var distanceFromEdge = if (this.level.waveId < 2) 20 else 5;
+
+        this.description.x = if (x >= 10) distanceFromEdge else
+            this.level.wid * Const.GRID -
+            this.description.textWidth -
+            distanceFromEdge;
+
+        this.description.y = if (this.level.waveId < 2) 35 else 100;
+        this.description.visible = false;
     }
 
     @:access(Game)
@@ -25,6 +42,11 @@ class UpgradeEntity extends Entity {
         ALL.push(this);
 
         this.game.scroller.add(this.helpText, Const.UI_LAYER);
+        this.game.root.add(this.description, Const.TOP_LAYER);
+    }
+
+    public function hover() {
+        this.isHovered = true;
     }
 
     public function claim() {
@@ -45,6 +67,9 @@ class UpgradeEntity extends Entity {
 
         this.helpText.x = Std.int(this.footX - this.helpText.textWidth * 0.5);
         this.helpText.y = Std.int(this.footY);
+
+        this.description.visible = this.isHovered;
+        this.isHovered = false;
     }
 
     override function dispose() {
@@ -52,5 +77,6 @@ class UpgradeEntity extends Entity {
         ALL.remove(this);
 
         this.helpText.remove();
+        this.description.remove();
     }
 }

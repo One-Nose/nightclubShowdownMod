@@ -96,23 +96,28 @@ class Game extends dn.Process {
 
         this.onResize();
 
-        this.unlockableUpgrades = [
-            new Upgrade(
-                "Dash", {onUnlock: () -> this.hero.unlockAction(action.Dash)},
-            ),
-            new Upgrade(
-                "Grab Enemies",
-                {onUnlock: () -> this.hero.unlockAction(action.GrabMob)},
-            ),
-            new Upgrade(
-                "Head Shot",
-                {onUnlock: () -> this.hero.unlockAction(action.HeadShot)},
-            ),
-            new Upgrade("Bigger Mags", {
-                onUnlock: () -> this.hero.setAmmo(this.hero.maxAmmo + 2),
-                maxLevel: 2
-            }),
-        ];
+        this.unlockableUpgrades = [new Upgrade("Dash", {
+            description: [
+                "Move fast", "Dodge bullets",
+                "Makes you vulnerable for a moment"
+            ],
+            onUnlock: () -> this.hero.unlockAction(action.Dash)
+        }), new Upgrade("Grab Enemies", {
+            description: [
+                "Grab enemies", "Use them as cover",
+                "Kick them when you're done"
+            ],
+            onUnlock: () -> this.hero.unlockAction(action.GrabMob)
+        }), new Upgrade("Head Shot", {
+            description: [
+                "Aim for the head", "Slower but more fatal", "Ignore cover"
+            ],
+            onUnlock: () -> this.hero.unlockAction(action.HeadShot)
+        }), new Upgrade("Bigger Mags", {
+            description: ["Two more bullets per reload"],
+            onUnlock: () -> this.hero.setAmmo(this.hero.maxAmmo + 2),
+            maxLevel: 2
+        }),];
     }
 
     // function updateWave() {
@@ -355,6 +360,9 @@ class Game extends dn.Process {
             )
         )
             this.unlockableUpgrades.push(new Upgrade("Heal", {
+                description: [
+                    "Heal one heart", "One-time effect as you choose this"
+                ],
                 onUnlock: heal,
                 isUnlockable: () -> this.hero.life < this.hero.maxLife
             }));

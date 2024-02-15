@@ -45,6 +45,8 @@ class ChooseUpgrade extends Action {
         );
         this.hero.icon.set("iconMove");
 
+        this.upgradeEntity.hover();
+
         super.updateDisplay();
     }
 }
