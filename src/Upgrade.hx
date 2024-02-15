@@ -5,18 +5,21 @@ class Upgrade {
 
     var children: Array<Upgrade>;
 
-    public function new(
-        name: String, onUnlock: () -> Void, maxLevel = 1,
-        ?children: Array<Upgrade>, ?isUnlockable: () -> Bool
-    ) {
+    public function new(name: String, config: {
+        onUnlock: () -> Void,
+        ?children: Array<Upgrade>,
+        ?maxLevel: Int,
+        ?isUnlockable: () -> Bool
+    }) {
         this.name = name;
-        this.onUnlock = onUnlock;
-        this.children = children ?? [];
-        if (maxLevel > 1)
-            this.children.push(
-                new Upgrade(name, onUnlock, maxLevel - 1, children)
-            );
-        this.isUnlockable = isUnlockable ?? () -> true;
+        this.onUnlock = config.onUnlock;
+        this.children = config.children ?? [];
+        if ((config.maxLevel ?? 1) > 1) {
+            var childConfig = Reflect.copy(config);
+            childConfig.maxLevel--;
+            this.children.push(new Upgrade(name, childConfig));
+        }
+        this.isUnlockable = config.isUnlockable ?? () -> true;
     }
 
     public function claim() {

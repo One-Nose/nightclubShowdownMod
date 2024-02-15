@@ -345,12 +345,10 @@ class Level extends dn.Process {
                 Game.ME.unlockableUpgrades, upgrade -> upgrade.onUnlock == heal
             )
         )
-            Game.ME.unlockableUpgrades.push(
-                new Upgrade(
-                    "Heal", heal,
-                    () -> Game.ME.hero.life < Game.ME.hero.maxLife
-                )
-            );
+            Game.ME.unlockableUpgrades.push(new Upgrade("Heal", {
+                onUnlock: heal,
+                isUnlockable: () -> Game.ME.hero.life < Game.ME.hero.maxLife
+            }));
 
         var upgradeOptions = Game.ME.unlockableUpgrades.filter(
             upgrade -> upgrade.isUnlockable()
