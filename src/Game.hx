@@ -114,7 +114,13 @@ class Game extends dn.Process {
                 description: [
                     "Aim for the head", "Slower but more fatal", "Ignore cover"
                 ],
-                onUnlock: () -> this.hero.unlockAction(action.HeadShot)
+                onUnlock: () -> this.hero.unlockAction(action.HeadShot),
+                children: [new Upgrade("Fast Aim", {
+                    description: ["Make faster head shots"],
+                    onUnlock: () -> this.hero
+                        .getSkill("headShot")
+                        .chargeS -= 0.25
+                })]
             }),
             new Upgrade("Kick Enemies", {
                 description: [
