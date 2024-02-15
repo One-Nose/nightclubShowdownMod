@@ -97,35 +97,40 @@ class Game extends dn.Process {
 
         this.onResize();
 
-        this.unlockableUpgrades = [new Upgrade("Bigger Mags", {
-            description: ["Two more bullets per reload"],
-            onUnlock: () -> this.hero.setAmmo(this.hero.maxAmmo + 2),
-            maxLevel: 2
-        }), new Upgrade("Dash", {
-            description: [
-                "Move fast", "Dodge bullets",
-                "Makes you vulnerable for a moment"
-            ],
-            onUnlock: () -> this.hero.unlockAction(action.Dash)
-        }), new Upgrade("Head Shot", {
-            description: [
-                "Aim for the head", "Slower but more fatal", "Ignore cover"
-            ],
-            onUnlock: () -> this.hero.unlockAction(action.HeadShot)
-        }), new Upgrade("Kick Enemies", {
-            description: [
-                "Kick enemies", "Stun them for a moment",
-                "Doesn't take bullets"
-            ],
-            onUnlock: () -> this.hero.unlockAction(KickMob),
-            children: [new Upgrade("Grab Enemies", {
+        this.unlockableUpgrades = [
+            new Upgrade("Bigger Mags", {
+                description: ["Two more bullets per reload"],
+                onUnlock: () -> this.hero.setAmmo(this.hero.maxAmmo + 2),
+                maxLevel: 2
+            }),
+            new Upgrade("Dash", {
                 description: [
-                    "Grab enemies instead of kicking", "Use them as cover",
-                    "Kick them when you're done"
+                    "Move fast", "Dodge bullets",
+                    "Makes you vulnerable for a moment"
                 ],
-                onUnlock: () -> this.hero.unlockAction(action.GrabMob)
-            })]
-        })];
+                onUnlock: () -> this.hero.unlockAction(action.Dash)
+            }),
+            new Upgrade("Head Shot", {
+                description: [
+                    "Aim for the head", "Slower but more fatal", "Ignore cover"
+                ],
+                onUnlock: () -> this.hero.unlockAction(action.HeadShot)
+            }),
+            new Upgrade("Kick Enemies", {
+                description: [
+                    "Kick enemies", "Stun them for a moment",
+                    "Doesn't take bullets"
+                ],
+                onUnlock: () -> this.hero.unlockAction(KickMob),
+                children: [new Upgrade("Grab Enemies", {
+                    description: [
+                        "Grab enemies instead of kicking", "Use them as cover",
+                        "Kick them when you're done"
+                    ],
+                    onUnlock: () -> this.hero.unlockAction(action.GrabMob)
+                })]
+            })
+        ];
     }
 
     // function updateWave() {

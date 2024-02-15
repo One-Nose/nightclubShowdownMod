@@ -15,6 +15,13 @@
             { "cond": "itemCount >= n", "value": 2 }
           ],
           "type": "fillLineWithLeadingBreak"
+        },
+        {
+          "conditions": [
+            { "cond": "hasMultilineItems" },
+            { "cond": "itemCount >= n", "value": 2 }
+          ],
+          "type": "onePerLine"
         }
       ]
     },
