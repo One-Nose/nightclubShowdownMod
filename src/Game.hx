@@ -121,7 +121,7 @@ class Game extends dn.Process {
                 ],
                 onUnlock: () -> this.hero.unlockAction(action.HeadShot),
                 children: [
-                    new Upgrade("Fast Aim", {
+                    new Upgrade("Quick Aim", {
                         description: ["Make faster head shots"],
                         onUnlock: () -> this.hero
                             .getSkill("headShot")
