@@ -117,13 +117,13 @@ class Game extends dn.Process {
                 })]
             }),
             new Upgrade("Fast Reload", {
-                description: ["Multiplies your reload speed"],
+                description: ["Multiplies your reload speed by 1.5"],
                 onUnlock: () -> {
                     Assets.gameElements.defineAnim(
                         "heroReload",
-                        "0(7),1(7), 2(4), 3(3), 4(2), 5(3)"
+                        "0(10),1(10), 2(5), 3(4), 4(3), 5(4)"
                     );
-                    this.hero.reloadSpeed = 2;
+                    this.hero.reloadSpeed = 1.5;
                 }
             }),
             new Upgrade("Head Shot", {
