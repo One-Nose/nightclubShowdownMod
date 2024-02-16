@@ -100,7 +100,13 @@ class Game extends dn.Process {
             new Upgrade("Bigger Mags", {
                 description: ["Two more bullets per reload"],
                 onUnlock: () -> this.hero.setAmmo(this.hero.maxAmmo + 2),
-                maxLevel: 2
+                maxLevel: 2,
+                children: [new Upgrade("Quicker Shots", {
+                    description: ["Make quicker consecutive shots"],
+                    onUnlock: () -> this.hero
+                        .getSkill("blindShot")
+                        .lockAfterS /= 2
+                })]
             }),
             new Upgrade("Dash", {
                 description: [

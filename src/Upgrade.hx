@@ -6,6 +6,14 @@ class Upgrade {
 
     var children: Array<Upgrade>;
 
+    /**
+        - `description`: Array of short description strings
+        - `onUnlock`: Function to call when the upgrade is claimed
+        - `children`: Upgrades to add to unlockables when the upgrade is claimed.
+            Not inherited by next level upgrades.
+        - `maxLevel`: Amount of times the upgrade can be unlocked.
+        - `isUnlockable`: A condition that must be met to unlock the upgrade.
+    **/
     public function new(name: String, config: {
         description: Array<String>,
         onUnlock: () -> Void,
@@ -35,6 +43,7 @@ class Upgrade {
         if ((config.maxLevel ?? 1) > 1) {
             var childConfig = Reflect.copy(config);
             childConfig.maxLevel--;
+            childConfig.children = [];
             this.children.push(new Upgrade(name, childConfig));
         }
         this.isUnlockable = config.isUnlockable ?? () -> true;
