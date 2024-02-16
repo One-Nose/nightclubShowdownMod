@@ -229,7 +229,7 @@ class Level extends dn.Process {
             availableXs.remove(x - 1);
             availableXs.remove(x + 1);
 
-            this.wave.registerEntity(new Cover(x, 3));
+            this.wave.registerEntity(new Cover(x, 3, Math.random() < 0.3));
         }
 
         var points: Float = M.floor(this.waveId / 8) * 10;

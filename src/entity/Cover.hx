@@ -9,12 +9,12 @@ class Cover extends Entity {
     var iconLeft: HSprite;
     var iconRight: HSprite;
 
-    public function new(x, y) {
+    public function new(x, y, isMetal = false) {
         super(x, y);
 
         spr.set("crate");
         this.lifeBar.visible = true;
-        initLife(3);
+        initLife(if (isMetal) 6 else 3);
 
         var r = 11;
         left = new Area(

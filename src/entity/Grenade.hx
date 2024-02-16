@@ -56,7 +56,7 @@ class Grenade extends Entity {
 
             for (e in entity.Cover.ALL)
                 if (distPx(e) <= range)
-                    e.hit(999, this, true);
+                    e.hit(3, this, true);
 
             for (e in entity.Mob.ALL)
                 if (distPx(e) <= range)
