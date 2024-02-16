@@ -33,6 +33,10 @@ class Game extends dn.Process {
         ME = this;
         this.createRoot(context);
 
+        Assets.gameElements.defineAnim(
+            "heroReload", "0(15),1(15), 2(8), 3(6), 4(4), 5(6)"
+        );
+
         if (replayHistory != null) {
             this.isReplay = true;
             this.heroHistory = replayHistory.copy();
