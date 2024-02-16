@@ -405,20 +405,38 @@ class Game extends dn.Process {
             this.updateHud();
         }
 
-        if (
-            this.level.wave.isRewarding &&
-            this.level.waveId % 4 == 3 &&
-            !Lambda.exists(
+        function bonusHeart() {
+            this.hero.initLife(4);
+            this.updateHud();
+        }
+
+        if (this.level.wave.isRewarding && this.level.waveId % 4 == 3)
+            if (Lambda.exists(
                 this.unlockableUpgrades, upgrade -> upgrade.onUnlock == heal
-            )
-        )
-            this.unlockableUpgrades.push(new Upgrade("Heal", {
-                description: [
-                    "Heal one heart", "One-time effect as you choose this"
-                ],
-                onUnlock: heal,
-                isUnlockable: () -> this.hero.life < this.hero.maxLife
-            }));
+            )) {
+                if (
+                    this.hero.life == this.hero.maxLife &&
+                    this.hero.maxLife == 3 &&
+                    !Lambda.exists(
+                        this.unlockableUpgrades,
+                        upgrade -> upgrade.onUnlock == bonusHeart
+                    )
+                )
+                    this.unlockableUpgrades.push(new Upgrade("Bonus Heart", {
+                        description: [
+                            "+1 max life", "Special challenge reward"
+                        ],
+                        onUnlock: bonusHeart,
+                        isUnlockable: () -> this.hero.life == this.hero.maxLife
+                    }));
+            } else
+                this.unlockableUpgrades.push(new Upgrade("Heal", {
+                    description: [
+                        "Heal one heart", "One-time effect as you choose this"
+                    ],
+                    onUnlock: heal,
+                    isUnlockable: () -> this.hero.life < this.hero.maxLife
+                }));
 
         var upgradeOptions = this.unlockableUpgrades.filter(
             upgrade -> upgrade.isUnlockable()
