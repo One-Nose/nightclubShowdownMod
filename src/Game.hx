@@ -116,6 +116,16 @@ class Game extends dn.Process {
                     onUnlock: () -> this.hero.canCoverDash = true
                 })]
             }),
+            new Upgrade("Fast Reload", {
+                description: ["Multiplies your reload speed"],
+                onUnlock: () -> {
+                    Assets.gameElements.defineAnim(
+                        "heroReload",
+                        "0(7),1(7), 2(4), 3(3), 4(2), 5(3)"
+                    );
+                    this.hero.reloadSpeed = 2;
+                }
+            }),
             new Upgrade("Head Shot", {
                 description: [
                     "Aim for the head", "Slower but more fatal", "Ignore cover"

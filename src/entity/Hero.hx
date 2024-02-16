@@ -26,6 +26,7 @@ class Hero extends Entity {
     public var headShotDamage = 2;
     public var piercingShot = false;
     public var canCoverDash = false;
+    public var reloadSpeed = 1;
 
     public function new(x, y) {
         super(x, y);
