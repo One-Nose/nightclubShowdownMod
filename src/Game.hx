@@ -106,7 +106,10 @@ class Game extends dn.Process {
                 onUnlock: () -> this.hero.setAmmo(this.hero.maxAmmo + 2),
                 maxLevel: 2,
                 children: [new Upgrade("Quicker Shots", {
-                    description: ["Make quicker consecutive shots"],
+                    description: [
+                        "Make quicker consecutive shots",
+                        "Doesn't work while taking cover"
+                    ],
                     onUnlock: () -> this.hero
                         .getSkill("blindShot")
                         .lockAfterS /= 2

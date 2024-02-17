@@ -58,6 +58,8 @@ class Hero extends Entity {
                 spr.anim.playAndLoop("heroGrabBlind");
         }
         s.onExecute = function(e) {
+            if (this.cover != null)
+                this.lockControlsS(0.22);
             if (!useAmmo()) {
                 Assets.SFX.empty(1);
                 if (grabbedMob == null)
