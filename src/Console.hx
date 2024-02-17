@@ -56,6 +56,7 @@ class Console extends h2d.Console {
 
         this.addCommand("god", [], function() {
             Game.ME.hero.isInvulnerable = !Game.ME.hero.isInvulnerable;
+            this.log('God Mode: ${Game.ME.hero.isInvulnerable}');
         });
         #end
     }
