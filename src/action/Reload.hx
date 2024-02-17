@@ -14,17 +14,7 @@ class Reload extends Action {
             action.canBePerformed() &&
             hero.ammo < hero.maxAmmo &&
             M.fabs(hero.centerX - x) <= Const.GRID * 0.3 &&
-            (
-                M.fabs(
-                    hero.centerY - y + Const.GRID / 1.5
-                ) <= Const.GRID * 0.4 ||
-                (
-                    hero.cover == null &&
-                    M.fabs(
-                        hero.centerY - y + Const.GRID / 3
-                    ) <= Const.GRID * 0.7
-                )
-            )
+            M.fabs(hero.centerY - y + Const.GRID / 3) <= Const.GRID * 0.7
         )
             return action;
 
