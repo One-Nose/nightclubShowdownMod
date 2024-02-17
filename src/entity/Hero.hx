@@ -27,6 +27,7 @@ class Hero extends Entity {
     public var piercingShot = false;
     public var canCoverDash = false;
     public var reloadSpeed = 1.0;
+    public var hasEvasion = false;
 
     public function new(x, y) {
         super(x, y);
@@ -424,5 +425,16 @@ class Hero extends Entity {
                 grabbedMob.dir = dir;
             }
         }
+    }
+
+    override function hit(
+        damage: Int, source: Entity, ?ignoreCover = false
+    ): Bool {
+        if (this.hasEvasion) {
+            this.hasEvasion = false;
+            this.game.updateHud();
+            return false;
+        }
+        return super.hit(damage, source, ignoreCover);
     }
 }

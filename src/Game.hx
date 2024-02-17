@@ -172,6 +172,20 @@ class Game extends dn.Process {
                     ],
                     onUnlock: () -> this.hero.unlockAction(action.GrabMob)
                 })]
+            }),
+            new Upgrade("Evasion", {
+                description: [
+                    "One time effect", "Get one evasion point",
+                    "Protects you from one hit"
+                ],
+                onUnlock: () -> {
+                    this.hero.hasEvasion = true;
+                    this.updateHud();
+                },
+                isUnlockable: () ->
+                    this.level.waveId % 4 == 2 &&
+                    !this.hero.hasEvasion,
+                infinite: true
             })
         ];
     }
@@ -201,6 +215,12 @@ class Game extends dn.Process {
 
         this.hud.removeChildren();
         this.cd.unset("invalidateHud");
+
+        if (this.hero.hasEvasion) {
+            var evasion = Assets.gameElements.h_get("iconHeart", this.hud);
+            evasion.colorize(0x8888FF);
+            this.hud.addSpacing(8);
+        }
 
         for (i in 0...M.imin(this.hero.maxLife, 6)) {
             var heart = Assets.gameElements.h_get("iconHeart", this.hud);

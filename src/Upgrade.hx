@@ -13,13 +13,15 @@ class Upgrade {
             Not inherited by next level upgrades.
         - `maxLevel`: Amount of times the upgrade can be unlocked.
         - `isUnlockable`: A condition that must be met to unlock the upgrade.
+        - `infinite`: Adds the upgrade as its own child.
     **/
     public function new(name: String, config: {
         description: Array<String>,
         onUnlock: () -> Void,
         ?children: Array<Upgrade>,
         ?maxLevel: Int,
-        ?isUnlockable: () -> Bool
+        ?isUnlockable: () -> Bool,
+        ?infinite: Bool
     }) {
         this.name = name;
         this.description = "- " + config.description.map(string -> {
@@ -40,12 +42,16 @@ class Upgrade {
         }).join("\n- ");
         this.onUnlock = config.onUnlock;
         this.children = config.children ?? [];
+        if (config.infinite)
+            this.children.push(this);
+
         if ((config.maxLevel ?? 1) > 1) {
             var childConfig = Reflect.copy(config);
             childConfig.maxLevel--;
             childConfig.children = [];
             this.children.push(new Upgrade(name, childConfig));
         }
+
         this.isUnlockable = config.isUnlockable ?? () -> true;
     }
 
