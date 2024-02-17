@@ -437,7 +437,7 @@ class Game extends dn.Process {
             this.updateHud();
         }
 
-        if (this.level.wave.isRewarding && this.level.waveId % 4 == 3)
+        if (this.level.wave is wave.Battle && this.level.waveId % 4 == 3)
             if (Lambda.exists(
                 this.unlockableUpgrades, upgrade -> upgrade.onUnlock == heal
             )) {
