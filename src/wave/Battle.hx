@@ -5,10 +5,10 @@ class Battle extends Wave {
 
     var color: dn.Col;
 
-    public function new(color: dn.Col, ...registries) {
+    public function new(color: dn.Col, isRewarding = true, ...registries) {
         super(...registries);
         this.color = color;
-        this.isRewarding = true;
+        this.isRewarding = isRewarding;
     }
 
     override function registerEntity(entity, delaySeconds = 0.0) {
