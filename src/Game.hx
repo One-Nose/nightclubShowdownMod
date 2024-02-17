@@ -183,7 +183,7 @@ class Game extends dn.Process {
                     this.updateHud();
                 },
                 isUnlockable: () ->
-                    this.level.waveId % 4 == 2 &&
+                    this.level.waveId % 3 == 2 &&
                     !this.hero.hasEvasion,
                 infinite: true
             })
