@@ -26,6 +26,7 @@ class ThrowGrenade extends Action {
 
     function _execute() {
         this.hero.grenades--;
+        this.hero.game.updateHud();
         this.hero.getSkill("throwGrenade").prepareAt(this.x);
     }
 
