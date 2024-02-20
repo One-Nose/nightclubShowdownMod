@@ -407,7 +407,9 @@ class Hero extends Entity {
 
         // HUD icon
         var m = game.getMouse();
-        var action = getActionAt(m.x, m.y);
+        var action = if (this.controlsLocked()) new None(
+            this
+        ) else getActionAt(m.x, m.y);
         icon.alpha = 0.7;
         icon.visible = true;
         icon.colorize(0xffffff);
