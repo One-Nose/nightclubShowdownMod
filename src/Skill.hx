@@ -11,6 +11,7 @@ class Skill {
     var curChargeS: Float;
 
     public var target(default, null): Null<Entity>;
+    public var x(default, null): Null<Float>;
 
     public var onExecute: (Null<Entity>) -> Void;
     public var onStart: () -> Void;
@@ -53,6 +54,14 @@ class Skill {
 
         target = e;
         return prepare(cdMul);
+    }
+
+    public function prepareAt(x: Float, ?cdMul = 1.0) {
+        if (!isReady())
+            return false;
+
+        this.x = x;
+        return this.prepare(cdMul);
     }
 
     public function setTimers(charge: Float, cd: Float, lock: Float) {

@@ -189,6 +189,18 @@ class Game extends dn.Process {
                     this.level.waveId % 3 == 2 &&
                     !this.hero.hasEvasion,
                 infinite: true
+            }),
+            new Upgrade("Two Grenades", {
+                description: [
+                    "Get two grenades as you choose this", "Throw anywhere",
+                    "BOOM!"
+                ],
+                onUnlock: () -> {
+                    this.hero.grenades += 2;
+                    this.updateHud();
+                },
+                isUnlockable: () -> this.hero.grenades <= 4,
+                infinite: true
             })
         ];
     }
@@ -239,6 +251,14 @@ class Game extends dn.Process {
             bullet.colorize(if (i + 1 <= hero.ammo) 0xFFFFFF else 0xFF0000);
             bullet.alpha = if (i + 1 <= hero.ammo) 1 else 0.8;
             bullet.blendMode = Add;
+        }
+
+        if (hero.grenades > 0)
+            this.hud.addSpacing(8);
+
+        for (_ in 0...hero.grenades) {
+            var grenade = Assets.gameElements.h_get("iconBullet", this.hud);
+            grenade.colorize(0xEEBE11);
         }
 
         this.onResize();

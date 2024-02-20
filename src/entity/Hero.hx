@@ -9,7 +9,7 @@ typedef ActionType = {
 class Hero extends Entity {
     var actionsByPriority: Array<ActionType> = [
         Reload, Wait, HeadShot, BlindShot, KickGrab, GrabMob, KickMob,
-        TakeCover, Dash, ChooseUpgrade, Move, TurnBack
+        TakeCover, Dash, ChooseUpgrade, Move, TurnBack, ThrowGrenade
     ];
     var availableActions: Array<ActionType> = [];
 
@@ -20,6 +20,7 @@ class Hero extends Entity {
 
     public var ammo: Int;
     public var maxAmmo: Int;
+    public var grenades = 0;
     public var grabbedMob: Null<entity.Mob>;
     public var help: Null<h2d.Text>;
     public var speed = 0.011;
@@ -33,7 +34,8 @@ class Hero extends Entity {
         super(x, y);
 
         this.unlockAction(
-            BlindShot, KickGrab, Move, Reload, TakeCover, TurnBack, Wait
+            BlindShot, KickGrab, Move, Reload, TakeCover, ThrowGrenade,
+            TurnBack, Wait
         );
         this.unlockAction(ChooseUpgrade);
 
@@ -134,6 +136,31 @@ class Hero extends Entity {
                 else
                     dx += 0.01 * -dir;
             spr.anim.play("heroAimShoot");
+        }
+
+        // Throw grenade
+        var s = createSkill("throwGrenade");
+        s.setTimers(0.6, 0, 0.3);
+        s.onStart = function() {
+            this.dir = M.sign(s.x - this.footX);
+            this.spr.anim.playAndLoop("heroBlind");
+        }
+        s.onProgress = function(t) this.dir = M.sign(s.x - this.footX);
+        s.onInterrupt = function() this.spr.anim.stopWithStateAnims();
+        s.onExecute = function(_) {
+            this.dy = -0.1;
+
+            var grenade = new entity.Grenade(this);
+            grenade.init();
+            grenade.setPosPixel(this.shootX, this.shootY);
+            grenade.dx = M.sign(
+                s.x - this.footX
+            ) * 0.2 * M.fabs(
+                s.x - this.footX
+            ) / (Const.GRID * 7); // 0.2 for 7 cells
+            grenade.dy = -0.05;
+
+            spr.anim.play("heroBlindShoot");
         }
     }
 
