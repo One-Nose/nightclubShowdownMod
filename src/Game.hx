@@ -515,7 +515,12 @@ class Game extends dn.Process {
         if (Key.isDown(Key.SHIFT))
             return false;
         #end
-        if (this.isReplay || !this.hero.isAlive() || this.hero.controlsLocked())
+        if (
+            this.isReplay ||
+            !this.hero.isAlive() ||
+            this.hero.controlsLocked() ||
+            this.hero.curAnimId == "heroRun"
+        )
             return false;
 
         for (mob in entity.Mob.ALL)

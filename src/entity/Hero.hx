@@ -305,9 +305,9 @@ class Hero extends Entity {
 
         return
             super.controlsLocked() ||
-            moveTarget != null ||
-            cd.has("braking") ||
-            !onGround;
+            (this.moveTarget != null && this.curAnimId != "heroRun") ||
+            this.cd.has("braking") ||
+            !this.onGround;
     }
 
     override public function onClick(x: Float, y: Float, bt) {
@@ -316,6 +316,7 @@ class Hero extends Entity {
         if (controlsLocked())
             return;
 
+        this.moveTarget = null;
         getActionAt(x, y).execute();
 
         // switch(bt) {
