@@ -16,7 +16,7 @@ class Cover extends Entity {
         this.lifeBar.visible = true;
         initLife(if (isMetal) 6 else 3);
 
-        var r = 11;
+        var r = 22;
         left = new Area(
             this, r, function() return centerX - r, function() return centerY
         );
