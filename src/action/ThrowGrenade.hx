@@ -36,4 +36,14 @@ class ThrowGrenade extends Action {
 
         super.updateDisplay();
     }
+
+    public function equals(action: Action): Bool {
+        var other: ThrowGrenade;
+        try {
+            other = cast(action, ThrowGrenade);
+        } catch (e) {
+            return false;
+        }
+        return M.signEq(this.hero.footX - this.x, this.hero.footX - other.x);
+    }
 }

@@ -51,4 +51,13 @@ class Reload extends Action {
 
         super.updateDisplay();
     }
+
+    public function equals(action: Action): Bool {
+        try {
+            cast(action, Reload);
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
 }

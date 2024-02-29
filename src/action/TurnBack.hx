@@ -28,4 +28,13 @@ class TurnBack extends Action {
     function _execute() {
         this.hero.dir *= -1;
     }
+
+    public function equals(action: Action): Bool {
+        try {
+            cast(action, TurnBack);
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
 }

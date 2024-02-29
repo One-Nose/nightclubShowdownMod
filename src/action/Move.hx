@@ -56,4 +56,16 @@ class Move extends Action {
     public override function updateDisplay() {
         this.then.updateDisplay();
     }
+
+    public function equals(action: Action): Bool {
+        var other: Move;
+        try {
+            other = cast(action, Move);
+        } catch (e) {
+            return false;
+        }
+        return
+            M.signEq(this.hero.footX - this.x, this.hero.footX - other.x) &&
+            this.then.equals(other.then);
+    }
 }

@@ -39,4 +39,6 @@ abstract class Action {
             this.hero.icon.colorize(this.color);
         this.hero.setHelp(this.displayEntity, this.helpText, this.color);
     }
+
+    public abstract function equals(action: Action): Bool;
 }

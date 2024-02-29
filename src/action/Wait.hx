@@ -39,4 +39,14 @@ class Wait extends Action {
 
         super.updateDisplay();
     }
+
+    public function equals(action: Action): Bool {
+        var other: Wait;
+        try {
+            other = cast(action, Wait);
+        } catch (e) {
+            return false;
+        }
+        return this.seconds == other.seconds;
+    }
 }

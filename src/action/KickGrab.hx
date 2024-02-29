@@ -42,4 +42,13 @@ class KickGrab extends Action {
         this.hero.icon.colorize(0xFF9300);
         super.updateDisplay();
     }
+
+    public function equals(action: Action): Bool {
+        try {
+            cast(action, KickGrab);
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
 }

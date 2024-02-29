@@ -80,4 +80,14 @@ class KickMob extends Action {
 
         super.updateDisplay();
     }
+
+    public function equals(action: Action): Bool {
+        var other: KickMob;
+        try {
+            other = cast(action, KickMob);
+        } catch (e) {
+            return false;
+        }
+        return this.mob == other.mob && this.side == other.side;
+    }
 }

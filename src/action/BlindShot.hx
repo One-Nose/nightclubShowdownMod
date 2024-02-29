@@ -62,4 +62,14 @@ class BlindShot extends Action {
 
         super.updateDisplay();
     }
+
+    public function equals(action: Action): Bool {
+        var other: BlindShot;
+        try {
+            other = cast(action, BlindShot);
+        } catch (e) {
+            return false;
+        }
+        return this.mob == other.mob;
+    }
 }

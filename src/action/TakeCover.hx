@@ -75,4 +75,14 @@ class TakeCover extends Action {
 
         super.updateDisplay();
     }
+
+    public function equals(action: Action): Bool {
+        var other: TakeCover;
+        try {
+            other = cast(action, TakeCover);
+        } catch (e) {
+            return false;
+        }
+        return this.cover == other.cover && this.side == other.side;
+    }
 }

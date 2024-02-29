@@ -78,4 +78,17 @@ class Dash extends Action {
             this.then.updateDisplay();
         }
     }
+
+    public function equals(action: Action): Bool {
+        var other: Dash;
+        try {
+            other = cast(action, Dash);
+        } catch (e) {
+            return false;
+        }
+        return
+            this.x == other.x &&
+            this.y == other.y &&
+            this.then.equals(other.then);
+    }
 }

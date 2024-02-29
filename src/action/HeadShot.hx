@@ -47,4 +47,14 @@ class HeadShot extends Action {
 
         super.updateDisplay();
     }
+
+    public function equals(action: Action): Bool {
+        var other: HeadShot;
+        try {
+            other = cast(action, HeadShot);
+        } catch (e) {
+            return false;
+        }
+        return this.mob == other.mob;
+    }
 }

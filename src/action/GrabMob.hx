@@ -77,4 +77,14 @@ class GrabMob extends Action {
 
         super.updateDisplay();
     }
+
+    public function equals(action: Action): Bool {
+        var other: GrabMob;
+        try {
+            other = cast(action, GrabMob);
+        } catch (e) {
+            return false;
+        }
+        return this.mob == other.mob && this.side == other.side;
+    }
 }

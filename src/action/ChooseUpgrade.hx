@@ -49,4 +49,14 @@ class ChooseUpgrade extends Action {
 
         super.updateDisplay();
     }
+
+    public function equals(action: Action): Bool {
+        var other: ChooseUpgrade;
+        try {
+            other = cast(action, ChooseUpgrade);
+        } catch (e) {
+            return false;
+        }
+        return this.upgradeEntity == other.upgradeEntity;
+    }
 }
