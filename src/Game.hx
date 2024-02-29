@@ -268,6 +268,11 @@ class Game extends dn.Process {
     }
 
     function onMouseDown(event: hxd.Event) {
+        if (!this.hero.isAlive() && this.cd.hasSetS("restartGame", 1)) {
+            Main.ME.restartGame();
+            return;
+        }
+
         var point = new h2d.col.Point(event.relX, event.relY);
         point = this.scroller.globalToLocal(point);
         point.x = M.floor(point.x);

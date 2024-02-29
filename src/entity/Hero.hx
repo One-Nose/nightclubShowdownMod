@@ -276,7 +276,8 @@ class Hero extends Entity {
         stopGrab();
         new entity.DeadBody(this, "hero").init();
         game.announce(
-            'You survived ${this.level.waveId} waves\n' + "T to restart",
+            'You survived ${this.level.waveId} waves\n' +
+            "T or double-click to restart",
             0xFF0000,
             true
         );
