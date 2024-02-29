@@ -16,6 +16,8 @@ class Hero extends Entity {
     public var moveTarget: FPoint;
     public var afterMoveAction: Action;
 
+    var displayedAction: Action;
+
     public var icon(default, null): HSprite;
 
     public var ammo: Int;
@@ -317,7 +319,14 @@ class Hero extends Entity {
             return;
 
         this.moveTarget = null;
-        getActionAt(x, y).execute();
+
+        var action = getActionAt(x, y);
+        if (action.equals(this.displayedAction))
+            action.execute();
+        else {
+            this.game.mouseX = x;
+            this.game.mouseY = y;
+        }
 
         // switch(bt) {
         // case 0 :
@@ -408,7 +417,7 @@ class Hero extends Entity {
 
         // HUD icon
         var m = game.getMouse();
-        var action = if (this.controlsLocked()) new None(
+        this.displayedAction = if (this.controlsLocked()) new None(
             this
         ) else getActionAt(m.x, m.y);
         icon.alpha = 0.7;
@@ -416,7 +425,7 @@ class Hero extends Entity {
         icon.colorize(0xffffff);
         setHelp();
 
-        action.updateDisplay();
+        this.displayedAction.updateDisplay();
 
         if (
             !controlsLocked() &&

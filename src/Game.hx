@@ -18,6 +18,9 @@ class Game extends dn.Process {
     var clickTrap: h2d.Interactive;
     var mask: h2d.Graphics;
 
+    public var mouseX = 0.0;
+    public var mouseY = 0.0;
+
     public var isReplay: Bool;
     public var heroHistory: Array<HistoryEntry>;
 
@@ -265,9 +268,13 @@ class Game extends dn.Process {
     }
 
     function onMouseDown(event: hxd.Event) {
-        var mouse = this.getMouse();
+        var point = new h2d.col.Point(event.relX, event.relY);
+        point = this.scroller.globalToLocal(point);
+        point.x = M.floor(point.x);
+        point.y = M.floor(point.y);
+
         for (entity in Entity.ALL)
-            entity.onClick(mouse.x, mouse.y, event.button);
+            entity.onClick(point.x, point.y, event.button);
     }
 
     override public function onResize() {
@@ -319,15 +326,29 @@ class Game extends dn.Process {
     }
 
     public function getMouse() {
-        var mouseX = hxd.Window.getInstance().mouseX;
-        var mouseY = hxd.Window.getInstance().mouseY;
-        var x = Std.int(mouseX / Const.SCALE - scroller.x);
-        var y = Std.int(mouseY / Const.SCALE - scroller.y);
+        static var actualMouseX = 0;
+        static var actualMouseY = 0;
+
+        var newMouseX = Std.int(
+            hxd.Window.getInstance().mouseX / Const.SCALE - this.scroller.x
+        );
+        var newMouseY = Std.int(
+            hxd.Window.getInstance().mouseY / Const.SCALE - this.scroller.y
+        );
+
+        if (actualMouseX != newMouseX || actualMouseY != newMouseY) {
+            this.mouseX = newMouseX;
+            this.mouseY = newMouseY;
+        }
+
+        actualMouseX = newMouseX;
+        actualMouseY = newMouseY;
+
         return {
-            x: x,
-            y: y,
-            cx: Std.int(x / Const.GRID),
-            cy: Std.int(y / Const.GRID),
+            x: this.mouseX,
+            y: this.mouseY,
+            cx: Std.int(this.mouseX / Const.GRID),
+            cy: Std.int(this.mouseY / Const.GRID),
         }
     }
 
