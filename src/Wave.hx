@@ -1,6 +1,6 @@
 abstract class Wave {
     /** Sorted by the delay in seconds before appearing **/
-    var entities: EntitiesMap;
+    public var entities: EntitiesMap;
 
     public var isRewarding(default, null): Bool;
 

@@ -325,7 +325,7 @@ class Level extends dn.Process {
                     chosenEntry.createMob(
                         x, if (this.waveId <= 1) 6 else 4, dir
                     ),
-                    delay
+                    if (this.wave.entities[0].length == 0) delay else delay + 2
                 );
 
                 registeredMobs++;

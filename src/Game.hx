@@ -553,6 +553,13 @@ class Game extends dn.Process {
             if (mob.isAlive() && mob.canBeShot())
                 return true;
 
+        for (cover in entity.Cover.ALL)
+            if (!cover.onGround)
+                if (!cover.cd.has("coverFalling"))
+                    cover.cd.setS("coverFalling", 2);
+                else if (M.inRange(cover.cd.getS("coverFalling"), 0, 1.9))
+                    return true;
+
         if (this.cd.has("lastMobDiedRecently"))
             return true;
 
