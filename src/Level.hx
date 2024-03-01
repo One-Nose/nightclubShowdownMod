@@ -215,11 +215,7 @@ class Level extends dn.Process {
         if (mod == 7)
             covers += 2;
 
-        var availableXs = [for (i in 1...(if (difficulty < 4) {
-            8;
-        } else {
-            this.wid - 1;
-        })) i];
+        var availableXs = [for (i in 1...(this.wid - 1)) i];
         for (cover in Cover.ALL)
             availableXs.remove(cover.cx);
 
