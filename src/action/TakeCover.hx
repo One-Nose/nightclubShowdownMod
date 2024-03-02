@@ -61,6 +61,9 @@ class TakeCover extends Action {
     }
 
     function _execute() {
+        this.hero.spr.anim.stopWithStateAnims();
+        this.hero.stopGrab();
+
         this.hero.startCover(this.cover, this.side);
     }
 

@@ -50,13 +50,13 @@ class Dash extends Action {
     }
 
     function _execute() {
-        this.hero.spr.anim.stopWithStateAnims();
-        this.hero.leaveCover();
-        this.hero.stopGrab();
-
         if (this.then.canBePerformed())
             this.then.execute();
         else {
+            this.hero.spr.anim.stopWithStateAnims();
+            this.hero.leaveCover();
+            this.hero.stopGrab();
+
             Assets.SFX.land0(1);
             this.hero.speed *= 2;
             this.hero.moveTarget = new FPoint(this.x, this.y);

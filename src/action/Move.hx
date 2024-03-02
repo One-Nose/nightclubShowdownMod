@@ -38,13 +38,13 @@ class Move extends Action {
     }
 
     function _execute() {
-        this.hero.spr.anim.stopWithStateAnims();
-        this.hero.leaveCover();
-        this.hero.stopGrab();
-
         if (this.then.canBePerformed())
             then.execute();
         else {
+            this.hero.spr.anim.stopWithStateAnims();
+            this.hero.leaveCover();
+            this.hero.stopGrab();
+
             this.hero.moveTarget = new FPoint(this.x, this.y);
             this.hero.cd.setS(
                 "rollBraking", this.hero.cd.getS("rolling") + 0.1

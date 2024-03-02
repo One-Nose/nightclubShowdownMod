@@ -59,6 +59,9 @@ class GrabMob extends Action {
     }
 
     function _execute() {
+        this.hero.spr.anim.stopWithStateAnims();
+        this.hero.leaveCover();
+
         Assets.SFX.hit0(1);
         this.hero.dir = -this.side;
         this.hero.cx = this.mob.cx;

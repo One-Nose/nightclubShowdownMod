@@ -413,7 +413,7 @@ class Hero extends Entity {
     override public function update() {
         super.update();
 
-        if (cover != null && !hasSkillCharging() && !controlsLocked())
+        if (this.cover != null && this.spr.anim.isPlaying("heroCover"))
             lookAt(cover);
 
         // HUD icon
