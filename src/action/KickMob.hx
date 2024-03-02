@@ -62,7 +62,7 @@ class KickMob extends Action {
         Assets.SFX.hit1(1);
         this.mob.hit(1, this.hero, true);
 
-        this.hero.dir = this.hero.dirTo(this.mob);
+        this.hero.lookAt(this.mob);
         this.hero.spr.anim.play("heroKick");
         if (this.mob.canBeGrabbed()) {
             this.mob.xr += 0.5 * this.hero.dirTo(this.mob);
