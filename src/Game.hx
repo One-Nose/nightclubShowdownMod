@@ -497,7 +497,7 @@ class Game extends dn.Process {
         static var noDamageStreak = 0;
 
         if (this.level.wave is wave.Battle) {
-            if (this.hero.life < this.hero.maxLife)
+            if (this.hero.life < this.hero.maxLife || this.level.waveId == 0)
                 noDamageStreak = 0;
             else
                 noDamageStreak++;
