@@ -1,6 +1,5 @@
 using Upgrade;
 
-import action.KickMob;
 import hxd.Key;
 
 typedef HistoryEntry = {t: Int, a: Action};
@@ -174,7 +173,7 @@ class Game extends dn.Process {
                     "Kick enemies", "Stun them for a moment",
                     "Doesn't take bullets"
                 ],
-                onUnlock: () -> this.hero.unlockAction(KickMob),
+                onUnlock: () -> this.hero.unlockAction(action.KickMob),
                 children: [new Upgrade("Grab Enemies", {
                     description: [
                         "Grab enemies instead of kicking", "Use them as cover",
