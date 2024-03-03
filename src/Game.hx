@@ -195,9 +195,7 @@ class Game extends dn.Process {
                     this.hero.hasEvasion = true;
                     this.updateHud();
                 },
-                isUnlockable: () ->
-                    this.level.waveId % 3 == 2 &&
-                    !this.hero.hasEvasion,
+                isUnlockable: () -> !this.hero.hasEvasion,
                 infinite: true
             }),
             new Upgrade("Two Grenades", {
