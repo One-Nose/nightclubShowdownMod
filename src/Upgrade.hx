@@ -1,10 +1,28 @@
+using Upgrade;
+
 class Upgrade {
     public var name(default, null): String;
+
     public var description(default, null): String;
     public var onUnlock(default, null): () -> Void;
     public var isUnlockable(default, null): () -> Bool;
 
+    var array: Array<Upgrade> = null;
     var children: Array<Upgrade>;
+
+    static public function addUpgrade(
+        array: Array<Upgrade>, upgrade: Upgrade
+    ): Array<Upgrade> {
+        array.push(upgrade);
+        upgrade.array = array;
+        return array;
+    }
+
+    static public function initUpgrades(array: Array<Upgrade>): Array<Upgrade> {
+        for (upgrade in array)
+            upgrade.array = array;
+        return array;
+    }
 
     /**
         - `description`: Array of short description strings
@@ -58,8 +76,8 @@ class Upgrade {
     public function claim() {
         this.onUnlock();
 
-        Game.ME.unlockableUpgrades.remove(this);
+        this.array.remove(this);
         for (upgrade in this.children)
-            Game.ME.unlockableUpgrades.push(upgrade);
+            this.array.addUpgrade(upgrade);
     }
 }

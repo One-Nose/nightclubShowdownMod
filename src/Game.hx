@@ -1,3 +1,5 @@
+using Upgrade;
+
 import action.KickMob;
 import hxd.Key;
 
@@ -103,7 +105,7 @@ class Game extends dn.Process {
 
         this.onResize();
 
-        this.unlockableUpgrades = [
+        this.unlockableUpgrades = Upgrade.initUpgrades([
             new Upgrade("Bigger Mags", {
                 description: ["Two more bullets per reload"],
                 onUnlock: () -> this.hero.setAmmo(this.hero.maxAmmo + 2),
@@ -153,10 +155,12 @@ class Game extends dn.Process {
                         onUnlock: () -> this.hero
                             .getSkill("headShot")
                             .chargeS -= 0.25
-                    }), new Upgrade("Fatal Shot", {
+                    }),
+                    new Upgrade("Fatal Shot", {
                         description: ["Head shots deal 1 more damage"],
                         onUnlock: () -> this.hero.headShotDamage++
-                    }), new Upgrade("Piercing Shot", {
+                    }),
+                    new Upgrade("Piercing Shot", {
                         description: [
                             "Head shots pierce through enemies",
                             "Extra targets take only 1 damage"
@@ -205,7 +209,7 @@ class Game extends dn.Process {
                 isUnlockable: () -> this.hero.grenades <= 4,
                 infinite: true
             })
-        ];
+        ]);
     }
 
     // function updateWave() {
@@ -495,15 +499,18 @@ class Game extends dn.Process {
                         upgrade -> upgrade.onUnlock == bonusHeart
                     )
                 )
-                    this.unlockableUpgrades.push(new Upgrade("Bonus Heart", {
-                        description: [
-                            "+1 max life", "Special challenge reward"
-                        ],
-                        onUnlock: bonusHeart,
-                        isUnlockable: () -> this.hero.life == this.hero.maxLife
-                    }));
+                    this.unlockableUpgrades.addUpgrade(
+                        new Upgrade("Bonus Heart", {
+                            description: [
+                                "+1 max life", "Special challenge reward"
+                            ],
+                            onUnlock: bonusHeart,
+                            isUnlockable: () ->
+                                this.hero.life == this.hero.maxLife
+                        })
+                    );
             } else
-                this.unlockableUpgrades.push(new Upgrade("Heal", {
+                this.unlockableUpgrades.addUpgrade(new Upgrade("Heal", {
                     description: [
                         "Heal one heart", "One-time effect as you choose this"
                     ],
