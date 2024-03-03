@@ -14,6 +14,7 @@ class Game extends dn.Process {
     public var hero: entity.Hero;
 
     public var unlockableUpgrades(default, null): Array<Upgrade>;
+    public var unlockableRewards(default, null): Array<Upgrade>;
     public var upgradeMessage: Null<h2d.Text>;
 
     var clickTrap: h2d.Interactive;
@@ -181,7 +182,10 @@ class Game extends dn.Process {
                     ],
                     onUnlock: () -> this.hero.unlockAction(action.GrabMob)
                 })]
-            }),
+            })
+        ]);
+
+        this.unlockableRewards = Upgrade.initUpgrades([
             new Upgrade("Evasion", {
                 description: [
                     "One time effect", "Get one evasion point",
@@ -445,11 +449,11 @@ class Game extends dn.Process {
         }
     }
 
-    function startUpgrades(upgradeOptions: Array<Upgrade>) {
+    function startUpgrades(upgradeOptions: Array<Upgrade>, message: String) {
         this.clearLevel();
 
         this.upgradeMessage = new h2d.Text(Assets.font, this.root);
-        this.upgradeMessage.text = "Choose an upgrade";
+        this.upgradeMessage.text = message;
         this.upgradeMessage.textColor = 0x44F774;
         this.upgradeMessage.y = 20;
 
@@ -488,17 +492,17 @@ class Game extends dn.Process {
 
         if (this.level.wave is wave.Battle && this.level.waveId % 4 == 3)
             if (Lambda.exists(
-                this.unlockableUpgrades, upgrade -> upgrade.onUnlock == heal
+                this.unlockableRewards, reward -> reward.onUnlock == heal
             )) {
                 if (
                     this.hero.life == this.hero.maxLife &&
                     this.hero.maxLife == 3 &&
                     !Lambda.exists(
-                        this.unlockableUpgrades,
-                        upgrade -> upgrade.onUnlock == bonusHeart
+                        this.unlockableRewards,
+                        reward -> reward.onUnlock == bonusHeart
                     )
                 )
-                    this.unlockableUpgrades.addUpgrade(
+                    this.unlockableRewards.addUpgrade(
                         new Upgrade("Bonus Heart", {
                             description: [
                                 "+1 max life", "Special challenge reward"
@@ -509,7 +513,7 @@ class Game extends dn.Process {
                         })
                     );
             } else
-                this.unlockableUpgrades.addUpgrade(new Upgrade("Heal", {
+                this.unlockableRewards.addUpgrade(new Upgrade("Heal", {
                     description: [
                         "Heal one heart", "One-time effect as you choose this"
                     ],
@@ -517,13 +521,20 @@ class Game extends dn.Process {
                     isUnlockable: () -> this.hero.life < this.hero.maxLife
                 }));
 
-        var upgradeOptions = this.unlockableUpgrades.filter(
-            upgrade -> upgrade.isUnlockable()
-        );
+        final isUpgradeReward = this.level.waveId % 2 == 0;
+
+        var upgradeOptions = (if (isUpgradeReward) {
+            this.unlockableUpgrades;
+        } else {
+            this.unlockableRewards;
+        }).filter(upgrade -> upgrade.isUnlockable());
 
         if (this.level.wave.isRewarding && upgradeOptions.length > 0) {
             this.cd.unset("lastMobDiedRecently");
-            this.startUpgrades(upgradeOptions);
+            this.startUpgrades(
+                upgradeOptions,
+                if (isUpgradeReward) "Choose an upgrade" else "Choose a reward"
+            );
         } else if (this.level.waveId == 1) {
             this.cinematic.create({
                 this.mask.visible = true;
