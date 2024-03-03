@@ -198,6 +198,17 @@ class Game extends dn.Process {
                 isUnlockable: () -> !this.hero.hasEvasion,
                 infinite: true
             }),
+            new Upgrade("Heal", {
+                description: [
+                    "Heal one heart", "One-time effect as you choose this"
+                ],
+                onUnlock: () -> {
+                    this.hero.life++;
+                    this.updateHud();
+                },
+                isUnlockable: () -> this.hero.life < this.hero.maxLife,
+                infinite: true
+            }),
             new Upgrade("Two Grenades", {
                 description: [
                     "Get two grenades as you choose this", "Throw anywhere",
@@ -478,46 +489,35 @@ class Game extends dn.Process {
     function exitLevel() {
         this.cd.setS("lockNext", Const.INFINITE);
 
-        function heal() {
-            this.hero.life++;
-            this.updateHud();
-        }
-
         function bonusHeart() {
             this.hero.initLife(4);
             this.updateHud();
         }
 
-        if (this.level.wave is wave.Battle && this.level.waveId % 4 == 3)
-            if (Lambda.exists(
-                this.unlockableRewards, reward -> reward.onUnlock == heal
-            )) {
-                if (
-                    this.hero.life == this.hero.maxLife &&
-                    this.hero.maxLife == 3 &&
-                    !Lambda.exists(
-                        this.unlockableRewards,
-                        reward -> reward.onUnlock == bonusHeart
-                    )
+        static var noDamageStreak = 0;
+
+        if (this.level.wave is wave.Battle) {
+            if (this.hero.life < this.hero.maxLife)
+                noDamageStreak = 0;
+            else
+                noDamageStreak++;
+
+            if (
+                noDamageStreak >= 6 &&
+                this.hero.maxLife == 3 &&
+                !Lambda.exists(
+                    this.unlockableRewards,
+                    reward -> reward.onUnlock == bonusHeart
                 )
-                    this.unlockableRewards.addUpgrade(
-                        new Upgrade("Bonus Heart", {
-                            description: [
-                                "+1 max life", "Special challenge reward"
-                            ],
-                            onUnlock: bonusHeart,
-                            isUnlockable: () ->
-                                this.hero.life == this.hero.maxLife
-                        })
-                    );
-            } else
-                this.unlockableRewards.addUpgrade(new Upgrade("Heal", {
+            )
+                this.unlockableRewards.addUpgrade(new Upgrade("Bonus Heart", {
                     description: [
-                        "Heal one heart", "One-time effect as you choose this"
+                        "+1 max life", "Special challenge reward"
                     ],
-                    onUnlock: heal,
-                    isUnlockable: () -> this.hero.life < this.hero.maxLife
+                    onUnlock: bonusHeart,
+                    isUnlockable: () -> this.hero.life == this.hero.maxLife
                 }));
+        }
 
         final isUpgradeReward = this.level.waveId % 2 == 0;
 
