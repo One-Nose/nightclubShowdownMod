@@ -284,17 +284,10 @@ class Level extends dn.Process {
                 totalPrice += chosenEntry.price;
                 chosenEntry.price += chosenEntry.accumulativePrice ?? 0;
 
-                var x = availableXs[M.randRange(if (this.waveId == 0) {
-                    availableXs.length - 6;
-                } else if (
-                    difficulty <= 3 &&
-                    delay == 0.0 &&
-                    chosenEntry.price >= 3
-                ) {
-                    availableXs.length - 8;
-                } else {
-                    0;
-                }, availableXs.length - 1)];
+                var x = availableXs[M.randRange(
+                    if (this.waveId == 0) availableXs.length - 6 else 0,
+                    availableXs.length - 1
+                )];
                 availableXs.remove(x);
                 availableXs.remove(x - 1);
                 availableXs.remove(x + 1);
