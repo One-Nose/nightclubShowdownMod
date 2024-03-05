@@ -243,7 +243,7 @@ class Level extends dn.Process {
         var lastBatch = false;
         while (!lastBatch) {
             var maxBatchSize = 0;
-            for (batchSize in 1...5) {
+            for (batchSize in 1...(5 + M.floor(difficulty / 8))) {
                 if (batchSize * Math.log(batchSize + 1) <= points)
                     maxBatchSize = batchSize;
                 else
