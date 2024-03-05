@@ -201,7 +201,7 @@ class Level extends dn.Process {
         this.wave = new wave.Battle(waveColors[waveColorIndex]);
 
         var mod = this.waveId % 8;
-        var difficulty = M.floor(this.waveId / 8) + mod;
+        var difficulty = M.floor(this.waveId / 8) * 2 + mod;
 
         var covers = if (difficulty < 2) {
             0;
