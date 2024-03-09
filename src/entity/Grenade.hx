@@ -1,6 +1,8 @@
 package entity;
 
 class Grenade extends Entity {
+    public static var ALL: Array<Grenade> = [];
+
     var range: Float;
 
     public function new(e: Entity) {
@@ -21,11 +23,14 @@ class Grenade extends Entity {
     override function init() {
         super.init();
 
+        ALL.push(this);
+
         cd.setS("timer", 1.25);
     }
 
     override public function dispose() {
         super.dispose();
+        ALL.remove(this);
     }
 
     override function onLand() {

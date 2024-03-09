@@ -568,6 +568,9 @@ class Game extends dn.Process {
             if (mob.isAlive() && mob.canBeShot())
                 return true;
 
+        if (entity.Grenade.ALL.length > 0)
+            return true;
+
         for (cover in entity.Cover.ALL)
             if (!cover.onGround)
                 if (!cover.cd.has("coverFalling"))
