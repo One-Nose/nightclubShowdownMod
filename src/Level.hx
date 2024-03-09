@@ -203,7 +203,7 @@ class Level extends dn.Process {
         var mod = this.waveId % 8;
         var difficulty = M.floor(this.waveId / 8) * 2 + mod;
 
-        var covers = if (difficulty < 2) {
+        var amountOfCovers = if (difficulty < 2) {
             0;
         } else if (difficulty < 7) {
             1;
@@ -211,13 +211,13 @@ class Level extends dn.Process {
             M.randRange(2, 3);
         }
         if (mod == 7)
-            covers += 2;
+            amountOfCovers += 2;
 
         var availableXs = [for (i in 1...(this.wid - 1)) i];
         for (cover in Cover.ALL)
             availableXs.remove(cover.cx);
 
-        for (_ in 0...covers) {
+        for (_ in 0...amountOfCovers) {
             if (availableXs.length == 0)
                 break;
             var x = availableXs[M.randRange(0, availableXs.length - 1)];
@@ -312,7 +312,7 @@ class Level extends dn.Process {
                     chosenEntry.createMob(
                         x, if (this.waveId <= 1) 6 else 4, dir
                     ),
-                    if (this.wave.entities[0].length == 0) delay else delay + 2
+                    if (amountOfCovers == 0) delay else delay + 2
                 );
 
                 registeredMobs++;
