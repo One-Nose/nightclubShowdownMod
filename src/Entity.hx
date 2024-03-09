@@ -187,19 +187,21 @@ class Entity {
         this.cover.hit(damage, source);
     }
 
-    public function hit(
-        damage: Int, source: Entity, ?ignoreCover = false
-    ): Bool {
+    public function hitOrHitCover(damage: Int, source: Entity): Bool {
+        if (this.isCoveredFrom(source)) {
+            this.hitCover(damage, source);
+            return false;
+        }
+
+        return this.hit(damage, source);
+    }
+
+    public function hit(damage: Int, source: Entity): Bool {
         if (source != null)
             this.lastHitDir = source.dirTo(this);
 
         if (damage <= 0 || !this.isAlive() || this.cd.has("rolling"))
             return false;
-
-        if (!ignoreCover && this.isCoveredFrom(source)) {
-            this.hitCover(damage, source);
-            return false;
-        }
 
         damage = M.imin(this.life, damage);
         if (!this.isInvulnerable)

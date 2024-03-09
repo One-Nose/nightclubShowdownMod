@@ -73,7 +73,7 @@ class Hero extends Entity {
                 return;
             }
 
-            if (e.hit(1, this)) {
+            if (e.hitOrHitCover(1, this)) {
                 var r = e.getDiminishingReturnFactor("blindShot", 1, 1);
                 e.dx *= 0.3;
                 e.dx += dirTo(e) * rnd(0.03, 0.05) * r;
@@ -122,9 +122,9 @@ class Hero extends Entity {
                             M.fmax(this.footX, e.footX),
                         )
                     )
-                        mob.hit(1, this, true);
+                        mob.hit(1, this);
 
-            if (e.hit(this.headShotDamage, this, true))
+            if (e.hit(this.headShotDamage, this))
                 fx.headShot(shootX, shootY, e.headX, e.headY, dirTo(e));
             fx.shoot(shootX, shootY, e.headX, e.headY, 0x2780D8);
             fx.bullet(shootX - dir * 5, shootY, dir);
@@ -469,14 +469,12 @@ class Hero extends Entity {
         }
     }
 
-    override function hit(
-        damage: Int, source: Entity, ?ignoreCover = false
-    ): Bool {
+    override function hit(damage: Int, source: Entity): Bool {
         if (this.hasEvasion) {
             this.hasEvasion = false;
             this.game.updateHud();
             return false;
         }
-        return super.hit(damage, source, ignoreCover);
+        return super.hit(damage, source);
     }
 }

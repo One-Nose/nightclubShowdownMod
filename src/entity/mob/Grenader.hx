@@ -21,7 +21,7 @@ class Grenader extends entity.Mob {
             g.setPosPixel(shootX, shootY);
             g.dx = dirTo(e) * 0.2 * M.fabs(e.cx - cx) / 7; // 0.2 for 7 cells
             g.dy = -0.05;
-            // if( e.hit(1,this) ) {
+            // if( e.hitOrHitCover(1,this) ) {
             // e.dx*=0.3;
             // e.dx+=dirTo(e)*rnd(0.03,0.06);
             // e.lockMovementsS(0.3);

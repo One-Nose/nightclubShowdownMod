@@ -645,7 +645,7 @@ class Game extends dn.Process {
         if (Main.ME.keyPressed(Key.K))
             for (mob in entity.Mob.ALL)
                 if (mob.isAlive())
-                    mob.hit(99, this.hero, true);
+                    mob.hit(99, this.hero);
         #end
 
         if (Key.isDown(Key.ALT) && Main.ME.keyPressed(Key.ENTER))

@@ -75,7 +75,7 @@ class DeadBody extends Entity {
                     !e.cd.hasSetS("bodyHit", 0.3) &&
                     (dx > 0 && dirTo(e) == 1 || dx < 0 && dirTo(e) == -1)
                 )
-                    e.hit(2, this, true);
+                    e.hit(2, this);
 
             // Push mobs
             for (e in entity.Mob.ALL)
@@ -86,7 +86,7 @@ class DeadBody extends Entity {
                     e.canBePushed()
                 ) {
                     if (!e.cd.hasSetS("bodyDmg", 1))
-                        e.hit(1, this, true);
+                        e.hit(1, this);
                     e.violentBump(dirTo(e) * 0.4, -0.2, 1.75);
                 }
         }

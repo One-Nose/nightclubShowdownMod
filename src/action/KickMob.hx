@@ -60,7 +60,7 @@ class KickMob extends Action {
 
     function _execute() {
         Assets.SFX.hit1(1);
-        this.mob.hit(1, this.hero, true);
+        this.mob.hit(1, this.hero);
 
         this.hero.lookAt(this.mob);
         this.hero.spr.anim.play("heroKick");

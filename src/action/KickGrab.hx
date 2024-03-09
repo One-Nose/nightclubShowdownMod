@@ -26,7 +26,7 @@ class KickGrab extends Action {
 
     function _execute() {
         Assets.SFX.hit1(1);
-        this.hero.grabbedMob.hit(1, this.hero, true);
+        this.hero.grabbedMob.hit(1, this.hero);
         this.hero.grabbedMob.xr += 0.5 * this.hero.dirTo(this.hero.grabbedMob);
         this.hero.grabbedMob.violentBump(this.hero.dir * 0.5, -0.1, 1.5);
         this.hero.stopGrab();
