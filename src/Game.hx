@@ -284,7 +284,11 @@ class Game extends dn.Process {
     }
 
     function onMouseDown(event: hxd.Event) {
-        if (!this.hero.isAlive() && this.cd.hasSetS("restartGame", 1)) {
+        if (
+            !this.hero.isAlive() &&
+            !Main.ME.isTransitioning() &&
+            this.cd.hasSetS("restartGame", 1)
+        ) {
             Main.ME.restartGame();
             return;
         }
