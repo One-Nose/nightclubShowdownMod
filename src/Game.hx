@@ -186,6 +186,18 @@ class Game extends dn.Process {
         ]);
 
         this.unlockableRewards = Upgrade.initUpgrades([
+            new Upgrade("Bonus Heart", {
+                description: [
+                    "+1 max life", "Special challenge reward"
+                ],
+                onUnlock: () -> {
+                    this.hero.initLife(4);
+                    this.updateHud();
+                },
+                isUnlockable: () ->
+                    this.hero.life == this.hero.maxLife &&
+                    this.hero.bestNoDamageStreak >= 6
+            }),
             new Upgrade("Evasion", {
                 description: [
                     "One time effect", "Get one evasion point",
@@ -493,34 +505,12 @@ class Game extends dn.Process {
     function exitLevel() {
         this.cd.setS("lockNext", Const.INFINITE);
 
-        function bonusHeart() {
-            this.hero.initLife(4);
-            this.updateHud();
-        }
-
-        static var noDamageStreak = 0;
-
         if (this.level.wave is wave.Battle) {
-            if (this.hero.life < this.hero.maxLife || this.level.waveId == 0)
-                noDamageStreak = 0;
-            else
-                noDamageStreak++;
-
-            if (
-                noDamageStreak >= 6 &&
-                this.hero.maxLife == 3 &&
-                !Lambda.exists(
-                    this.unlockableRewards,
-                    reward -> reward.onUnlock == bonusHeart
-                )
-            )
-                this.unlockableRewards.addUpgrade(new Upgrade("Bonus Heart", {
-                    description: [
-                        "+1 max life", "Special challenge reward"
-                    ],
-                    onUnlock: bonusHeart,
-                    isUnlockable: () -> this.hero.life == this.hero.maxLife
-                }));
+            this.hero.noDamageStreak++;
+            this.hero.bestNoDamageStreak = M.imax(
+                this.hero.bestNoDamageStreak,
+                this.hero.noDamageStreak
+            );
         }
 
         final isUpgradeReward = this.level.waveId % 2 == 0;

@@ -31,6 +31,8 @@ class Hero extends Entity {
     public var canCoverDash = false;
     public var reloadSpeed = 1.0;
     public var hasEvasion = false;
+    public var noDamageStreak = 0;
+    public var bestNoDamageStreak = 0;
 
     public function new(x, y) {
         super(x, y);
@@ -473,8 +475,10 @@ class Hero extends Entity {
         if (this.hasEvasion) {
             this.hasEvasion = false;
             this.game.updateHud();
-            return false;
-        }
-        return super.hit(damage, source);
+        } else if (super.hit(damage, source)) {
+            this.noDamageStreak = -1;
+            return true;
+        };
+        return false;
     }
 }
