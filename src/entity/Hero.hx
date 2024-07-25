@@ -23,6 +23,7 @@ class Hero extends Entity {
     public var ammo: Int;
     public var maxAmmo: Int;
     public var grenades = 0;
+    public var grenadeRange = 1.;
     public var grabbedMob: Null<entity.Mob>;
     public var help: Null<h2d.Text>;
     public var speed = 0.011;
@@ -154,7 +155,7 @@ class Hero extends Entity {
         s.onExecute = function(_) {
             this.dy = -0.1;
 
-            var grenade = new entity.Grenade(this);
+            var grenade = new entity.Grenade(this, this.grenadeRange);
             grenade.init();
             grenade.setPosPixel(this.shootX, this.shootY);
             grenade.dx = M.sign(
