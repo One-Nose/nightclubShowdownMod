@@ -5,19 +5,19 @@ class Grenade extends Entity {
 
     var range: Float;
 
-    public function new(e: Entity) {
-        super(e.cx, e.cy);
-        xr = e.xr;
-        yr = e.yr;
+    public function new(entity: Entity, range = 1.) {
+        super(entity.cx, entity.cy);
+        xr = entity.xr;
+        yr = entity.yr;
 
-        dir = e.dir;
-        gravity *= 0.25;
-        frict = 0.98;
-        radius = 5;
-        range = Const.GRID * 1;
+        this.dir = entity.dir;
+        this.gravity *= 0.25;
+        this.frict = 0.98;
+        this.radius = 5;
+        this.range = Const.GRID * range;
 
-        spr.setCenterRatio(0.5, 0.5);
-        spr.set("grenade");
+        this.spr.setCenterRatio(0.5, 0.5);
+        this.spr.set("grenade");
     }
 
     override function init() {
