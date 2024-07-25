@@ -287,10 +287,8 @@ class Game extends dn.Process {
         if (hero.grenades > 0)
             this.hud.addSpacing(8);
 
-        for (_ in 0...hero.grenades) {
-            var grenade = Assets.gameElements.h_get("iconBullet", this.hud);
-            grenade.colorize(0xEEBE11);
-        }
+        for (_ in 0...hero.grenades)
+            var grenade = Assets.gameElements.h_get("grenade", this.hud);
 
         this.onResize();
     }
