@@ -72,6 +72,8 @@ class Main extends dn.Process {
         fadeIn: Bool, ?seconds: Float, ?callback: () -> Void
     ) {
         if (fadeIn) {
+            this.cd.setS("transition", Const.INFINITE);
+
             this.black.visible = true;
             this.tw
                 .createS(this.black.alpha, 0 > 1, seconds ?? 0.6)
@@ -86,6 +88,8 @@ class Main extends dn.Process {
                     this.black.visible = false;
                     if (callback != null)
                         callback();
+
+                    this.cd.unset("transition");
                 };
         }
     }
@@ -117,13 +121,11 @@ class Main extends dn.Process {
 
     public function restartGame(?history: Array<Game.HistoryEntry>) {
         if (Game.ME != null) {
-            this.cd.setS("transition", Const.INFINITE);
             this.fadeBlack(true, function() {
                 Game.ME.destroy();
                 Assets.playMusic(false);
 
                 this.delayer.addS(function() {
-                    this.cd.unset("transition");
                     new Game(new h2d.Object(this.cached), history);
                     this.fadeBlack(true, 0.4);
                     this.fadeBlack(false);
