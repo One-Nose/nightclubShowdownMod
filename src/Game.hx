@@ -183,7 +183,7 @@ class Game extends dn.Process {
                     onUnlock: () -> this.hero.unlockAction(action.GrabMob)
                 })]
             }),
-            new Upgrade("Powerful Grenades", {
+            new Upgrade("Larger Grenades", {
                 description: ["Increase grenade explosion radius"],
                 onUnlock: () -> this.hero.grenadeRange++,
                 maxLevel: 2,
