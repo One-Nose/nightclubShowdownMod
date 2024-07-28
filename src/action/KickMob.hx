@@ -13,7 +13,7 @@ class KickMob extends Action {
 
     public static function getInstance(
         hero: entity.Hero, x: Float, y: Float
-    ): Null<Move> {
+    ): Null<Action> {
         var bestAction: Null<KickMob> = null;
 
         for (mob in entity.Mob.ALL) {
@@ -34,12 +34,21 @@ class KickMob extends Action {
         if (bestAction == null)
             return null;
 
-        return new Move(
-            hero,
-            bestAction.mob.footX + bestAction.side * 10,
-            bestAction.mob.footY,
-            bestAction
-        );
+        var actionX = bestAction.mob.footX + bestAction.side * 10;
+
+        if (
+            hero.canKickDash &&
+            bestAction.side == M.sign(hero.footX - x) &&
+            M.inRange(
+                M.fabs(hero.footX - actionX), Const.GRID * 2, Const.GRID * 5
+            )
+        )
+            return new Dash(
+                hero, actionX, bestAction.hero.footY, Const.INFINITE,
+                bestAction
+            );
+
+        return new Move(hero, actionX, bestAction.mob.footY, bestAction);
     }
 
     override function canBePerformed(): Null<Bool> {

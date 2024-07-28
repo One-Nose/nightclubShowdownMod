@@ -87,8 +87,8 @@ class Dash extends Action {
             return false;
         }
         return
-            this.x == other.x &&
-            this.y == other.y &&
+            M.cmpAbs(this.x, other.x, .1) &&
+            M.cmpAbs(this.y, other.y, .1) &&
             this.then.equals(other.then);
     }
 }
