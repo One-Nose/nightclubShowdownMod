@@ -127,12 +127,21 @@ class Game extends dn.Process {
                 ],
                 onUnlock: () -> this.hero.unlockAction(action.Dash),
                 isUnlockable: () -> this.level.waveId >= 2,
-                children: [new Upgrade("Cover Dash", {
-                    description: [
-                        "Dash into cover", "Skip the vulnerability moment"
-                    ],
-                    onUnlock: () -> this.hero.canCoverDash = true
-                })]
+                children: [
+                    new Upgrade("Cover Dash", {
+                        description: [
+                            "Dash into cover", "Skip the vulnerability moment"
+                        ],
+                        onUnlock: () -> this.hero.canCoverDash = true
+                    }),
+                    new Upgrade("Kick Dash", {
+                        description: [
+                            "Dash into enemies", "Skip the vulnerability moment"
+                        ],
+                        onUnlock: () -> this.hero.canKickDash = true,
+                        isUnlockable: () -> this.hero.hasAction(action.KickMob)
+                    })
+                ]
             }),
             new Upgrade("Fast Reload", {
                 description: ["Multiplies your reload speed"],

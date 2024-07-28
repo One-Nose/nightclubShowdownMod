@@ -30,6 +30,7 @@ class Hero extends Entity {
     public var headShotDamage = 2;
     public var piercingShot = false;
     public var canCoverDash = false;
+    public var canKickDash = false;
     public var reloadSpeed = 1.0;
     public var hasEvasion = false;
     public var noDamageStreak = 0;
@@ -233,6 +234,10 @@ class Hero extends Entity {
 
             this.availableActions.insert(index, action);
         }
+    }
+
+    public function hasAction(action: ActionType) {
+        return this.availableActions.contains(action);
     }
 
     override public function isCoveredFrom(source: Entity) {
