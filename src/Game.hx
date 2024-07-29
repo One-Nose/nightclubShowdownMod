@@ -126,7 +126,6 @@ class Game extends dn.Process {
                     "Makes you vulnerable for a moment"
                 ],
                 onUnlock: () -> this.hero.unlockAction(action.Dash),
-                isUnlockable: () -> this.level.waveId >= 2,
                 children: [
                     new Upgrade("Cover Dash", {
                         description: [
