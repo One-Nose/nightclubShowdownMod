@@ -28,6 +28,7 @@ jobs:
         uses: krdlab/setup-haxe@v1
         with:
           haxe-version: 4.3.4
+          cache-dependency-path: 'js.hxml'
       - name: Install dependencies
         run: |
           haxelib install js.hxml --always
