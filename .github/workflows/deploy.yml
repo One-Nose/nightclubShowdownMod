@@ -13,7 +13,7 @@ permissions:
 
 concurrency:
   group: "pages"
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   deploy:
@@ -28,17 +28,23 @@ jobs:
         uses: krdlab/setup-haxe@v1
         with:
           haxe-version: 4.3.4
-      - name: Build
+      - name: Install dependencies
         run: |
           haxelib install js.hxml --always
           haxelib git deepnightLibs https://github.com/deepnight/deepnightLibs
-          haxe js.hxml
+      - name: Build
+        run: haxe js.hxml
       - name: Setup Pages
         uses: actions/configure-pages@v5
+      - name: Prepare artifact
+        run: |
+          mkdir pages
+          cp index.html pages
+          cp bin pages
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'
+          path: pages
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
