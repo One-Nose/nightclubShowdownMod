@@ -49,7 +49,7 @@ class TakeCover extends Action {
     }
 
     override function canBePerformed(): Null<Bool> {
-        if (!this.cover.canHostSomeone(this.side))
+        if (this.cover.onGround && !this.cover.canHostSomeone(this.side))
             return false;
 
         if (this.hero.distPxFree(
