@@ -6,6 +6,8 @@ export default () =>
     .pipe(
       texturePacker({
         textureName: "gameElements",
+        allowRotation: false,
+        allowTrim: false,
         removeFileExtension: true,
         packer: "OptimalPacker",
         exporter: "Spine",
