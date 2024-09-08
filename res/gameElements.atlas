@@ -858,30 +858,44 @@ crateBroken0
   orig: 16,16
   offset: 0,0
   index: -1
-iconCoverLeft
+crateMetal0
   rotate: false
   xy: 361,510
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-iconCoverRight
+crateMetalBroken0
   rotate: false
   xy: 377,510
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-iconMove
+iconCoverLeft
   rotate: false
   xy: 393,510
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-iconReload
+iconCoverRight
   rotate: false
   xy: 409,510
+  size: 16,16
+  orig: 16,16
+  offset: 0,0
+  index: -1
+iconMove
+  rotate: false
+  xy: 416,490
+  size: 16,16
+  orig: 16,16
+  offset: 0,0
+  index: -1
+iconReload
+  rotate: false
+  xy: 425,506
   size: 16,16
   orig: 16,16
   offset: 0,0
@@ -895,35 +909,35 @@ iconShield
   index: -1
 iconShoot
   rotate: false
-  xy: 416,490
+  xy: 432,490
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 iconShootCover
   rotate: false
-  xy: 425,506
+  xy: 441,506
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 iconWait
   rotate: false
-  xy: 432,490
+  xy: 448,490
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 circle
   rotate: false
-  xy: 441,506
+  xy: 457,506
   size: 15,15
   orig: 15,15
   offset: 0,0
   index: -1
 iconKickGrab
   rotate: false
-  xy: 448,490
+  xy: 464,490
   size: 15,15
   orig: 15,15
   offset: 0,0
@@ -965,7 +979,7 @@ iconBullet
   index: -1
 dot0
   rotate: false
-  xy: 448,505
+  xy: 464,505
   size: 1,1
   orig: 1,1
   offset: 0,0
