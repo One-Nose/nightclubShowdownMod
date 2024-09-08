@@ -12,7 +12,7 @@ class Cover extends Entity {
     public function new(x, y, isMetal = false) {
         super(x, y);
 
-        spr.set("crate");
+        this.spr.set(if (isMetal) "crateMetal" else "crate");
         this.lifeBar.visible = true;
         initLife(if (isMetal) 6 else 3);
 
@@ -53,7 +53,7 @@ class Cover extends Entity {
 
     override function onDie() {
         Assets.SFX.explode2(1);
-        spr.set("crateBroken");
+        this.spr.set(this.spr.groupName + "Broken");
         cd.setS("decay", 15);
         fx.woodCover(centerX, centerY, lastHitDir);
         this.lifeBar.visible = false;
