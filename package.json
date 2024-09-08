@@ -1,0 +1,12 @@
+{
+  "type": "module",
+  "devDependencies": {
+    "@eslint/js": "^9.10.0",
+    "eslint": "^9.10.0",
+    "globals": "^15.9.0"
+  },
+  "dependencies": {
+    "gulp": "^5.0.0",
+    "gulp-free-tex-packer": "^0.5.4"
+  }
+}
