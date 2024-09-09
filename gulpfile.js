@@ -2,7 +2,7 @@ import { dest, src } from "gulp";
 import texturePacker from "gulp-free-tex-packer";
 
 export default () =>
-  src("art/export/*", { encoding: false })
+  src("art/export/**/*", { encoding: false })
     .pipe(
       texturePacker({
         textureName: "gameElements",
