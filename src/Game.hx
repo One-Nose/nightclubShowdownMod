@@ -207,7 +207,8 @@ class Game extends dn.Process {
                 description: ["Increase grenade explosion radius"],
                 onUnlock: () -> this.hero.grenadeRange++,
                 maxLevel: 2,
-                isUnlockable: () -> this.hero.grenades > 0
+                isUnlockable: () -> this.hero.grenades > 0,
+                icon: "explosion"
             })
         ]);
 

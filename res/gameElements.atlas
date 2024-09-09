@@ -949,79 +949,86 @@ upgrade/dash
   orig: 16,16
   offset: 0,0
   index: -1
-upgrade/generic
+upgrade/explosion
   rotate: false
   xy: 480,480
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgrade/grab
+upgrade/generic
   rotate: false
   xy: 496,480
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgrade/headShot
+upgrade/grab
   rotate: false
   xy: 489,496
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgrade/kick
+upgrade/headShot
   rotate: false
   xy: 489,512
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgrade/kickDash
+upgrade/kick
   rotate: false
   xy: 519,0
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgrade/pierce
+upgrade/kickDash
   rotate: false
   xy: 519,16
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgrade/reload
+upgrade/pierce
   rotate: false
   xy: 519,32
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgrade/shot
+upgrade/reload
   rotate: false
   xy: 519,48
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-circle
+upgrade/shot
   rotate: false
   xy: 512,64
+  size: 16,16
+  orig: 16,16
+  offset: 0,0
+  index: -1
+circle
+  rotate: false
+  xy: 512,80
   size: 15,15
   orig: 15,15
   offset: 0,0
   index: -1
 iconDash
   rotate: false
-  xy: 512,79
+  xy: 512,95
   size: 15,15
   orig: 15,15
   offset: 0,0
   index: -1
 iconKickGrab
   rotate: false
-  xy: 512,94
+  xy: 512,110
   size: 15,15
   orig: 15,15
   offset: 0,0
