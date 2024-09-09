@@ -6,6 +6,7 @@ class Upgrade {
     public var description(default, null): String;
     public var onUnlock(default, null): () -> Void;
     public var isUnlockable(default, null): () -> Bool;
+    public var iconName(default, null): String;
 
     var array: Array<Upgrade> = null;
     var children: Array<Upgrade>;
@@ -39,7 +40,8 @@ class Upgrade {
         ?children: Array<Upgrade>,
         ?maxLevel: Int,
         ?isUnlockable: () -> Bool,
-        ?infinite: Bool
+        ?infinite: Bool,
+        ?icon: String
     }) {
         this.name = name;
         this.description = "- " + config.description.map(string -> {
@@ -71,6 +73,8 @@ class Upgrade {
         }
 
         this.isUnlockable = config.isUnlockable ?? () -> true;
+
+        this.iconName = config.icon ?? "generic";
     }
 
     public function claim() {

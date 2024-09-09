@@ -14,7 +14,7 @@ class UpgradeEntity extends Entity {
 
         this.upgrade = upgrade;
 
-        this.spr.set("crate");
+        this.spr.set("upgrade/" + upgrade.iconName);
 
         this.helpText = new h2d.Text(Assets.font);
         this.helpText.text = upgrade.name;
