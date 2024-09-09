@@ -142,7 +142,8 @@ class Game extends dn.Process {
                         onUnlock: () -> this.hero.canKickDash = true,
                         isUnlockable: () -> this.hero.hasAction(action.KickMob)
                     })
-                ]
+                ],
+                icon: 'dash'
             }),
             new Upgrade("Fast Reload", {
                 description: ["Multiplies your reload speed"],

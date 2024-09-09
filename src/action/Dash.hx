@@ -71,7 +71,7 @@ class Dash extends Action {
     public override function updateDisplay() {
         if (this.then is None) {
             this.hero.icon.setPos(this.x, this.y);
-            this.hero.icon.set("iconKickGrab");
+            this.hero.icon.set("iconDash");
 
             super.updateDisplay();
         } else {
