@@ -977,58 +977,65 @@ upgrade/headShot
   orig: 16,16
   offset: 0,0
   index: -1
-upgrade/kick
+upgrade/heal
   rotate: false
   xy: 519,0
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgrade/kickDash
+upgrade/kick
   rotate: false
   xy: 519,16
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgrade/pierce
+upgrade/kickDash
   rotate: false
   xy: 519,32
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgrade/reload
+upgrade/pierce
   rotate: false
   xy: 519,48
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgrade/shot
+upgrade/reload
   rotate: false
   xy: 512,64
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-circle
+upgrade/shot
   rotate: false
   xy: 512,80
+  size: 16,16
+  orig: 16,16
+  offset: 0,0
+  index: -1
+circle
+  rotate: false
+  xy: 512,96
   size: 15,15
   orig: 15,15
   offset: 0,0
   index: -1
 iconDash
   rotate: false
-  xy: 512,95
+  xy: 512,111
   size: 15,15
   orig: 15,15
   offset: 0,0
   index: -1
 iconKickGrab
   rotate: false
-  xy: 512,110
+  xy: 512,126
   size: 15,15
   orig: 15,15
   offset: 0,0

@@ -246,7 +246,8 @@ class Game extends dn.Process {
                     this.updateHud();
                 },
                 isUnlockable: () -> this.hero.life < this.hero.maxLife,
-                infinite: true
+                infinite: true,
+                icon: "heal"
             }),
             new Upgrade("Two Grenades", {
                 description: [
