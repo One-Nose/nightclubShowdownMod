@@ -133,14 +133,16 @@ class Game extends dn.Process {
                         description: [
                             "Dash into cover", "Skip the vulnerability moment"
                         ],
-                        onUnlock: () -> this.hero.canCoverDash = true
+                        onUnlock: () -> this.hero.canCoverDash = true,
+                        icon: 'dash'
                     }),
                     new Upgrade("Kick Dash", {
                         description: [
                             "Dash into enemies", "Skip the vulnerability moment"
                         ],
                         onUnlock: () -> this.hero.canKickDash = true,
-                        isUnlockable: () -> this.hero.hasAction(action.KickMob)
+                        isUnlockable: () -> this.hero.hasAction(action.KickMob),
+                        icon: 'kickDash'
                     })
                 ],
                 icon: 'dash'

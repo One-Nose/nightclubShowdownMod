@@ -949,37 +949,44 @@ upgrade/generic
   orig: 16,16
   offset: 0,0
   index: -1
-upgrade/shot
+upgrade/kickDash
   rotate: false
   xy: 480,480
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-circle
+upgrade/shot
   rotate: false
   xy: 496,480
+  size: 16,16
+  orig: 16,16
+  offset: 0,0
+  index: -1
+circle
+  rotate: false
+  xy: 489,496
   size: 15,15
   orig: 15,15
   offset: 0,0
   index: -1
 iconDash
   rotate: false
-  xy: 496,495
+  xy: 504,496
   size: 15,15
   orig: 15,15
   offset: 0,0
   index: -1
 iconKickGrab
   rotate: false
-  xy: 489,510
+  xy: 489,511
   size: 15,15
   orig: 15,15
   offset: 0,0
   index: -1
 bigDirt0
   rotate: false
-  xy: 512,64
+  xy: 281,373
   size: 7,6
   orig: 7,6
   offset: 0,0
@@ -993,21 +1000,21 @@ bigDirt1
   index: -1
 iconHeart
   rotate: false
-  xy: 281,373
+  xy: 345,526
   size: 7,6
   orig: 7,6
   offset: 0,0
   index: -1
 grenade0
   rotate: false
-  xy: 345,526
+  xy: 352,526
   size: 5,6
   orig: 5,6
   offset: 0,0
   index: -1
 iconBullet
   rotate: false
-  xy: 350,526
+  xy: 357,526
   size: 2,6
   orig: 2,6
   offset: 0,0
