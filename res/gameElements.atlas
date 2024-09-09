@@ -942,16 +942,23 @@ upgrade/generic
   orig: 16,16
   offset: 0,0
   index: -1
-circle
+upgrade/shot
   rotate: false
   xy: 473,506
+  size: 16,16
+  orig: 16,16
+  offset: 0,0
+  index: -1
+circle
+  rotate: false
+  xy: 480,480
   size: 15,15
   orig: 15,15
   offset: 0,0
   index: -1
 iconKickGrab
   rotate: false
-  xy: 480,480
+  xy: 495,480
   size: 15,15
   orig: 15,15
   offset: 0,0
