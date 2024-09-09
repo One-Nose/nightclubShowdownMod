@@ -117,7 +117,8 @@ class Game extends dn.Process {
                     ],
                     onUnlock: () -> this.hero
                         .getSkill("blindShot")
-                        .lockAfterS /= 2
+                        .lockAfterS /= 2,
+                    icon: "shot"
                 })],
                 icon: "biggerMags"
             }),
