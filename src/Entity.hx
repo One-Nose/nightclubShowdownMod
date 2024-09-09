@@ -42,6 +42,7 @@ class Entity {
     public var frict = 0.9;
     public var gravity = 0.02;
     public var hasGravity = true;
+    public var floatHeight = 0.;
     public var weight = 1.;
     public var radius: Float;
     public var dir(default, set) = 1;
@@ -107,7 +108,10 @@ class Entity {
     public var onGround(get, never): Bool;
 
     inline function get_onGround()
-        return this.level.hasColl(cx, cy + 1) && this.yr >= 1 && this.dy == 0;
+        return
+            this.level.hasColl(cx, cy + 1) &&
+            this.yr >= 1 - this.floatHeight &&
+            this.dy == 0;
 
     public var curAnimId(get, never): String;
 
@@ -672,8 +676,11 @@ class Entity {
         while (steps > 0) {
             this.yr += step;
             if (this.hasColl) {
-                if (this.yr > 1 && this.level.hasColl(this.cx, this.cy + 1)) {
-                    this.yr = 1;
+                if (
+                    this.yr > 1 - this.floatHeight &&
+                    this.level.hasColl(this.cx, this.cy + 1)
+                ) {
+                    this.yr = 1 - this.floatHeight;
                     this.onLand();
                     // steps = 0;
                 }
