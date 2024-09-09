@@ -38,9 +38,10 @@
       "priority": 30
     },
     {
-      "text": "(Run) ",
+      "text": "⛴ Debug",
       "color": "orange",
-      "command": "start js.html",
+      "commandType": "exec",
+      "command": "haxe js.debug.hxml",
       "alignment": "right",
       "skipTerminateQuickPick": false,
       "priority": 20
