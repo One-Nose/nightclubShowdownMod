@@ -24,6 +24,8 @@ class UpgradeEntity extends Entity {
         this.description.text = upgrade.description;
         this.description.textColor = 0x44F1F7;
 
+        this.floatHeight = 0.1;
+
         var distanceFromEdge = if (this.level.waveId < 2) 20 else 5;
 
         this.description.x = if (x >= 10) distanceFromEdge else
@@ -66,7 +68,7 @@ class UpgradeEntity extends Entity {
         super.postUpdate();
 
         this.helpText.x = Std.int(this.footX - this.helpText.textWidth * 0.5);
-        this.helpText.y = Std.int(this.footY);
+        this.helpText.y = Const.GRID * if (this.level.waveId < 2) 7 else 5;
 
         this.description.visible = this.isHovered;
         this.isHovered = false;
