@@ -134,7 +134,7 @@ class Game extends dn.Process {
                             "Dash into cover", "Skip the vulnerability moment"
                         ],
                         onUnlock: () -> this.hero.canCoverDash = true,
-                        icon: 'dash'
+                        icon: "dash"
                     }),
                     new Upgrade("Kick Dash", {
                         description: [
@@ -142,10 +142,10 @@ class Game extends dn.Process {
                         ],
                         onUnlock: () -> this.hero.canKickDash = true,
                         isUnlockable: () -> this.hero.hasAction(action.KickMob),
-                        icon: 'kickDash'
+                        icon: "kickDash"
                     })
                 ],
-                icon: 'dash'
+                icon: "dash"
             }),
             new Upgrade("Fast Reload", {
                 description: ["Multiplies your reload speed"],
@@ -156,7 +156,7 @@ class Game extends dn.Process {
                     );
                     this.hero.reloadSpeed = 2;
                 },
-                icon: 'reload'
+                icon: "reload"
             }),
             new Upgrade("Head Shot", {
                 description: [
