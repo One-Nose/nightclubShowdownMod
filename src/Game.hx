@@ -168,20 +168,24 @@ class Game extends dn.Process {
                         description: ["Make faster head shots"],
                         onUnlock: () -> this.hero
                             .getSkill("headShot")
-                            .chargeS -= 0.25
+                            .chargeS -= 0.25,
+                        icon: "aim"
                     }),
                     new Upgrade("Fatal Shot", {
                         description: ["Head shots deal 1 more damage"],
-                        onUnlock: () -> this.hero.headShotDamage++
+                        onUnlock: () -> this.hero.headShotDamage++,
+                        icon: "headShot"
                     }),
                     new Upgrade("Piercing Shot", {
                         description: [
                             "Head shots pierce through enemies",
                             "Extra targets take only 1 damage"
                         ],
-                        onUnlock: () -> this.hero.piercingShot = true
+                        onUnlock: () -> this.hero.piercingShot = true,
+                        icon: "pierce"
                     }),
-                ]
+                ],
+                icon: "headShot"
             }),
             new Upgrade("Kick Enemies", {
                 description: [
