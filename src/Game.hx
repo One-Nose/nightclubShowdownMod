@@ -198,8 +198,10 @@ class Game extends dn.Process {
                         "Grab enemies instead of kicking", "Use them as cover",
                         "Kick them when you're done"
                     ],
-                    onUnlock: () -> this.hero.unlockAction(action.GrabMob)
-                })]
+                    onUnlock: () -> this.hero.unlockAction(action.GrabMob),
+                    icon: "grab"
+                })],
+                icon: "kick"
             }),
             new Upgrade("Larger Grenades", {
                 description: ["Increase grenade explosion radius"],
