@@ -928,23 +928,30 @@ iconWait
   orig: 16,16
   offset: 0,0
   index: -1
-upgrade/generic
+upgrade/biggerMags
   rotate: false
   xy: 457,506
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-circle
+upgrade/generic
   rotate: false
   xy: 464,490
+  size: 16,16
+  orig: 16,16
+  offset: 0,0
+  index: -1
+circle
+  rotate: false
+  xy: 473,506
   size: 15,15
   orig: 15,15
   offset: 0,0
   index: -1
 iconKickGrab
   rotate: false
-  xy: 473,505
+  xy: 480,480
   size: 15,15
   orig: 15,15
   offset: 0,0
@@ -986,7 +993,7 @@ iconBullet
   index: -1
 dot0
   rotate: false
-  xy: 464,505
+  xy: 256,531
   size: 1,1
   orig: 1,1
   offset: 0,0
