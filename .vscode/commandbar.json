@@ -4,12 +4,12 @@
   "skipErrorMessage": true,
   "commands": [
     {
-      "text": " Redist",
+      "text": "Pack",
       "color": "blue",
-      "command": "haxelib run redistHelper hl.sdl.hxml hl.directx.hxml js.hxml -zip",
+      "command": "gulp",
       "alignment": "right",
       "skipTerminateQuickPick": false,
-      "priority": 100
+      "priority": 90
     },
     {
       "text": "✪ HL",
