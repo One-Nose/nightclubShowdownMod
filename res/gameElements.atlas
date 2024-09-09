@@ -1,6 +1,6 @@
 
 gameElements.png
-size: 519,532
+size: 534,532
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
@@ -956,30 +956,37 @@ upgrade/kickDash
   orig: 16,16
   offset: 0,0
   index: -1
-upgrade/shot
+upgrade/reload
   rotate: false
   xy: 496,480
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-circle
+upgrade/shot
   rotate: false
   xy: 489,496
+  size: 16,16
+  orig: 16,16
+  offset: 0,0
+  index: -1
+circle
+  rotate: false
+  xy: 489,512
   size: 15,15
   orig: 15,15
   offset: 0,0
   index: -1
 iconDash
   rotate: false
-  xy: 504,496
+  xy: 504,512
   size: 15,15
   orig: 15,15
   offset: 0,0
   index: -1
 iconKickGrab
   rotate: false
-  xy: 489,511
+  xy: 519,0
   size: 15,15
   orig: 15,15
   offset: 0,0

@@ -155,7 +155,8 @@ class Game extends dn.Process {
                         "0(7),1(7), 2(4), 3(3), 4(2), 5(3)"
                     );
                     this.hero.reloadSpeed = 2;
-                }
+                },
+                icon: 'reload'
             }),
             new Upgrade("Head Shot", {
                 description: [
