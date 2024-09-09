@@ -1,6 +1,6 @@
 
 gameElements.png
-size: 534,532
+size: 535,532
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
@@ -928,65 +928,86 @@ iconWait
   orig: 16,16
   offset: 0,0
   index: -1
-upgrade/biggerMags
+upgrade/aim
   rotate: false
   xy: 457,506
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgrade/dash
+upgrade/biggerMags
   rotate: false
   xy: 464,490
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgrade/generic
+upgrade/dash
   rotate: false
   xy: 473,506
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgrade/kickDash
+upgrade/generic
   rotate: false
   xy: 480,480
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgrade/reload
+upgrade/headShot
   rotate: false
   xy: 496,480
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgrade/shot
+upgrade/kickDash
   rotate: false
   xy: 489,496
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-circle
+upgrade/pierce
   rotate: false
   xy: 489,512
+  size: 16,16
+  orig: 16,16
+  offset: 0,0
+  index: -1
+upgrade/reload
+  rotate: false
+  xy: 519,0
+  size: 16,16
+  orig: 16,16
+  offset: 0,0
+  index: -1
+upgrade/shot
+  rotate: false
+  xy: 519,16
+  size: 16,16
+  orig: 16,16
+  offset: 0,0
+  index: -1
+circle
+  rotate: false
+  xy: 519,32
   size: 15,15
   orig: 15,15
   offset: 0,0
   index: -1
 iconDash
   rotate: false
-  xy: 504,512
+  xy: 519,47
   size: 15,15
   orig: 15,15
   offset: 0,0
   index: -1
 iconKickGrab
   rotate: false
-  xy: 519,0
+  xy: 519,62
   size: 15,15
   orig: 15,15
   offset: 0,0
@@ -1028,7 +1049,7 @@ iconBullet
   index: -1
 dot0
   rotate: false
-  xy: 256,531
+  xy: 534,32
   size: 1,1
   orig: 1,1
   offset: 0,0
