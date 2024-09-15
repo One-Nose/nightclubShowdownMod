@@ -236,7 +236,8 @@ class Game extends dn.Process {
                     this.updateHud();
                 },
                 isUnlockable: () -> !this.hero.hasEvasion,
-                infinite: true
+                infinite: true,
+                icon: "Evasion"
             }),
             new Upgrade("Heal", {
                 description: [
@@ -293,7 +294,7 @@ class Game extends dn.Process {
         this.cd.unset("invalidateHud");
 
         if (this.hero.hasEvasion) {
-            var evasion = Assets.gameElements.h_get("iconHeart", this.hud);
+            var evasion = Assets.gameElements.h_get("iconEvasion", this.hud);
             evasion.colorize(0x8888FF);
             this.hud.addSpacing(8);
         }
