@@ -41,7 +41,7 @@ class Upgrade {
         ?maxLevel: Int,
         ?isUnlockable: () -> Bool,
         ?infinite: Bool,
-        ?icon: String
+        icon: String
     }) {
         this.name = name;
         this.description = "- " + config.description.map(string -> {
@@ -74,7 +74,7 @@ class Upgrade {
 
         this.isUnlockable = config.isUnlockable ?? () -> true;
 
-        this.iconName = config.icon ?? "Generic";
+        this.iconName = config.icon;
     }
 
     public function claim() {
