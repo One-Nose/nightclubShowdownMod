@@ -35,6 +35,7 @@ class Hero extends Entity {
     public var hasEvasion = false;
     public var noDamageStreak = 0;
     public var bestNoDamageStreak = 0;
+    public var gotGrenade = false;
 
     public function new(x, y) {
         super(x, y);

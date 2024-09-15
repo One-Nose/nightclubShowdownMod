@@ -13,6 +13,8 @@ class Game extends dn.Process {
     public var level: Level;
     public var hero: entity.Hero;
 
+    public var tooltips(default, null): Array<String>;
+
     public var unlockableUpgrades(default, null): Array<Upgrade>;
     public var unlockableRewards(default, null): Array<Upgrade>;
     public var upgradeMessage: Null<h2d.Text>;
@@ -73,6 +75,11 @@ class Game extends dn.Process {
         this.hero = new entity.Hero(2, 6);
         this.hero.init();
 
+        this.tooltips = [
+            "Click on yourself to wait", "Click on yourself to reload",
+            "Click on enemies to shoot"
+        ];
+
         #if debug
         this.hero.setPosCase(8, 6);
         this.startWave(0);
@@ -127,7 +134,10 @@ class Game extends dn.Process {
                     "Move fast", "Dodge bullets",
                     "Makes you vulnerable for a moment"
                 ],
-                onUnlock: () -> this.hero.unlockAction(action.Dash),
+                onUnlock: () -> {
+                    this.hero.unlockAction(action.Dash);
+                    this.tooltips.push("Click below the floor to dash");
+                },
                 children: [
                     new Upgrade("Cover Dash", {
                         description: [
@@ -162,7 +172,10 @@ class Game extends dn.Process {
                 description: [
                     "Aim for the head", "Slower but more fatal", "Ignore cover"
                 ],
-                onUnlock: () -> this.hero.unlockAction(action.HeadShot),
+                onUnlock: () -> {
+                    this.hero.unlockAction(action.HeadShot);
+                    this.tooltips.push("Aim for the head for more damage");
+                },
                 children: [
                     new Upgrade("Quick Aim", {
                         description: ["Make faster head shots"],
@@ -192,7 +205,10 @@ class Game extends dn.Process {
                     "Kick enemies", "Stun them for a moment",
                     "Doesn't take bullets"
                 ],
-                onUnlock: () -> this.hero.unlockAction(action.KickMob),
+                onUnlock: () -> {
+                    this.hero.unlockAction(action.KickMob);
+                    this.tooltips.push("Click below enemies to kick them");
+                },
                 children: [new Upgrade("Grab Enemies", {
                     description: [
                         "Grab enemies instead of kicking", "Use them as cover",
@@ -259,6 +275,12 @@ class Game extends dn.Process {
                 onUnlock: () -> {
                     this.hero.grenades += 2;
                     this.updateHud();
+                    if (!this.hero.gotGrenade) {
+                        this.hero.gotGrenade = true;
+                        this.tooltips.push(
+                            "Click above the ground to throw a grenade"
+                        );
+                    }
                 },
                 isUnlockable: () -> this.hero.grenades <= 4,
                 infinite: true,
@@ -468,6 +490,20 @@ class Game extends dn.Process {
         }
     }
 
+    public function tooltip() {
+        if (this.tooltips.length == 0)
+            return;
+        var text = new h2d.Text(Assets.font, root);
+        text.text = '< ${this.tooltips.pop()} >';
+        text.textColor = 0xFFC400;
+        text.x = this.level.wid * Const.GRID / 2 - text.textWidth / 2;
+        text.y = 150;
+
+        this.tw.createMs(text.alpha, 0 > 1, 1500).end(() -> {
+            tw.createMs(text.alpha, 5000 | 0, 1500).end(text.remove);
+        });
+    }
+
     public function hasCinematic() {
         return !this.cinematic.isEmpty();
     }
@@ -485,7 +521,11 @@ class Game extends dn.Process {
 
             for (cover in entity.Cover.ALL)
                 cover.destroy();
+
+            this.tooltips.push("Click below crates to take cover");
         }
+
+        this.tooltip();
 
         if (this.level.waveId <= 0)
             this.level.startWave();
