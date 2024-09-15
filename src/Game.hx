@@ -260,7 +260,8 @@ class Game extends dn.Process {
                     this.updateHud();
                 },
                 isUnlockable: () -> this.hero.grenades <= 4,
-                infinite: true
+                infinite: true,
+                icon: "Grenade"
             })
         ]);
     }
