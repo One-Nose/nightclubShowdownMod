@@ -223,7 +223,8 @@ class Game extends dn.Process {
                 },
                 isUnlockable: () ->
                     this.hero.life == this.hero.maxLife &&
-                    this.hero.bestNoDamageStreak >= 6
+                    this.hero.bestNoDamageStreak >= 6,
+                icon: "bonusHeart"
             }),
             new Upgrade("Evasion", {
                 description: [
