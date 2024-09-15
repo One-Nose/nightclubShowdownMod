@@ -118,9 +118,9 @@ class Game extends dn.Process {
                     onUnlock: () -> this.hero
                         .getSkill("blindShot")
                         .lockAfterS /= 2,
-                    icon: "shot"
+                    icon: "Shot"
                 })],
-                icon: "biggerMags"
+                icon: "BiggerMags"
             }),
             new Upgrade("Dash", {
                 description: [
@@ -134,7 +134,7 @@ class Game extends dn.Process {
                             "Dash into cover", "Skip the vulnerability moment"
                         ],
                         onUnlock: () -> this.hero.canCoverDash = true,
-                        icon: "dash"
+                        icon: "Dash"
                     }),
                     new Upgrade("Kick Dash", {
                         description: [
@@ -142,10 +142,10 @@ class Game extends dn.Process {
                         ],
                         onUnlock: () -> this.hero.canKickDash = true,
                         isUnlockable: () -> this.hero.hasAction(action.KickMob),
-                        icon: "kickDash"
+                        icon: "KickDash"
                     })
                 ],
-                icon: "dash"
+                icon: "Dash"
             }),
             new Upgrade("Fast Reload", {
                 description: ["Multiplies your reload speed"],
@@ -156,7 +156,7 @@ class Game extends dn.Process {
                     );
                     this.hero.reloadSpeed = 2;
                 },
-                icon: "reload"
+                icon: "Reload"
             }),
             new Upgrade("Head Shot", {
                 description: [
@@ -169,12 +169,12 @@ class Game extends dn.Process {
                         onUnlock: () -> this.hero
                             .getSkill("headShot")
                             .chargeS -= 0.25,
-                        icon: "aim"
+                        icon: "Aim"
                     }),
                     new Upgrade("Fatal Shot", {
                         description: ["Head shots deal 1 more damage"],
                         onUnlock: () -> this.hero.headShotDamage++,
-                        icon: "headShot"
+                        icon: "HeadShot"
                     }),
                     new Upgrade("Piercing Shot", {
                         description: [
@@ -182,10 +182,10 @@ class Game extends dn.Process {
                             "Extra targets take only 1 damage"
                         ],
                         onUnlock: () -> this.hero.piercingShot = true,
-                        icon: "pierce"
+                        icon: "Pierce"
                     }),
                 ],
-                icon: "headShot"
+                icon: "HeadShot"
             }),
             new Upgrade("Kick Enemies", {
                 description: [
@@ -199,16 +199,16 @@ class Game extends dn.Process {
                         "Kick them when you're done"
                     ],
                     onUnlock: () -> this.hero.unlockAction(action.GrabMob),
-                    icon: "grab"
+                    icon: "Grab"
                 })],
-                icon: "kick"
+                icon: "Kick"
             }),
             new Upgrade("Larger Grenades", {
                 description: ["Increase grenade explosion radius"],
                 onUnlock: () -> this.hero.grenadeRange++,
                 maxLevel: 2,
                 isUnlockable: () -> this.hero.grenades > 0,
-                icon: "explosion"
+                icon: "Explosion"
             })
         ]);
 
@@ -224,7 +224,7 @@ class Game extends dn.Process {
                 isUnlockable: () ->
                     this.hero.life == this.hero.maxLife &&
                     this.hero.bestNoDamageStreak >= 6,
-                icon: "bonusHeart"
+                icon: "BonusHeart"
             }),
             new Upgrade("Evasion", {
                 description: [
@@ -248,7 +248,7 @@ class Game extends dn.Process {
                 },
                 isUnlockable: () -> this.hero.life < this.hero.maxLife,
                 infinite: true,
-                icon: "heal"
+                icon: "Heal"
             }),
             new Upgrade("Two Grenades", {
                 description: [

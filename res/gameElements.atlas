@@ -928,98 +928,98 @@ iconWait
   orig: 16,16
   offset: 0,0
   index: -1
-upgrade/aim
+upgradeAim
   rotate: false
   xy: 457,506
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgrade/biggerMags
+upgradeBiggerMags
   rotate: false
   xy: 464,490
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgrade/bonusHeart
+upgradeBonusHeart
   rotate: false
   xy: 473,506
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgrade/dash
+upgradeDash
   rotate: false
   xy: 480,480
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgrade/explosion
+upgradeExplosion
   rotate: false
   xy: 496,480
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgrade/generic
+upgradeGeneric
   rotate: false
   xy: 489,496
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgrade/grab
+upgradeGrab
   rotate: false
   xy: 489,512
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgrade/headShot
+upgradeHeadShot
   rotate: false
   xy: 519,0
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgrade/heal
+upgradeHeal
   rotate: false
   xy: 519,16
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgrade/kick
+upgradeKick
   rotate: false
   xy: 519,32
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgrade/kickDash
+upgradeKickDash
   rotate: false
   xy: 519,48
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgrade/pierce
+upgradePierce
   rotate: false
   xy: 512,64
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgrade/reload
+upgradeReload
   rotate: false
   xy: 512,80
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgrade/shot
+upgradeShot
   rotate: false
   xy: 512,96
   size: 16,16
