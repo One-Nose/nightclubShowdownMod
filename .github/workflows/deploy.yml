@@ -28,11 +28,9 @@ jobs:
         uses: krdlab/setup-haxe@v1
         with:
           haxe-version: 4.3.4
-          cache-dependency-path: 'js.hxml'
+          cache-dependency-path: "js.hxml"
       - name: Install dependencies
-        run: |
-          haxelib install js.hxml --always
-          haxelib git deepnightLibs https://github.com/deepnight/deepnightLibs
+        run: haxelib install js.hxml --always
       - name: Build
         run: haxe js.hxml
       - name: Setup Pages
