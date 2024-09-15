@@ -74,7 +74,7 @@ class Upgrade {
 
         this.isUnlockable = config.isUnlockable ?? () -> true;
 
-        this.iconName = config.icon ?? "generic";
+        this.iconName = config.icon ?? "Generic";
     }
 
     public function claim() {
