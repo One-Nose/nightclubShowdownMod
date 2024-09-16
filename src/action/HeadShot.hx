@@ -4,7 +4,7 @@ class HeadShot extends Action {
     public var mob: entity.Mob;
 
     public function new(hero: entity.Hero, mob: entity.Mob) {
-        super(hero, "Head shot", 0xFF9300, mob);
+        super(hero, 0xFF9300, mob);
 
         this.mob = mob;
     }

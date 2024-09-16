@@ -2,7 +2,7 @@ package action;
 
 class Reload extends Action {
     public function new(hero: entity.Hero) {
-        super(hero, "Reload");
+        super(hero, 0xFFFFFF);
     }
 
     public static function getInstance(

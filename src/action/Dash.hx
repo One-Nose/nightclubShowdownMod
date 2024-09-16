@@ -10,13 +10,12 @@ class Dash extends Action {
     public function new(
         hero: entity.Hero, x: Float, y: Float, rollSeconds = 0.3, ?then: Action
     ) {
-        super(hero, "Dash", 0x44A9F7);
+        super(hero, 0x44A9F7);
 
         this.x = x;
         this.y = y;
         this.rollSeconds = rollSeconds;
         this.then = then ?? new None(hero);
-        this.then.helpText += " (dash)";
         this.then.color = this.color;
     }
 

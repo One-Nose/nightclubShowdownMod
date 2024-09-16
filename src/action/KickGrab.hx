@@ -2,7 +2,7 @@ package action;
 
 class KickGrab extends Action {
     public function new(hero: entity.Hero) {
-        super(hero, "Kick your cover");
+        super(hero, 0xFFFFFF);
     }
 
     public static function getInstance(

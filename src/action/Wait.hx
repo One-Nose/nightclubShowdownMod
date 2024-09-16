@@ -4,7 +4,7 @@ class Wait extends Action {
     public var seconds: Float;
 
     public function new(hero: entity.Hero, seconds: Float) {
-        super(hero, "Wait");
+        super(hero, 0xFFFFFF);
 
         this.seconds = seconds;
     }

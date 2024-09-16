@@ -4,7 +4,7 @@ class ChooseUpgrade extends Action {
     var upgradeEntity: entity.UpgradeEntity;
 
     function new(hero: entity.Hero, upgradeEntity: entity.UpgradeEntity) {
-        super(hero, "Choose Upgrade", 0x44F1F7, upgradeEntity);
+        super(hero, 0x44F1F7, upgradeEntity);
 
         this.upgradeEntity = upgradeEntity;
     }

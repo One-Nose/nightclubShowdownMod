@@ -5,7 +5,7 @@ class KickMob extends Action {
     public var side: Int;
 
     public function new(hero: entity.Hero, mob: entity.Mob, side: Int) {
-        super(hero, "Kick enemy", 0xA6EE11, mob);
+        super(hero, 0xA6EE11, mob);
 
         this.mob = mob;
         this.side = side;

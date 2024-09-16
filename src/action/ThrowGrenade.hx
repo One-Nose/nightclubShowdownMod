@@ -4,7 +4,7 @@ class ThrowGrenade extends Action {
     var x: Float;
 
     public function new(hero: entity.Hero, x: Float) {
-        super(hero, "Throw grenade", 0xEEBE11, hero);
+        super(hero, 0xEEBE11, hero);
 
         this.x = x;
     }

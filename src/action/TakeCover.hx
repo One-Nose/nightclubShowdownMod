@@ -5,7 +5,7 @@ class TakeCover extends Action {
     public var side: Int;
 
     public function new(hero: entity.Hero, cover: entity.Cover, side: Int) {
-        super(hero, "Cover", 0xA6EE11, cover);
+        super(hero, 0xA6EE11, cover);
 
         this.cover = cover;
         this.side = side;

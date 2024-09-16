@@ -25,7 +25,6 @@ class Hero extends Entity {
     public var grenades = 0;
     public var grenadeRange = 1.;
     public var grabbedMob: Null<entity.Mob>;
-    public var help: Null<h2d.Text>;
     public var speed = 0.011;
     public var headShotDamage = 2;
     public var piercingShot = false;
@@ -399,25 +398,6 @@ class Hero extends Entity {
         grabbedMob = null;
     }
 
-    public function setHelp(?e: Entity, ?str: String, ?c = 0xADAED6) {
-        if (str == null && help != null) {
-            help.remove();
-            help = null;
-        }
-        if (str != null) {
-            if (e == null)
-                e = this;
-            if (help == null) {
-                help = new h2d.Text(Assets.font);
-                game.scroller.add(help, Const.UI_LAYER);
-            }
-            help.text = str;
-            help.textColor = c;
-            help.x = Std.int(e.footX - help.textWidth * 0.5);
-            help.y = Std.int(e.headY - help.textHeight - 12);
-        }
-    }
-
     override public function update() {
         super.update();
 
@@ -431,8 +411,6 @@ class Hero extends Entity {
         ) else getActionAt(m.x, m.y);
         icon.alpha = 0.7;
         icon.visible = true;
-        icon.colorize(0xffffff);
-        setHelp();
 
         this.displayedAction.updateDisplay();
 

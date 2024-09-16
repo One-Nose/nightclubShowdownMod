@@ -4,7 +4,7 @@ class BlindShot extends Action {
     var mob: entity.Mob;
 
     public function new(hero: entity.Hero, mob: entity.Mob) {
-        super(hero, "Quick shoot", 0xFFFF00, mob);
+        super(hero, 0xFFFF00, mob);
 
         this.mob = mob;
     }
@@ -56,7 +56,6 @@ class BlindShot extends Action {
         );
 
         if (this.mob.isCoveredFrom(this.hero)) {
-            this.helpText += " (cover)";
             this.color = 0xFF0000;
         }
 
