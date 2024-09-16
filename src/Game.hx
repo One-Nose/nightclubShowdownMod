@@ -107,14 +107,11 @@ class Game extends dn.Process {
 
         this.unlockableUpgrades = Upgrade.initUpgrades([
             new Upgrade("Bigger Mags", {
-                description: ["Two more bullets per reload"],
+                description: "+2 bullets per reload",
                 onUnlock: () -> this.hero.setAmmo(this.hero.maxAmmo + 2),
                 maxLevel: 2,
                 children: [new Upgrade("Quicker Shots", {
-                    description: [
-                        "Make quicker consecutive shots",
-                        "Doesn't work while taking cover"
-                    ],
+                    description: "Quicker consecutive shots while not taking cover",
                     onUnlock: () -> this.hero
                         .getSkill("blindShot")
                         .lockAfterS /= 2,
@@ -123,23 +120,16 @@ class Game extends dn.Process {
                 icon: "BiggerMags"
             }),
             new Upgrade("Dash", {
-                description: [
-                    "Move fast", "Dodge bullets",
-                    "Makes you vulnerable for a moment"
-                ],
+                description: "Dash to move faster and dodge bullets",
                 onUnlock: () -> this.hero.unlockAction(action.Dash),
                 children: [
                     new Upgrade("Cover Dash", {
-                        description: [
-                            "Dash into cover", "Skip the vulnerability moment"
-                        ],
+                        description: "Dash into cover to skip the vulnerability moment",
                         onUnlock: () -> this.hero.canCoverDash = true,
                         icon: "Dash"
                     }),
                     new Upgrade("Kick Dash", {
-                        description: [
-                            "Dash into enemies", "Skip the vulnerability moment"
-                        ],
+                        description: "Dash into enemies to skip the vulnerability moment",
                         onUnlock: () -> this.hero.canKickDash = true,
                         isUnlockable: () -> this.hero.hasAction(action.KickMob),
                         icon: "KickDash"
@@ -148,7 +138,7 @@ class Game extends dn.Process {
                 icon: "Dash"
             }),
             new Upgrade("Fast Reload", {
-                description: ["Multiplies your reload speed"],
+                description: "Double your reload speed",
                 onUnlock: () -> {
                     Assets.gameElements.defineAnim(
                         "heroReload",
@@ -159,28 +149,23 @@ class Game extends dn.Process {
                 icon: "Reload"
             }),
             new Upgrade("Head Shot", {
-                description: [
-                    "Aim for the head", "Slower but more fatal", "Ignore cover"
-                ],
+                description: "Aim for the head to deal +1 damage and ignore cover",
                 onUnlock: () -> this.hero.unlockAction(action.HeadShot),
                 children: [
                     new Upgrade("Quick Aim", {
-                        description: ["Make faster head shots"],
+                        description: "Faster head shots",
                         onUnlock: () -> this.hero
                             .getSkill("headShot")
                             .chargeS -= 0.25,
                         icon: "Aim"
                     }),
                     new Upgrade("Fatal Shot", {
-                        description: ["Head shots deal 1 more damage"],
+                        description: "+1 head shot damage",
                         onUnlock: () -> this.hero.headShotDamage++,
                         icon: "HeadShot"
                     }),
                     new Upgrade("Piercing Shot", {
-                        description: [
-                            "Head shots pierce through enemies",
-                            "Extra targets take only 1 damage"
-                        ],
+                        description: "Head shots pierce through enemies",
                         onUnlock: () -> this.hero.piercingShot = true,
                         icon: "Pierce"
                     }),
@@ -188,23 +173,17 @@ class Game extends dn.Process {
                 icon: "HeadShot"
             }),
             new Upgrade("Kick Enemies", {
-                description: [
-                    "Kick enemies", "Stun them for a moment",
-                    "Doesn't take bullets"
-                ],
+                description: "Kick enemies to stun them",
                 onUnlock: () -> this.hero.unlockAction(action.KickMob),
                 children: [new Upgrade("Grab Enemies", {
-                    description: [
-                        "Grab enemies instead of kicking", "Use them as cover",
-                        "Kick them when you're done"
-                    ],
+                    description: "Grab enemies to use them as cover",
                     onUnlock: () -> this.hero.unlockAction(action.GrabMob),
                     icon: "Grab"
                 })],
                 icon: "Kick"
             }),
             new Upgrade("Larger Grenades", {
-                description: ["Increase grenade explosion radius"],
+                description: "Increase grenade explosion radius",
                 onUnlock: () -> this.hero.grenadeRange++,
                 maxLevel: 2,
                 isUnlockable: () -> this.hero.grenades > 0,
@@ -214,9 +193,7 @@ class Game extends dn.Process {
 
         this.unlockableRewards = Upgrade.initUpgrades([
             new Upgrade("Bonus Heart", {
-                description: [
-                    "+1 max life", "Special challenge reward"
-                ],
+                description: "+1 max life",
                 onUnlock: () -> {
                     this.hero.initLife(4);
                     this.updateHud();
@@ -227,10 +204,7 @@ class Game extends dn.Process {
                 icon: "BonusHeart"
             }),
             new Upgrade("Evasion", {
-                description: [
-                    "One time effect", "Get one evasion point",
-                    "Protects you from one hit"
-                ],
+                description: "Protection from the next hit",
                 onUnlock: () -> {
                     this.hero.hasEvasion = true;
                     this.updateHud();
@@ -240,9 +214,7 @@ class Game extends dn.Process {
                 icon: "Evasion"
             }),
             new Upgrade("Heal", {
-                description: [
-                    "Heal one heart", "One-time effect as you choose this"
-                ],
+                description: "Heal one heart",
                 onUnlock: () -> {
                     this.hero.life++;
                     this.updateHud();
@@ -252,10 +224,7 @@ class Game extends dn.Process {
                 icon: "Heal"
             }),
             new Upgrade("Two Grenades", {
-                description: [
-                    "Get two grenades as you choose this", "Throw anywhere",
-                    "BOOM!"
-                ],
+                description: "+2 grenades you can throw them around",
                 onUnlock: () -> {
                     this.hero.grenades += 2;
                     this.updateHud();

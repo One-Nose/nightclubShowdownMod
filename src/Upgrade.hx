@@ -26,7 +26,7 @@ class Upgrade {
     }
 
     /**
-        - `description`: Array of short description strings
+        - `description`: Short description string
         - `onUnlock`: Function to call when the upgrade is claimed
         - `children`: Upgrades to add to unlockables when the upgrade is claimed.
             Not inherited by next level upgrades.
@@ -35,7 +35,7 @@ class Upgrade {
         - `infinite`: Adds the upgrade as its own child.
     **/
     public function new(name: String, config: {
-        description: Array<String>,
+        description: String,
         onUnlock: () -> Void,
         ?children: Array<Upgrade>,
         ?maxLevel: Int,
@@ -44,22 +44,21 @@ class Upgrade {
         icon: String
     }) {
         this.name = name;
-        this.description = "- " + config.description.map(string -> {
-            if (string.length <= 21)
-                return string;
-            else {
-                var index = 0;
-                var lastIndex = 0;
-                while (index <= 21 && index != -1) {
-                    lastIndex = index;
-                    index = string.indexOf(" ", index + 1);
-                }
-                return
-                    string.substring(0, lastIndex) +
-                    "\n " +
-                    string.substring(lastIndex);
+
+        var lines = [];
+        var remaining = config.description + " ";
+        while (remaining != "") {
+            var index = 0;
+            var lastIndex = 0;
+            while (index <= 21 && index != -1) {
+                lastIndex = index;
+                index = remaining.indexOf(" ", index + 1);
             }
-        }).join("\n- ");
+            lines.push(remaining.substring(0, lastIndex));
+            remaining = remaining.substring(lastIndex + 1);
+        }
+        this.description = lines.join("\n");
+
         this.onUnlock = config.onUnlock;
         this.children = config.children ?? [];
         if (config.infinite)
