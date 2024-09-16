@@ -75,16 +75,14 @@ class GrabMob extends Action {
         this.hero.startGrab(this.mob);
     }
 
-    public override function updateDisplay() {
-        this.hero.icon.setPos(
+    public override function updateDisplay(icon: HSprite) {
+        icon.setPos(
             this.mob.footX + this.side * Const.GRID / 1.5,
             this.mob.footY + Const.GRID / 2
         );
-        this.hero.icon.set(
-            "iconCover" + if (this.side == -1) "Left" else "Right"
-        );
+        icon.set("iconCover" + if (this.side == -1) "Left" else "Right");
 
-        super.updateDisplay();
+        super.updateDisplay(icon);
     }
 
     public function equals(action: Action): Bool {

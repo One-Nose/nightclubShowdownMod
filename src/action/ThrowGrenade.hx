@@ -30,11 +30,11 @@ class ThrowGrenade extends Action {
         this.hero.getSkill("throwGrenade").prepareAt(this.x);
     }
 
-    override function updateDisplay() {
-        this.hero.icon.setPos(this.x, this.hero.footY - Const.GRID / 4);
-        this.hero.icon.set("iconMove");
+    override function updateDisplay(icon: HSprite) {
+        icon.setPos(this.x, this.hero.footY - Const.GRID / 4);
+        icon.set("iconMove");
 
-        super.updateDisplay();
+        super.updateDisplay(icon);
     }
 
     public function equals(action: Action): Bool {

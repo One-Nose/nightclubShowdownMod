@@ -67,14 +67,14 @@ class Dash extends Action {
         }
     }
 
-    public override function updateDisplay() {
+    public override function updateDisplay(icon: HSprite) {
         if (this.then is None) {
-            this.hero.icon.setPos(this.x, this.y);
-            this.hero.icon.set("iconDash");
+            icon.setPos(this.x, this.y);
+            icon.set("iconDash");
 
-            super.updateDisplay();
+            super.updateDisplay(icon);
         } else {
-            this.then.updateDisplay();
+            this.then.updateDisplay(icon);
         }
     }
 

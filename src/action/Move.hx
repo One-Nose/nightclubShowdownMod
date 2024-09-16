@@ -53,8 +53,8 @@ class Move extends Action {
         }
     }
 
-    public override function updateDisplay() {
-        this.then.updateDisplay();
+    public override function updateDisplay(icon: HSprite) {
+        this.then.updateDisplay(icon);
     }
 
     public function equals(action: Action): Bool {

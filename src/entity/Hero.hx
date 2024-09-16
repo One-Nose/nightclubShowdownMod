@@ -412,7 +412,7 @@ class Hero extends Entity {
         icon.alpha = 0.7;
         icon.visible = true;
 
-        this.displayedAction.updateDisplay();
+        this.displayedAction.updateDisplay(this.icon);
 
         if (
             !controlsLocked() &&

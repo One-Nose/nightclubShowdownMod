@@ -33,11 +33,11 @@ class Wait extends Action {
         this.hero.lockControlsS(this.seconds);
     }
 
-    public override function updateDisplay() {
-        this.hero.icon.setPos(this.hero.centerX, this.hero.footY);
-        this.hero.icon.set("iconWait");
+    public override function updateDisplay(icon: HSprite) {
+        icon.setPos(this.hero.centerX, this.hero.footY);
+        icon.set("iconWait");
 
-        super.updateDisplay();
+        super.updateDisplay(icon);
     }
 
     public function equals(action: Action): Bool {

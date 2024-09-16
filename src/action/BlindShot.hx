@@ -45,11 +45,9 @@ class BlindShot extends Action {
             .prepareOn(this.mob, if (this.mob.isGrabbed()) 0.5 else 1);
     }
 
-    public override function updateDisplay() {
-        this.hero.icon.setPos(
-            this.mob.torso.centerX, this.mob.torso.centerY + 3
-        );
-        this.hero.icon.set(
+    public override function updateDisplay(icon: HSprite) {
+        icon.setPos(this.mob.torso.centerX, this.mob.torso.centerY + 3);
+        icon.set(
             if (this.mob.isCoveredFrom(
                 this.hero
             )) "iconShootCover" else "iconShoot"
@@ -59,7 +57,7 @@ class BlindShot extends Action {
             this.color = 0xFF0000;
         }
 
-        super.updateDisplay();
+        super.updateDisplay(icon);
     }
 
     public function equals(action: Action): Bool {

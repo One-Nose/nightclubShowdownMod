@@ -67,16 +67,14 @@ class TakeCover extends Action {
         this.hero.startCover(this.cover, this.side);
     }
 
-    public override function updateDisplay() {
-        this.hero.icon.setPos(
+    public override function updateDisplay(icon: HSprite) {
+        icon.setPos(
             this.cover.footX + this.side * 14,
             this.cover.footY + Const.GRID / 2
         );
-        this.hero.icon.set(
-            "iconCover" + if (this.side == -1) "Left" else "Right"
-        );
+        icon.set("iconCover" + if (this.side == -1) "Left" else "Right");
 
-        super.updateDisplay();
+        super.updateDisplay(icon);
     }
 
     public function equals(action: Action): Bool {

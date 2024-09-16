@@ -45,11 +45,11 @@ class Reload extends Action {
         this.hero.setAmmo(this.hero.maxAmmo);
     }
 
-    public override function updateDisplay() {
-        this.hero.icon.setPos(this.hero.centerX, this.hero.footY);
-        this.hero.icon.set("iconReload");
+    public override function updateDisplay(icon: HSprite) {
+        icon.setPos(this.hero.centerX, this.hero.footY);
+        icon.set("iconReload");
 
-        super.updateDisplay();
+        super.updateDisplay(icon);
     }
 
     public function equals(action: Action): Bool {

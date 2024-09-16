@@ -27,11 +27,11 @@ abstract class Action {
 
     private abstract function _execute(): Void;
 
-    public function updateDisplay() {
+    public function updateDisplay(icon: HSprite) {
         if (this.color == null)
-            this.hero.icon.visible = false;
+            icon.visible = false;
         else
-            this.hero.icon.colorize(this.color);
+            icon.colorize(this.color);
     }
 
     public abstract function equals(action: Action): Bool;

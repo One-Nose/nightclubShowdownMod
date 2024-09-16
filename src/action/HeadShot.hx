@@ -41,11 +41,11 @@ class HeadShot extends Action {
             .prepareOn(this.mob, if (this.mob.isGrabbed()) 0.5 else 1);
     }
 
-    public override function updateDisplay() {
-        this.hero.icon.setPos(this.mob.head.centerX, this.mob.head.centerY);
-        this.hero.icon.set("iconShoot");
+    public override function updateDisplay(icon: HSprite) {
+        icon.setPos(this.mob.head.centerX, this.mob.head.centerY);
+        icon.set("iconShoot");
 
-        super.updateDisplay();
+        super.updateDisplay(icon);
     }
 
     public function equals(action: Action): Bool {

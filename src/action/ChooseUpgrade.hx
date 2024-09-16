@@ -38,16 +38,16 @@ class ChooseUpgrade extends Action {
         this.upgradeEntity.claim();
     }
 
-    public override function updateDisplay() {
-        this.hero.icon.setPos(
+    public override function updateDisplay(icon: HSprite) {
+        icon.setPos(
             this.upgradeEntity.centerX,
             this.upgradeEntity.centerY - Const.GRID / 1.3
         );
-        this.hero.icon.set("iconMove");
+        icon.set("iconMove");
 
         this.upgradeEntity.hover();
 
-        super.updateDisplay();
+        super.updateDisplay(icon);
     }
 
     public function equals(action: Action): Bool {

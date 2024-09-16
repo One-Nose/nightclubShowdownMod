@@ -80,14 +80,14 @@ class KickMob extends Action {
             this.hero.cd.setS("ctrlLock", 0.5);
     }
 
-    public override function updateDisplay() {
-        this.hero.icon.setPos(
+    public override function updateDisplay(icon: HSprite) {
+        icon.setPos(
             this.mob.footX + this.side * Const.GRID / 1.5,
             this.mob.footY + Const.GRID / 2
         );
-        this.hero.icon.set("iconKickGrab");
+        icon.set("iconKickGrab");
 
-        super.updateDisplay();
+        super.updateDisplay(icon);
     }
 
     public function equals(action: Action): Bool {
