@@ -78,6 +78,7 @@ class KickMob extends Action {
             this.mob.violentBump(this.hero.dir * 0.5, -0.1, 1.5);
         } else
             this.hero.cd.setS("ctrlLock", 0.5);
+        this.hero.hasKicked = true;
     }
 
     public override function updateDisplay(icon: HSprite) {

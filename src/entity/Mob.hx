@@ -100,6 +100,14 @@ class Mob extends Entity {
         super.postUpdate();
         if (cd.has("entering"))
             spr.alpha = 1 - cd.getRatio("entering");
+
+        if (!this.hero.hasKicked && this.hero.hasAction(action.KickMob)) {
+            this.actionIcon.visible = true;
+            new action.KickMob(
+                hero, this, this.dirTo(hero)).updateDisplay(this.actionIcon);
+            this.actionIcon.colorize(0x888888);
+        } else
+            this.actionIcon.visible = false;
     }
 
     function goto(x: Int, ?onDone: () -> Void) {
