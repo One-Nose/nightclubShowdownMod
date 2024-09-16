@@ -53,6 +53,8 @@ class Entity {
     public var sprScaleY = 1.0;
     public var isInvulnerable = false;
 
+    var actionIcon: HSprite;
+
     public var life: Int;
     public var maxLife: Int;
 
@@ -151,6 +153,13 @@ class Entity {
 
         this.legs = new Area(this, 5, () -> this.footX, () -> this.footY - 4);
         this.legs.color = 0x9D55DF;
+
+        this.actionIcon = new HSprite(Assets.gameElements);
+        this.actionIcon.setCenterRatio(0.5, 0.5);
+        this.actionIcon.blendMode = Add;
+        this.actionIcon.visible = false;
+
+        game.scroller.add(this.actionIcon, Const.UI_LAYER);
     }
 
     public function init() {
@@ -448,6 +457,7 @@ class Entity {
         this.lifeBar.remove();
         this.cd.dispose();
         this.spr.remove();
+        this.actionIcon.remove();
         this.skills = null;
         if (this.label != null)
             this.label.remove();

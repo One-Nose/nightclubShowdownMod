@@ -64,7 +64,8 @@ class TakeCover extends Action {
         this.hero.spr.anim.stopWithStateAnims();
         this.hero.stopGrab();
 
-        this.hero.startCover(this.cover, this.side);
+        if (this.hero.startCover(this.cover, this.side))
+            this.hero.hasTakenCover = true;
     }
 
     public override function updateDisplay(icon: HSprite) {

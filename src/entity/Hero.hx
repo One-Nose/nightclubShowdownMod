@@ -35,6 +35,8 @@ class Hero extends Entity {
     public var noDamageStreak = 0;
     public var bestNoDamageStreak = 0;
 
+    public var hasTakenCover = false;
+
     public function new(x, y) {
         super(x, y);
 
