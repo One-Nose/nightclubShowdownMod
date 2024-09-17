@@ -213,7 +213,7 @@ class Entity {
         if (source != null)
             this.lastHitDir = source.dirTo(this);
 
-        if (damage <= 0 || !this.isAlive() || this.cd.has("rolling"))
+        if (damage <= 0 || !this.isAlive())
             return false;
 
         damage = M.imin(this.life, damage);

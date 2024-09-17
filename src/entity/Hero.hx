@@ -471,13 +471,20 @@ class Hero extends Entity {
     }
 
     override function hit(damage: Int, source: Entity): Bool {
+        if (this.cd.has("rolling"))
+            return false;
+
         if (this.hasEvasion) {
             this.hasEvasion = false;
             this.game.updateHud();
-        } else if (super.hit(damage, source)) {
+            return false;
+        }
+
+        if (super.hit(damage, source)) {
             this.noDamageStreak = -1;
             return true;
         };
+
         return false;
     }
 }
