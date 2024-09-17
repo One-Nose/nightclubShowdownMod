@@ -28,11 +28,17 @@ class ThrowGrenade extends Action {
         this.hero.grenades--;
         this.hero.game.updateHud();
         this.hero.getSkill("throwGrenade").prepareAt(this.x);
+        this.hero.hasThrownGrenade = true;
     }
 
-    override function updateDisplay(icon: HSprite) {
-        icon.setPos(this.x, this.hero.footY - Const.GRID / 4);
-        icon.set("iconMove");
+    override function updateDisplay(icon: HSprite, ?moveIcon: HSprite) {
+        icon.setPos(this.x, this.hero.footY - 4 * Const.GRID);
+        icon.set("iconGrenade");
+
+        if (moveIcon != null) {
+            moveIcon.visible = true;
+            moveIcon.colorize(this.color);
+        }
 
         super.updateDisplay(icon);
     }

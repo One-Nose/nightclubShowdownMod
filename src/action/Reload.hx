@@ -45,7 +45,7 @@ class Reload extends Action {
         this.hero.setAmmo(this.hero.maxAmmo);
     }
 
-    public override function updateDisplay(icon: HSprite) {
+    public override function updateDisplay(icon: HSprite, ?moveIcon: HSprite) {
         icon.setPos(this.hero.centerX, this.hero.footY);
         icon.set("iconReload");
 

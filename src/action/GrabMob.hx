@@ -77,7 +77,7 @@ class GrabMob extends Action {
             this.hero.hasKicked = true;
     }
 
-    public override function updateDisplay(icon: HSprite) {
+    public override function updateDisplay(icon: HSprite, ?moveIcon: HSprite) {
         icon.setPos(
             this.mob.footX + this.side * Const.GRID / 1.5,
             this.mob.footY + Const.GRID / 2

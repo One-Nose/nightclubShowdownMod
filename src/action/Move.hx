@@ -53,8 +53,11 @@ class Move extends Action {
         }
     }
 
-    public override function updateDisplay(icon: HSprite) {
+    public override function updateDisplay(icon: HSprite, ?moveIcon: HSprite) {
         this.then.updateDisplay(icon);
+
+        if (this.hero.level.waveId < 2 && !icon.visible && moveIcon != null)
+            moveIcon.visible = true;
     }
 
     public function equals(action: Action): Bool {

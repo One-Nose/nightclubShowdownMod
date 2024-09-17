@@ -19,6 +19,7 @@ class Hero extends Entity {
     var displayedAction: Action;
 
     public var icon(default, null): HSprite;
+    public var moveIcon(default, null): HSprite;
 
     public var ammo: Int;
     public var maxAmmo: Int;
@@ -38,6 +39,7 @@ class Hero extends Entity {
     public var hasTakenCover = false;
     public var hasKicked = false;
     public var hasDashed = false;
+    public var hasThrownGrenade = false;
 
     public function new(x, y) {
         super(x, y);
@@ -53,6 +55,9 @@ class Hero extends Entity {
         icon = Assets.gameElements.h_get("iconMove");
         icon.setCenterRatio(0.5, 0.5);
         icon.blendMode = Add;
+
+        this.moveIcon = Assets.gameElements.h_get("iconMove");
+        this.moveIcon.setCenterRatio(0.5, 0.5);
 
         setAmmo(4);
         initLife(3);
@@ -178,6 +183,7 @@ class Hero extends Entity {
 
         game.scroller.add(spr, Const.HERO_LAYER);
         game.scroller.add(icon, Const.UI_LAYER);
+        game.scroller.add(this.moveIcon, Const.UI_LAYER);
 
         spr.anim.registerStateAnim(
             "heroPush", 21, function() return !onGround && isStunned());
@@ -297,6 +303,7 @@ class Hero extends Entity {
     override public function dispose() {
         super.dispose();
         icon.remove();
+        this.moveIcon.remove();
     }
 
     override function get_shootY(): Float {
@@ -383,15 +390,28 @@ class Hero extends Entity {
         // ammoBar.x = headX-2;
         // ammoBar.y = headY-4;
 
+        final mouseX = game.getMouse().x;
+
+        this.actionIcon.visible = false;
+
         if (!this.hero.hasDashed && this.hasAction(action.Dash)) {
             this.actionIcon.visible = true;
             new action.Dash(
                 this,
-                action.Dash.getX(this, M.sign(game.getMouse().x - this.footX))
+                action.Dash.getX(this, M.sign(mouseX - this.footX))
             ).updateDisplay(this.actionIcon);
             this.actionIcon.colorize(0x666666);
-        } else
-            this.actionIcon.visible = false;
+        } else if (!this.hero.hasThrownGrenade) {
+            var throwAction = new action.ThrowGrenade(this, mouseX);
+
+            if (throwAction.canBePerformed()) {
+                throwAction.updateDisplay(this.actionIcon);
+                this.actionIcon.visible = true;
+                this.actionIcon.colorize(0x888888);
+            }
+        }
+
+        this.moveIcon.setPos(mouseX, this.footY - Const.GRID / 4);
     }
 
     public function startGrab(e: entity.Mob): Bool {
@@ -427,7 +447,10 @@ class Hero extends Entity {
         icon.alpha = 0.7;
         icon.visible = true;
 
-        this.displayedAction.updateDisplay(this.icon);
+        this.hero.moveIcon.visible = false;
+        this.hero.moveIcon.colorize(0xFFFFFF);
+
+        this.displayedAction.updateDisplay(this.icon, this.moveIcon);
 
         if (
             !controlsLocked() &&

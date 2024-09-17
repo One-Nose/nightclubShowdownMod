@@ -13,7 +13,7 @@ abstract class Action {
         Returns whether the action can be performed. 
         null means the action can only be performed after moving.
     **/
-    function canBePerformed(): Null<Bool> {
+    public function canBePerformed(): Null<Bool> {
         return null;
     }
 
@@ -27,7 +27,7 @@ abstract class Action {
 
     private abstract function _execute(): Void;
 
-    public function updateDisplay(icon: HSprite) {
+    public function updateDisplay(icon: HSprite, ?moveIcon: HSprite) {
         if (this.color == null)
             icon.visible = false;
         else

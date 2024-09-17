@@ -38,7 +38,7 @@ class ChooseUpgrade extends Action {
         this.upgradeEntity.claim();
     }
 
-    public override function updateDisplay(icon: HSprite) {
+    public override function updateDisplay(icon: HSprite, ?moveIcon: HSprite) {
         icon.setPos(
             this.upgradeEntity.centerX,
             this.upgradeEntity.centerY - Const.GRID / 1.3

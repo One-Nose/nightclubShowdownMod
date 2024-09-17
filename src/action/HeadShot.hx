@@ -41,7 +41,7 @@ class HeadShot extends Action {
             .prepareOn(this.mob, if (this.mob.isGrabbed()) 0.5 else 1);
     }
 
-    public override function updateDisplay(icon: HSprite) {
+    public override function updateDisplay(icon: HSprite, ?moveIcon: HSprite) {
         icon.setPos(this.mob.head.centerX, this.mob.head.centerY);
         icon.set("iconShoot");
 

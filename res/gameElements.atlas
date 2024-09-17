@@ -886,16 +886,23 @@ iconCoverRight
   orig: 16,16
   offset: 0,0
   index: -1
-iconMove
+iconGrenade
   rotate: false
   xy: 416,490
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-iconReload
+iconMove
   rotate: false
   xy: 425,506
+  size: 16,16
+  orig: 16,16
+  offset: 0,0
+  index: -1
+iconReload
+  rotate: false
+  xy: 432,490
   size: 16,16
   orig: 16,16
   offset: 0,0
@@ -909,154 +916,154 @@ iconShield
   index: -1
 iconShoot
   rotate: false
-  xy: 432,490
+  xy: 441,506
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 iconShootCover
   rotate: false
-  xy: 441,506
+  xy: 448,490
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 iconWait
   rotate: false
-  xy: 448,490
+  xy: 457,506
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 upgradeAim
   rotate: false
-  xy: 457,506
+  xy: 464,490
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 upgradeBiggerMags
   rotate: false
-  xy: 464,490
+  xy: 473,506
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 upgradeBonusHeart
   rotate: false
-  xy: 473,506
+  xy: 480,480
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 upgradeDash
   rotate: false
-  xy: 480,480
+  xy: 496,480
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 upgradeEvasion
   rotate: false
-  xy: 496,480
+  xy: 489,496
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 upgradeExplosion
   rotate: false
-  xy: 489,496
+  xy: 489,512
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 upgradeGeneric
   rotate: false
-  xy: 489,512
+  xy: 519,0
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 upgradeGrab
   rotate: false
-  xy: 519,0
+  xy: 519,16
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 upgradeGrenade
   rotate: false
-  xy: 519,16
+  xy: 519,32
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 upgradeHeadShot
   rotate: false
-  xy: 519,32
+  xy: 519,48
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 upgradeHeal
   rotate: false
-  xy: 519,48
+  xy: 512,64
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 upgradeKick
   rotate: false
-  xy: 512,64
+  xy: 512,80
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 upgradeKickDash
   rotate: false
-  xy: 512,80
+  xy: 512,96
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 upgradePierce
   rotate: false
-  xy: 512,96
+  xy: 512,112
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 upgradeReload
   rotate: false
-  xy: 512,112
+  xy: 512,128
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 upgradeShot
   rotate: false
-  xy: 512,128
+  xy: 512,144
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 circle
   rotate: false
-  xy: 512,144
+  xy: 512,160
   size: 15,15
   orig: 15,15
   offset: 0,0
   index: -1
 iconDash
   rotate: false
-  xy: 512,159
+  xy: 512,175
   size: 15,15
   orig: 15,15
   offset: 0,0
   index: -1
 iconKickGrab
   rotate: false
-  xy: 512,174
+  xy: 512,190
   size: 15,15
   orig: 15,15
   offset: 0,0

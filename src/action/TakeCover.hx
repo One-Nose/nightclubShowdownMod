@@ -68,7 +68,7 @@ class TakeCover extends Action {
             this.hero.hasTakenCover = true;
     }
 
-    public override function updateDisplay(icon: HSprite) {
+    public override function updateDisplay(icon: HSprite, ?moveIcon: HSprite) {
         icon.setPos(
             this.cover.footX + this.side * 14,
             this.cover.footY + Const.GRID / 2

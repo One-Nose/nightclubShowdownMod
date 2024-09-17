@@ -33,7 +33,7 @@ class KickGrab extends Action {
         this.hero.spr.anim.play("heroKick");
     }
 
-    public override function updateDisplay(icon: HSprite) {
+    public override function updateDisplay(icon: HSprite, ?moveIcon: HSprite) {
         icon.setPos(this.hero.centerX - this.hero.dir * 8, this.hero.centerY);
         icon.set("iconKickGrab");
 
