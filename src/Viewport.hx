@@ -63,7 +63,9 @@ class Viewport extends dn.Process {
         tx /= n;
         ty /= n;
 
-        var furthestFromPlayer = this.level.wid * Const.GRID / 2 - Const.GRID * 1.2;
+        var furthestFromPlayer =
+            this.level.wid * Const.GRID / 2 -
+            Const.GRID * 1.2;
         tx = M.fclamp(
             tx,
             this.game.hero.centerX - furthestFromPlayer,
@@ -98,10 +100,12 @@ class Viewport extends dn.Process {
         // }
         // else {
         game.scroller.x = Std.int(
-            -(x + prioCenter * level.wid * 0.5 * Const.GRID) / (1 +
-                prioCenter) + wid * 0.5
+            -(
+                x +
+                prioCenter * level.wid * 0.5 * Const.GRID
+            ) / (1 + prioCenter) + wid * 0.5
         );
-        game.scroller.y = 0;
+        game.scroller.y = 2 * Const.GRID;
         // game.scroller.y = Std.int( -(y+prioCenter*level.hei*0.5*Const.GRID)/(1+prioCenter) + hei*0.5 );
         game.scroller.x = M.fclamp(
             game.scroller.x, -level.wid * Const.GRID + wid - 15, 15

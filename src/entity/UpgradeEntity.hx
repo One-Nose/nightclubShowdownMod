@@ -33,7 +33,7 @@ class UpgradeEntity extends Entity {
             this.description.textWidth -
             distanceFromEdge;
 
-        this.description.y = if (this.level.waveId < 2) 35 else 100;
+        this.description.y = if (this.level.waveId < 2) 60 else 130;
         this.description.visible = false;
     }
 

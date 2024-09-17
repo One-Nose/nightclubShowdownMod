@@ -321,7 +321,7 @@ class Game extends dn.Process {
         this.hud.x = Std.int(
             this.w() * 0.5 / Const.SCALE - this.hud.outerWidth * 0.5
         );
-        this.hud.y = Std.int((this.level.hei + 1) * Const.GRID + 6);
+        this.hud.y = 2 * Const.GRID;
 
         this.mask.clear();
         this.mask.beginFill(0x0, 1);
@@ -389,7 +389,7 @@ class Game extends dn.Process {
 
     public function logo() {
         var logo = Assets.gameElements.h_get("logo", root);
-        logo.y = 30;
+        logo.y = 60;
         logo.colorize(0x3D65C2);
         logo.blendMode = Add;
         this.tw
@@ -406,7 +406,7 @@ class Game extends dn.Process {
         var text = new h2d.Text(Assets.font, root);
         text.text = str;
         text.textColor = color;
-        text.y = Std.int(58 - text.textHeight);
+        text.y = Std.int(88 - text.textHeight);
 
         this.tw.createMs(text.x, -text.textWidth > 12, 200).end(() -> {
             if (!permanent) {
@@ -426,7 +426,7 @@ class Game extends dn.Process {
         lastNotif = text;
         text.text = string;
         text.textColor = color;
-        text.y = Std.int(100 - text.textHeight);
+        text.y = Std.int(160 - text.textHeight);
         this.tw.createMs(text.x, -text.textWidth > 12, 200).onEnd = function() {
             var d = 650 + string.length * 75;
             tw.createMs(text.alpha, d | 0, 1500).onEnd = function() {
@@ -478,7 +478,7 @@ class Game extends dn.Process {
         this.upgradeMessage = new h2d.Text(Assets.font, this.root);
         this.upgradeMessage.text = message;
         this.upgradeMessage.textColor = 0x44F774;
-        this.upgradeMessage.y = 20;
+        this.upgradeMessage.y = 45;
 
         var messageDest =
             this.level.wid * Const.GRID / 2 -
