@@ -43,7 +43,7 @@ class TakeCover extends Action {
                 M.fabs(hero.footX - actionX), Const.GRID * 2, Const.GRID * 5
             )
         )
-            return new Dash(hero, actionX, hero.footY, Const.INFINITE, action);
+            return new Dash(hero, actionX, Const.INFINITE, action);
 
         return new Move(hero, actionX, hero.footY, action);
     }

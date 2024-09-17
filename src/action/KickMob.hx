@@ -43,10 +43,7 @@ class KickMob extends Action {
                 M.fabs(hero.footX - actionX), Const.GRID * 2, Const.GRID * 5
             )
         )
-            return new Dash(
-                hero, actionX, bestAction.hero.footY, Const.INFINITE,
-                bestAction
-            );
+            return new Dash(hero, actionX, Const.INFINITE, bestAction);
 
         return new Move(hero, actionX, bestAction.mob.footY, bestAction);
     }

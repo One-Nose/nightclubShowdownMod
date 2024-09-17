@@ -8,35 +8,47 @@ class Dash extends Action {
     var rollSeconds: Float;
 
     public function new(
-        hero: entity.Hero, x: Float, y: Float, rollSeconds = 0.3, ?then: Action
+        hero: entity.Hero, x: Float, rollSeconds = 0.3, ?then: Action
     ) {
         super(hero, 0x00F7FF);
 
         this.x = x;
-        this.y = y;
+        this.y = hero.footY;
         this.rollSeconds = rollSeconds;
         this.then = then ?? new None(hero);
         this.then.color = this.color;
+    }
+
+    public static function getX(hero: entity.Hero, side: Int): Null<Float> {
+        var x = hero.footX + side * 5 * Const.GRID;
+        x = M.fclamp(x, 5, hero.level.wid * Const.GRID - 5);
+
+        if (
+            hero.game.level.waveId <= 1 &&
+            !hero.level.wave.isOver() &&
+            x >= (hero.level.wid - 3) * Const.GRID
+        )
+            x = (hero.game.level.wid - 3) * Const.GRID;
+
+        if (M.fabs(hero.footX - x) >= Const.GRID * 2)
+            return x;
+
+        return null;
     }
 
     public static function getInstance(
         hero: entity.Hero, x: Float, y: Float
     ): Null<Dash> {
         if (M.fabs(y - hero.footY - Const.GRID / 1.5) <= Const.GRID / 1.5) {
-            var tx = hero.footX + M.sign(x - hero.footX) * 5 * Const.GRID;
-            tx = M.fclamp(tx, 5, hero.level.wid * Const.GRID - 5);
-            if (
-                hero.game.level.waveId <= 1 &&
-                !hero.level.wave.isOver() &&
-                tx >= (hero.level.wid - 3) * Const.GRID
-            )
-                tx = (hero.game.level.wid - 3) * Const.GRID;
+            var tx = getX(hero, M.sign(x - hero.footX));
 
-            var action = new Dash(hero, tx, hero.footY);
+            if (tx == null)
+                return null;
+
+            var action = new Dash(hero, tx);
 
             if (
                 action.canBePerformed() &&
-                M.fabs(hero.footX - action.x) >= Const.GRID * 2 &&
                 M.fabs(action.x - x) <= Const.GRID * 3
             )
                 return action;
@@ -55,6 +67,8 @@ class Dash extends Action {
             this.hero.spr.anim.stopWithStateAnims();
             this.hero.leaveCover();
             this.hero.stopGrab();
+
+            this.hero.hasDashed = true;
 
             Assets.SFX.land0(1);
             this.hero.speed *= 2;

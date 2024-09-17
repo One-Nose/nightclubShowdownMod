@@ -37,6 +37,7 @@ class Hero extends Entity {
 
     public var hasTakenCover = false;
     public var hasKicked = false;
+    public var hasDashed = false;
 
     public function new(x, y) {
         super(x, y);
@@ -381,6 +382,16 @@ class Hero extends Entity {
         }
         // ammoBar.x = headX-2;
         // ammoBar.y = headY-4;
+
+        if (!this.hero.hasDashed && this.hasAction(action.Dash)) {
+            this.actionIcon.visible = true;
+            new action.Dash(
+                this,
+                action.Dash.getX(this, M.sign(game.getMouse().x - this.footX))
+            ).updateDisplay(this.actionIcon);
+            this.actionIcon.colorize(0x666666);
+        } else
+            this.actionIcon.visible = false;
     }
 
     public function startGrab(e: entity.Mob) {
