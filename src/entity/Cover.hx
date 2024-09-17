@@ -111,7 +111,7 @@ class Cover extends Entity {
             new action.TakeCover(
                 hero,
                 this,
-                M.sign(game.getMouse().x - this.centerX)
+                M.sign(game.getMouse().x - this.centerX + .001)
             ).updateDisplay(this.actionIcon);
             this.actionIcon.colorize(0x888888);
         } else
