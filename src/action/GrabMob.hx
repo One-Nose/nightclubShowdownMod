@@ -72,7 +72,9 @@ class GrabMob extends Action {
         this.hero.dir = -this.side;
         this.hero.cx = this.mob.cx;
         this.hero.xr = this.mob.xr + this.side * 0.9;
-        this.hero.startGrab(this.mob);
+
+        if (this.hero.startGrab(this.mob))
+            this.hero.hasKicked = true;
     }
 
     public override function updateDisplay(icon: HSprite) {

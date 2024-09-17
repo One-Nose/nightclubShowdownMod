@@ -394,13 +394,14 @@ class Hero extends Entity {
             this.actionIcon.visible = false;
     }
 
-    public function startGrab(e: entity.Mob) {
+    public function startGrab(e: entity.Mob): Bool {
         if (!e.isAlive())
-            return;
+            return false;
         grabbedMob = e;
         grabbedMob.hasGravity = false;
         grabbedMob.interruptSkills(false);
         game.scroller.add(grabbedMob.spr, Const.HERO_LAYER);
+        return true;
     }
 
     public function stopGrab() {

@@ -103,8 +103,14 @@ class Mob extends Entity {
 
         if (!this.hero.hasKicked && this.hero.hasAction(action.KickMob)) {
             this.actionIcon.visible = true;
-            new action.KickMob(
-                hero, this, this.dirTo(hero)).updateDisplay(this.actionIcon);
+
+            var kickAction: Action = new action.KickMob(
+                hero, this, this.dirTo(hero));
+
+            if (this.hero.hasAction(action.GrabMob) && this.canBeGrabbed())
+                kickAction = new action.GrabMob(hero, this, this.dirTo(hero));
+
+            kickAction.updateDisplay(this.actionIcon);
             this.actionIcon.colorize(0x888888);
         } else
             this.actionIcon.visible = false;
