@@ -106,10 +106,13 @@ class Cover extends Entity {
         iconRight.setPos(centerX + 6, footY);
         iconRight.visible = coversAnyone(1);
 
-        if (!this.hero.hasTakenCover && this.isAlive() && this.onGround) {
+        if (!this.hero.hasTakenCover && this.isAlive()) {
             this.actionIcon.visible = true;
             new action.TakeCover(
-                hero, this, this.dirTo(hero)).updateDisplay(this.actionIcon);
+                hero,
+                this,
+                M.sign(game.getMouse().x - this.centerX)
+            ).updateDisplay(this.actionIcon);
             this.actionIcon.colorize(0x888888);
         } else
             this.actionIcon.visible = false;
