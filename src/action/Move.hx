@@ -21,7 +21,7 @@ class Move extends Action {
             tx = M.fclamp(tx, 5, hero.level.wid * Const.GRID - 5);
             if (
                 hero.game.level.waveId <= 1 &&
-                !hero.level.wave.isOver() &&
+                !hero.level.readyForStage2() &&
                 tx >= (hero.level.wid - 3) * Const.GRID
             )
                 tx = (hero.game.level.wid - 3) * Const.GRID;

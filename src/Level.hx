@@ -9,6 +9,7 @@ typedef ShopEntry = {
 
 class Level extends dn.Process {
     public var waveId: Int;
+    public var waveStarted: Bool;
 
     public var wid: Int;
     public var hei: Int;
@@ -45,8 +46,17 @@ class Level extends dn.Process {
         mask.drawRect(0, 0, wid * Const.GRID, hei * Const.GRID);
     }
 
+    public function readyForStage2(): Bool {
+        return
+            this.waveId == 1 &&
+            !this.wave.isRewarding &&
+            this.waveStarted &&
+            this.wave.isOver();
+    }
+
     public function prepareWave(waveId: Int) {
         this.waveId = waveId;
+        this.waveStarted = false;
         this.render();
     }
 
@@ -321,6 +331,7 @@ class Level extends dn.Process {
             delay += 3.5;
         }
 
+        this.waveStarted = true;
         this.wave.start();
     }
 

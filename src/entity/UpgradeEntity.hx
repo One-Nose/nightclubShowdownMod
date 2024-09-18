@@ -62,6 +62,11 @@ class UpgradeEntity extends Entity {
 
         for (entity in ALL)
             entity.destroy();
+
+        if (this.level.waveId == 1) {
+            this.game.nextIcon.visible = true;
+            this.game.loopNextIconAlpha();
+        }
     }
 
     override function postUpdate() {

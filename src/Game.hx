@@ -28,6 +28,8 @@ class Game extends dn.Process {
 
     public var hud: h2d.Flow;
 
+    public var nextIcon: HSprite;
+
     public var cinematic: dn.Cinematic;
 
     public function new(
@@ -68,6 +70,17 @@ class Game extends dn.Process {
         this.hud = new h2d.Flow();
         this.root.add(this.hud, Const.UI_LAYER);
         this.hud.horizontalSpacing = 1;
+
+        this.nextIcon = Assets.gameElements.h_get("next");
+        this.nextIcon.visible = false;
+        this.nextIcon.colorize(0x00C700);
+        this.nextIcon.blendMode = Add;
+        this.nextIcon.alpha = 0;
+        this.nextIcon.setCenterRatio(1, 0.5);
+        this.nextIcon.setPos(
+            this.viewport.wid - 2.5 * Const.GRID, this.viewport.hei * 0.55
+        );
+        this.root.add(this.nextIcon, Const.UI_LAYER);
 
         this.level = new Level();
         this.hero = new entity.Hero(2, 6);
@@ -251,6 +264,16 @@ class Game extends dn.Process {
     **/
     public function updateHud()
         this.cd.setS("invalidateHud", Const.INFINITE);
+
+    public function loopNextIconAlpha() {
+        if (this.level.waveId == 1) {
+            this.tw.createMs(this.nextIcon.alpha, 0.7, 400).end(() -> {
+                this.tw
+                    .createMs(this.nextIcon.alpha, 0.4, 400)
+                    .end(this.loopNextIconAlpha);
+            });
+        }
+    }
 
     /**
         Only updates HUD if `updateHud()` was called since the last update
@@ -530,6 +553,7 @@ class Game extends dn.Process {
                 this.mask.visible = true;
                 this.tw.createS(this.mask.alpha, 0 > 1, 0.6);
                 600;
+                this.nextIcon.visible = false;
                 this.hero.setPosCase(0, this.level.hei - 3);
                 this.startWave(this.level.waveId + 1);
                 this.tw.createS(this.mask.alpha, 0, 0.3);

@@ -25,7 +25,7 @@ class Dash extends Action {
 
         if (
             hero.game.level.waveId <= 1 &&
-            !hero.level.wave.isOver() &&
+            !hero.level.readyForStage2() &&
             x >= (hero.level.wid - 3) * Const.GRID
         )
             x = (hero.game.level.wid - 3) * Const.GRID;

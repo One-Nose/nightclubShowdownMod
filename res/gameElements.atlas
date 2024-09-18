@@ -935,135 +935,142 @@ iconWait
   orig: 16,16
   offset: 0,0
   index: -1
-upgradeAim
+next
   rotate: false
   xy: 464,490
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgradeBiggerMags
+upgradeAim
   rotate: false
   xy: 473,506
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgradeBonusHeart
+upgradeBiggerMags
   rotate: false
   xy: 480,480
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgradeDash
+upgradeBonusHeart
   rotate: false
   xy: 496,480
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgradeEvasion
+upgradeDash
   rotate: false
   xy: 489,496
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgradeExplosion
+upgradeEvasion
   rotate: false
   xy: 489,512
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgradeGeneric
+upgradeExplosion
   rotate: false
   xy: 519,0
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgradeGrab
+upgradeGeneric
   rotate: false
   xy: 519,16
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgradeGrenade
+upgradeGrab
   rotate: false
   xy: 519,32
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgradeHeadShot
+upgradeGrenade
   rotate: false
   xy: 519,48
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgradeHeal
+upgradeHeadShot
   rotate: false
   xy: 512,64
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgradeKick
+upgradeHeal
   rotate: false
   xy: 512,80
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgradeKickDash
+upgradeKick
   rotate: false
   xy: 512,96
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgradePierce
+upgradeKickDash
   rotate: false
   xy: 512,112
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgradeReload
+upgradePierce
   rotate: false
   xy: 512,128
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgradeShot
+upgradeReload
   rotate: false
   xy: 512,144
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-circle
+upgradeShot
   rotate: false
   xy: 512,160
+  size: 16,16
+  orig: 16,16
+  offset: 0,0
+  index: -1
+circle
+  rotate: false
+  xy: 512,176
   size: 15,15
   orig: 15,15
   offset: 0,0
   index: -1
 iconDash
   rotate: false
-  xy: 512,175
+  xy: 512,191
   size: 15,15
   orig: 15,15
   offset: 0,0
   index: -1
 iconKickGrab
   rotate: false
-  xy: 512,190
+  xy: 512,206
   size: 15,15
   orig: 15,15
   offset: 0,0
