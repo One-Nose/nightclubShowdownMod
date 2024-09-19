@@ -10,7 +10,7 @@ class Grenader extends entity.Mob {
         s.setTimers(0.6, 0, 3);
         s.onStart = function() {
             lookAt(s.target);
-            spr.anim.playAndLoop("bBlind");
+            spr.anim.playAndLoop("bGrenade");
         }
         s.onProgress = function(t) lookAt(s.target);
         s.onInterrupt = function() spr.anim.stopWithStateAnims();
@@ -29,7 +29,7 @@ class Grenader extends entity.Mob {
             // fx.bloodHit(shootX, shootY, e.centerX, e.centerY);
             // }
             // fx.shoot(shootX, shootY, e.centerX, e.centerY, 0xFF0000);
-            spr.anim.play("bBlindShoot");
+            spr.anim.play("bThrowGrenade");
         }
     }
 

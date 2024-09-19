@@ -157,7 +157,7 @@ class Hero extends Entity {
         s.setTimers(0.6, 0, 0.3);
         s.onStart = function() {
             this.dir = M.sign(s.x - this.footX);
-            this.spr.anim.playAndLoop("heroBlind");
+            this.spr.anim.playAndLoop("heroGrenade");
         }
         s.onProgress = function(t) this.dir = M.sign(s.x - this.footX);
         s.onInterrupt = function() this.spr.anim.stopWithStateAnims();
@@ -174,7 +174,7 @@ class Hero extends Entity {
             ) / (Const.GRID * 7); // 0.2 for 7 cells
             grenade.dy = -0.05;
 
-            spr.anim.play("heroBlindShoot");
+            spr.anim.play("heroThrowGrenade");
         }
     }
 

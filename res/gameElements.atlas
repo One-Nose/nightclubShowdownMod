@@ -319,471 +319,513 @@ bGrab1
   orig: 32,32
   offset: 0,0
   index: -1
-bHit0
+bGrenade0
   rotate: false
   xy: 32,404
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
-bIdle0
+bHit0
   rotate: false
   xy: 64,404
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
-bPush0
+bIdle0
   rotate: false
   xy: 96,404
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
-bRun0
+bPush0
   rotate: false
   xy: 128,404
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
-bRun1
+bRun0
   rotate: false
   xy: 160,404
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
-bRun2
+bRun1
   rotate: false
   xy: 192,404
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
-bRun3
+bRun2
   rotate: false
   xy: 224,404
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
-bRun4
+bRun3
   rotate: false
   xy: 256,404
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
-bRun5
+bRun4
   rotate: false
   xy: 288,373
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
-bStun0
+bRun5
   rotate: false
   xy: 320,400
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
-cAim0
+bStun0
   rotate: false
   xy: 352,400
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
-cAimShoot0
+bThrowGrenade0
   rotate: false
   xy: 416,394
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
-cAimShoot1
+bThrowGrenade1
   rotate: false
   xy: 448,394
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
-cBlind0
+cAim0
   rotate: false
   xy: 288,405
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
-cBlindShoot0
+cAimShoot0
   rotate: false
   xy: 384,414
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
-cBlindShoot1
+cAimShoot1
   rotate: false
   xy: 0,436
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
-cCover0
+cBlind0
   rotate: false
   xy: 32,436
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
-cDeathBounce0
+cBlindShoot0
   rotate: false
   xy: 64,436
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
-cDeathFly0
+cBlindShoot1
   rotate: false
   xy: 96,436
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
-cDeathFly1
+cCover0
   rotate: false
   xy: 128,436
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
-cDeathGround0
+cDeathBounce0
   rotate: false
   xy: 160,436
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
-cHit0
+cDeathFly0
   rotate: false
   xy: 192,436
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
-cIdle0
+cDeathFly1
   rotate: false
   xy: 224,436
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
-cPush0
+cDeathGround0
   rotate: false
   xy: 256,436
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
-cRun0
+cHit0
   rotate: false
   xy: 320,432
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
-cRun1
+cIdle0
   rotate: false
   xy: 352,432
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
-cRun2
+cPush0
   rotate: false
   xy: 416,426
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
-cRun3
+cRun0
   rotate: false
   xy: 448,426
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
-cRun4
+cRun1
   rotate: false
   xy: 288,437
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
-cRun5
+cRun2
   rotate: false
   xy: 384,446
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
-cStun0
+cRun3
   rotate: false
   xy: 0,468
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
-ground0
+cRun4
   rotate: false
   xy: 32,468
+  size: 32,32
+  orig: 32,32
+  offset: 0,0
+  index: -1
+cRun5
+  rotate: false
+  xy: 64,468
+  size: 32,32
+  orig: 32,32
+  offset: 0,0
+  index: -1
+cStun0
+  rotate: false
+  xy: 96,468
+  size: 32,32
+  orig: 32,32
+  offset: 0,0
+  index: -1
+ground0
+  rotate: false
+  xy: 128,468
   size: 16,32
   orig: 16,32
   offset: 0,0
   index: -1
 heroAim0
   rotate: false
-  xy: 48,468
+  xy: 144,468
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
 heroAimShoot0
   rotate: false
-  xy: 80,468
+  xy: 176,468
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
 heroAimShoot1
   rotate: false
-  xy: 112,468
+  xy: 208,468
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
 heroBlind0
   rotate: false
-  xy: 144,468
+  xy: 240,468
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
 heroBlindShoot0
   rotate: false
-  xy: 176,468
+  xy: 320,464
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
 heroBlindShoot1
   rotate: false
-  xy: 208,468
+  xy: 352,464
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
 heroBrake0
   rotate: false
-  xy: 240,468
+  xy: 416,458
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
 heroCover0
   rotate: false
-  xy: 320,464
+  xy: 448,458
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
 heroDeathBounce0
   rotate: false
-  xy: 352,464
+  xy: 487,0
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
 heroDeathFly0
   rotate: false
-  xy: 416,458
+  xy: 487,32
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
 heroDeathFly1
   rotate: false
-  xy: 448,458
+  xy: 480,64
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
 heroDeathGround0
   rotate: false
-  xy: 487,0
+  xy: 480,96
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
 heroGrabBlind0
   rotate: false
-  xy: 487,32
+  xy: 480,128
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
 heroGrabBlindShoot0
   rotate: false
-  xy: 480,64
+  xy: 480,160
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
 heroGrabBlindShoot1
   rotate: false
-  xy: 480,96
-  size: 32,32
-  orig: 32,32
-  offset: 0,0
-  index: -1
-heroHit0
-  rotate: false
-  xy: 480,128
-  size: 32,32
-  orig: 32,32
-  offset: 0,0
-  index: -1
-heroIdle0
-  rotate: false
-  xy: 480,160
-  size: 32,32
-  orig: 32,32
-  offset: 0,0
-  index: -1
-heroIdleGrab0
-  rotate: false
   xy: 480,192
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
-heroKick0
+heroGrenade0
   rotate: false
   xy: 480,224
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
-heroKick1
+heroHit0
   rotate: false
   xy: 480,256
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
-heroPush0
+heroIdle0
   rotate: false
   xy: 480,288
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
-heroReload0
+heroIdleGrab0
   rotate: false
   xy: 480,320
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
-heroReload1
+heroKick0
   rotate: false
   xy: 480,352
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
-heroReload2
+heroKick1
   rotate: false
   xy: 480,384
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
-heroReload3
+heroPush0
   rotate: false
   xy: 480,416
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
-heroReload4
+heroReload0
   rotate: false
   xy: 480,448
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
-heroReload5
+heroReload1
   rotate: false
   xy: 384,478
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
-heroRoll0
+heroReload2
   rotate: false
   xy: 0,500
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
-heroRun0
+heroReload3
   rotate: false
   xy: 32,500
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
-heroRun1
+heroReload4
   rotate: false
   xy: 64,500
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
-heroRun2
+heroReload5
   rotate: false
   xy: 96,500
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
-heroRun3
+heroRoll0
   rotate: false
   xy: 128,500
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
-heroRun4
+heroRun0
   rotate: false
   xy: 160,500
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
-heroRun5
+heroRun1
   rotate: false
   xy: 192,500
   size: 32,32
   orig: 32,32
   offset: 0,0
   index: -1
-heroStun0
+heroRun2
   rotate: false
   xy: 224,500
+  size: 32,32
+  orig: 32,32
+  offset: 0,0
+  index: -1
+heroRun3
+  rotate: false
+  xy: 256,500
+  size: 32,32
+  orig: 32,32
+  offset: 0,0
+  index: -1
+heroRun4
+  rotate: false
+  xy: 288,469
+  size: 32,32
+  orig: 32,32
+  offset: 0,0
+  index: -1
+heroRun5
+  rotate: false
+  xy: 320,496
+  size: 32,32
+  orig: 32,32
+  offset: 0,0
+  index: -1
+heroStun0
+  rotate: false
+  xy: 352,496
+  size: 32,32
+  orig: 32,32
+  offset: 0,0
+  index: -1
+heroThrowGrenade0
+  rotate: false
+  xy: 480,480
+  size: 32,32
+  orig: 32,32
+  offset: 0,0
+  index: -1
+heroThrowGrenade1
+  rotate: false
+  xy: 416,490
   size: 32,32
   orig: 32,32
   offset: 0,0
@@ -804,105 +846,105 @@ dancingA1
   index: -1
 dancingB0
   rotate: false
-  xy: 256,500
+  xy: 288,501
   size: 16,31
   orig: 16,31
   offset: 0,0
   index: -1
 dancingB1
   rotate: false
-  xy: 272,499
+  xy: 304,501
   size: 16,31
   orig: 16,31
   offset: 0,0
   index: -1
 dancingC0
   rotate: false
-  xy: 288,496
+  xy: 448,490
   size: 16,31
   orig: 16,31
   offset: 0,0
   index: -1
 dancingC1
   rotate: false
-  xy: 304,469
+  xy: 464,490
   size: 16,31
   orig: 16,31
   offset: 0,0
   index: -1
 wind
   rotate: false
-  xy: 304,510
+  xy: 448,521
   size: 22,11
   orig: 22,11
   offset: 0,0
   index: -1
 smallSmoke0
   rotate: false
-  xy: 326,510
+  xy: 480,512
   size: 19,19
   orig: 19,19
   offset: 0,0
   index: -1
 crate0
   rotate: false
-  xy: 288,469
+  xy: 499,512
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 crateBroken0
   rotate: false
-  xy: 345,510
+  xy: 384,510
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 crateMetal0
   rotate: false
-  xy: 361,510
+  xy: 400,510
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 crateMetalBroken0
   rotate: false
-  xy: 377,510
+  xy: 519,0
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 iconCoverLeft
   rotate: false
-  xy: 393,510
+  xy: 519,16
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 iconCoverRight
   rotate: false
-  xy: 409,510
+  xy: 519,32
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 iconGrenade
   rotate: false
-  xy: 416,490
+  xy: 519,48
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 iconMove
   rotate: false
-  xy: 425,506
+  xy: 515,64
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 iconReload
   rotate: false
-  xy: 432,490
+  xy: 515,80
   size: 16,16
   orig: 16,16
   offset: 0,0
@@ -916,161 +958,161 @@ iconShield
   index: -1
 iconShoot
   rotate: false
-  xy: 441,506
+  xy: 515,96
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 iconShootCover
   rotate: false
-  xy: 448,490
+  xy: 515,112
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 iconWait
   rotate: false
-  xy: 457,506
+  xy: 515,128
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 next
   rotate: false
-  xy: 464,490
+  xy: 515,144
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 upgradeAim
   rotate: false
-  xy: 473,506
+  xy: 515,160
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 upgradeBiggerMags
   rotate: false
-  xy: 480,480
+  xy: 515,176
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 upgradeBonusHeart
   rotate: false
-  xy: 496,480
+  xy: 515,192
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 upgradeDash
   rotate: false
-  xy: 489,496
+  xy: 515,208
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 upgradeEvasion
   rotate: false
-  xy: 489,512
+  xy: 515,224
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 upgradeExplosion
   rotate: false
-  xy: 519,0
+  xy: 515,240
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 upgradeGeneric
   rotate: false
-  xy: 519,16
+  xy: 515,256
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 upgradeGrab
   rotate: false
-  xy: 519,32
+  xy: 515,272
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 upgradeGrenade
   rotate: false
-  xy: 519,48
+  xy: 515,288
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 upgradeHeadShot
   rotate: false
-  xy: 512,64
+  xy: 515,304
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 upgradeHeal
   rotate: false
-  xy: 512,80
+  xy: 515,320
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 upgradeKick
   rotate: false
-  xy: 512,96
+  xy: 515,336
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 upgradeKickDash
   rotate: false
-  xy: 512,112
+  xy: 515,352
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 upgradePierce
   rotate: false
-  xy: 512,128
+  xy: 515,368
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 upgradeReload
   rotate: false
-  xy: 512,144
+  xy: 515,384
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 upgradeShot
   rotate: false
-  xy: 512,160
+  xy: 515,400
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
 circle
   rotate: false
-  xy: 512,176
+  xy: 515,416
   size: 15,15
   orig: 15,15
   offset: 0,0
   index: -1
 iconDash
   rotate: false
-  xy: 512,191
+  xy: 515,431
   size: 15,15
   orig: 15,15
   offset: 0,0
   index: -1
 iconKickGrab
   rotate: false
-  xy: 512,206
+  xy: 515,446
   size: 15,15
   orig: 15,15
   offset: 0,0
@@ -1091,35 +1133,35 @@ bigDirt1
   index: -1
 iconEvasion
   rotate: false
-  xy: 345,526
+  xy: 384,526
   size: 7,6
   orig: 7,6
   offset: 0,0
   index: -1
 iconHeart
   rotate: false
-  xy: 528,64
+  xy: 281,379
   size: 7,6
   orig: 7,6
   offset: 0,0
   index: -1
 grenade0
   rotate: false
-  xy: 352,526
+  xy: 530,416
   size: 5,6
   orig: 5,6
   offset: 0,0
   index: -1
 iconBullet
   rotate: false
-  xy: 357,526
+  xy: 391,526
   size: 2,6
   orig: 2,6
   offset: 0,0
   index: -1
 dot0
   rotate: false
-  xy: 256,531
+  xy: 272,499
   size: 1,1
   orig: 1,1
   offset: 0,0
