@@ -187,7 +187,10 @@ class Game extends dn.Process {
                 onUnlock: () -> this.hero.unlockAction(action.KickMob),
                 children: [new Upgrade("Grab Enemies", {
                     description: "Grab enemies to use them as cover",
-                    onUnlock: () -> this.hero.unlockAction(action.GrabMob),
+                    onUnlock: () -> {
+                        this.hero.unlockAction(action.GrabMob);
+                        this.hero.hasKicked = false;
+                    },
                     icon: "Grab"
                 })],
                 icon: "Kick"
