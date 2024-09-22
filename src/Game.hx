@@ -178,7 +178,7 @@ class Game extends dn.Process {
                         icon: "HeadShot"
                     }),
                     new Upgrade("Piercing Shot", {
-                        description: "Head shots pierce through enemies",
+                        description: "Head shots pierce through the closest target",
                         onUnlock: () -> this.hero.piercingShot = true,
                         icon: "Pierce"
                     }),

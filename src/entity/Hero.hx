@@ -124,7 +124,9 @@ class Hero extends Entity {
 
             fx.flashBangS(0x477ADA, 0.1, 0.1);
 
-            if (this.piercingShot)
+            if (this.piercingShot) {
+                var pierceMob: Null<Mob> = null;
+
                 for (mob in Mob.ALL)
                     if (
                         mob != e &&
@@ -132,9 +134,20 @@ class Hero extends Entity {
                             mob.footX,
                             M.fmin(this.footX, e.footX),
                             M.fmax(this.footX, e.footX),
+                        ) &&
+                        mob != this.grabbedMob &&
+                        (
+                            pierceMob == null ||
+                            Math.abs(
+                                pierceMob.footX - e.footX
+                            ) < Math.abs(mob.footX - e.footX)
                         )
                     )
-                        mob.hit(1, this);
+                        pierceMob = mob;
+
+                if (pierceMob != null)
+                    pierceMob.hit(1, this);
+            }
 
             if (e.hit(this.headShotDamage, this))
                 fx.headShot(shootX, shootY, e.headX, e.headY, dirTo(e));
