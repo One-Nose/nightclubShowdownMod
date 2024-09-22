@@ -64,6 +64,9 @@ class UpgradeEntity extends Entity {
             entity.destroy();
 
         if (this.level.waveId == 1) {
+            this.game.nextIcon.setPos(
+                this.game.viewport.wid - 2.5 * Const.GRID, 8 * Const.GRID
+            );
             this.game.nextIcon.visible = true;
             this.game.loopNextIconAlpha();
         }

@@ -77,9 +77,6 @@ class Game extends dn.Process {
         this.nextIcon.blendMode = Add;
         this.nextIcon.alpha = 0;
         this.nextIcon.setCenterRatio(1, 0.5);
-        this.nextIcon.setPos(
-            this.viewport.wid - 2.5 * Const.GRID, 8 * Const.GRID
-        );
         this.root.add(this.nextIcon, Const.UI_LAYER);
 
         this.level = new Level();
