@@ -28,7 +28,7 @@ class Hero extends Entity {
     public var grabbedMob: Null<entity.Mob>;
     public var speed = 0.011;
     public var headShotDamage = 2;
-    public var piercingShot = false;
+    public var piercingShot = 0;
     public var canCoverDash = false;
     public var canKickDash = false;
     public var reloadSpeed = 1.0;
@@ -124,29 +124,33 @@ class Hero extends Entity {
 
             fx.flashBangS(0x477ADA, 0.1, 0.1);
 
-            if (this.piercingShot) {
-                var pierceMob: Null<Mob> = null;
-
-                for (mob in Mob.ALL)
-                    if (
+            if (this.piercingShot > 0) {
+                var mobs = Mob.ALL.filter(
+                    mob ->
                         mob != e &&
                         M.inRange(
                             mob.footX,
                             M.fmin(this.footX, e.footX),
                             M.fmax(this.footX, e.footX),
                         ) &&
-                        mob != this.grabbedMob &&
-                        (
-                            pierceMob == null ||
-                            Math.abs(
-                                pierceMob.footX - e.footX
-                            ) < Math.abs(mob.footX - e.footX)
-                        )
-                    )
-                        pierceMob = mob;
+                        mob != this.grabbedMob
+                );
 
-                if (pierceMob != null)
-                    pierceMob.hit(1, this);
+                mobs.sort(
+                    (
+                        mob1, mob2
+                    ) -> M.round(
+                        M.fabs(
+                            mob2.footX - e.footX
+                        ) - M.fabs(mob1.footX - e.footX)
+                    )
+                );
+
+                if (this.piercingShot == 1)
+                    mobs = mobs.slice(0, 1);
+
+                for (mob in mobs)
+                    mob.hit(1, this);
             }
 
             if (e.hit(this.headShotDamage, this))
