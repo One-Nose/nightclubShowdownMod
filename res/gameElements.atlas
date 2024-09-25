@@ -1096,23 +1096,30 @@ upgradeShot
   orig: 16,16
   offset: 0,0
   index: -1
-circle
+upgradeThrow
   rotate: false
   xy: 515,416
+  size: 16,16
+  orig: 16,16
+  offset: 0,0
+  index: -1
+circle
+  rotate: false
+  xy: 515,432
   size: 15,15
   orig: 15,15
   offset: 0,0
   index: -1
 iconDash
   rotate: false
-  xy: 515,431
+  xy: 515,447
   size: 15,15
   orig: 15,15
   offset: 0,0
   index: -1
 iconKickGrab
   rotate: false
-  xy: 515,446
+  xy: 515,462
   size: 15,15
   orig: 15,15
   offset: 0,0
@@ -1147,7 +1154,7 @@ iconHeart
   index: -1
 grenade0
   rotate: false
-  xy: 530,416
+  xy: 530,432
   size: 5,6
   orig: 5,6
   offset: 0,0

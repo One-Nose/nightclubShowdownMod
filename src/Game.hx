@@ -213,7 +213,7 @@ class Game extends dn.Process {
                     .getSkill("throwGrenade")
                     .chargeS -= 0.25,
                 isUnlockable: () -> this.hero.hasThrownGrenade,
-                icon: "Grenade"
+                icon: "Throw"
             })
         ]);
 
