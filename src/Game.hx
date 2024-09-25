@@ -206,6 +206,14 @@ class Game extends dn.Process {
                 maxLevel: 2,
                 isUnlockable: () -> this.hero.hasThrownGrenade,
                 icon: "Explosion"
+            }),
+            new Upgrade("Quick Throw", {
+                description: "Throw grenades more quickly",
+                onUnlock: () -> this.hero
+                    .getSkill("throwGrenade")
+                    .chargeS -= 0.25,
+                isUnlockable: () -> this.hero.hasThrownGrenade,
+                icon: "Grenade"
             })
         ]);
 
