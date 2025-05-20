@@ -511,7 +511,8 @@ class Hero extends Entity {
     }
 
     override function hit(damage: Int, source: Entity): Bool {
-        if (this.cd.has("rolling"))
+        // Make sure hero exists before using this.cd
+        if (this.destroyed || this.cd.has("rolling"))
             return false;
 
         if (this.hasEvasion) {
