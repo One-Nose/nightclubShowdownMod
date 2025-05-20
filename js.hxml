@@ -1,4 +1,4 @@
 -js bin/client.js
--lib stb_ogg_sound
+-lib stb_ogg_sound:0.0.2
 -D windowSize=1280x720
 base.hxml

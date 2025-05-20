@@ -1,6 +1,6 @@
 -cp src
 -main Boot
--lib castle
--lib heaps
--lib deepnightLibs
+-lib castle:git:https://github.com/ncannasse/castle.git#96ed144
+-lib heaps:2.0.0
+-lib deepnightLibs:1.0.85
 -dce full
