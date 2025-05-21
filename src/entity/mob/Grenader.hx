@@ -12,7 +12,11 @@ class Grenader extends entity.Mob {
             lookAt(s.target);
             spr.anim.playAndLoop("bGrenade");
         }
-        s.onProgress = function(t) lookAt(s.target);
+        s.onProgress = function(t) {
+            if (this.dir != this.dirTo(s.target))
+                s.interrupt(false);
+            this.lookAt(s.target);
+        }
         s.onInterrupt = function() spr.anim.stopWithStateAnims();
         s.onExecute = function(e) {
             dy = -0.1;
