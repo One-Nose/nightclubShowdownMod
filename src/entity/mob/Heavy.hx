@@ -79,9 +79,6 @@ class Heavy extends entity.Mob {
 
         spr.anim.playOverlap("cHit");
         playHitSound();
-
-        if (getDiminishingReturnFactor("hitInterrupt", 3, 3) > 0)
-            interruptSkills(true);
     }
 
     override public function update() {

@@ -66,8 +66,7 @@ class Grenader extends entity.Mob {
 
         spr.anim.playOverlap("bHit");
 
-        if (getDiminishingReturnFactor("hitInterrupt", 3, 3) > 0)
-            interruptSkills(true);
+        interruptSkills(true);
     }
 
     override public function update() {

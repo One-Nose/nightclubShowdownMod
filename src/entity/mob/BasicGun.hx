@@ -79,8 +79,7 @@ class BasicGun extends entity.Mob {
         spr.anim.playOverlap("aHit");
         playHitSound();
 
-        if (getDiminishingReturnFactor("hitInterrupt", 3, 3) > 0)
-            interruptSkills(true);
+        interruptSkills(true);
     }
 
     override public function update() {
