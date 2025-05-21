@@ -373,6 +373,11 @@ class Entity {
     }
 
     public function startCover(newCover: entity.Cover, side: Int) {
+        if (!newCover.onGround) {
+            this.lockControlsS(0.1);
+            this.game.delayer.addS(() -> startCover(newCover, side), 0.1);
+        }
+
         if (!newCover.canHostSomeone(side))
             return false;
 
