@@ -13,9 +13,10 @@ class MachineGun extends entity.Mob {
             spr.anim.playAndLoop("cAim");
         }
         s.onProgress = function(t) {
-            if (this.dir != this.dirTo(s.target))
+            final target = s.target;
+            if (this.dir != this.dirTo(target))
                 s.interrupt(false);
-            this.lookAt(s.target);
+            this.lookAt(target);
         }
         s.onInterrupt = function() spr.anim.stopWithStateAnims();
         s.onExecute = function(e) {
