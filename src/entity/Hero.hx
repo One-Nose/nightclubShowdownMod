@@ -354,8 +354,6 @@ class Hero extends Entity {
         if (controlsLocked())
             return;
 
-        this.moveTarget = null;
-
         var action = getActionAt(x, y);
         if (action.equals(this.displayedAction))
             action.execute();

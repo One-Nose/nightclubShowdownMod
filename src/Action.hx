@@ -21,8 +21,10 @@ abstract class Action {
         if (!this.hero.game.isReplay)
             this.hero.game.heroHistory.push({t: this.hero.game.itime, a: this});
 
-        if (this.canBePerformed())
+        if (this.canBePerformed()) {
+            this.hero.moveTarget = null;
             this._execute();
+        }
     }
 
     private abstract function _execute(): Void;
