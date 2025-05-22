@@ -24,7 +24,11 @@ class Grenader extends entity.Mob {
             var g = new entity.Grenade(this);
             g.init();
             g.setPosPixel(shootX, shootY);
-            g.dx = dirTo(e) * 0.225 * M.fabs(e.cx - cx) / 7; // .225 for 7 cells
+            g.dx = dirTo(
+                e
+            ) * 0.225 * M.fabs(
+                e.footX - this.footX
+            ) / (Const.GRID * 7); // .225 for 7 cells
             g.dy = -0.05;
             // if( e.hitOrHitCover(1,this) ) {
             // e.dx*=0.3;
