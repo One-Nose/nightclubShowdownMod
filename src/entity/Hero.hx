@@ -186,9 +186,9 @@ class Hero extends Entity {
             grenade.setPosPixel(this.shootX, this.shootY);
             grenade.dx = M.sign(
                 s.x - this.footX
-            ) * 0.2 * M.fabs(
+            ) * 0.225 * M.fabs(
                 s.x - this.footX
-            ) / (Const.GRID * 7); // 0.2 for 7 cells
+            ) / (Const.GRID * 7); // .225 for 7 cells
             grenade.dy = -0.05;
 
             spr.anim.play("heroThrowGrenade");
