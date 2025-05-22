@@ -141,6 +141,9 @@ class Mob extends Entity {
     override public function update() {
         super.update();
 
+        if (this.isGrabbed())
+            this.leaveCover();
+
         if (
             tx != -1 &&
             !cd.has("entering") &&
