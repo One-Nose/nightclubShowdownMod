@@ -45,6 +45,16 @@
       "alignment": "right",
       "skipTerminateQuickPick": false,
       "priority": 20
+    },
+    {
+      "text": "Redist",
+      "color": "green",
+      "commandType": "exec",
+      "command": "haxelib run redistHelper hl.sdl.hxml hl.directx.hxml js.hxml -zip",
+      "alignment": "right",
+      "skipTerminateQuickPick": false,
+      "skipSwitchToOutput": false,
+      "priority": 10
     }
   ]
 }
