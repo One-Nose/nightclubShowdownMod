@@ -1,6 +1,6 @@
-using Upgrade;
-
 import hxd.Key;
+
+using Upgrade;
 
 typedef HistoryEntry = {t: Int, a: Action};
 
@@ -91,7 +91,9 @@ class Game extends dn.Process {
         if (!Main.ME.cd.hasSetS("intro", Const.INFINITE)) {
             this.startWave(0);
             this.delayer.addS(function() {
-                this.announce("A fast turned-based action game", 0x706ACC);
+                this.announce(
+                    "Modified from the original game by Deepnight", 0x706ACC
+                );
             }, 1);
             this.cinematic.create({
                 this.hud.visible = false;
