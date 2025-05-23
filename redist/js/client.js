@@ -14832,7 +14832,7 @@ var Game = function(context,replayHistory) {
 	if(!tmp) {
 		this.startWave(0);
 		this.delayer.addS(null,function() {
-			_gthis.announce("A fast turned-based action game",7367372);
+			_gthis.announce("Modified from the original game by Deepnight",7367372);
 		},1);
 		this.cinematic.__beginNewQueue();
 		this.cinematic.__add(function() {
