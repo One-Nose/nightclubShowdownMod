@@ -376,6 +376,7 @@ class Entity {
         if (!newCover.onGround) {
             this.lockControlsS(0.1);
             this.game.delayer.addS(() -> startCover(newCover, side), 0.1);
+            return true;
         }
 
         if (!newCover.canHostSomeone(side))
