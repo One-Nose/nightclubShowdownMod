@@ -165,7 +165,7 @@ class Game extends dn.Process {
                         this.hero.setAmmo(this.hero.maxAmmo);
                     },
                     isUnlockable: () -> this.hero.maxAmmo == 8,
-                    icon: "BiggerMags"
+                    icon: "Infinite"
                 })],
                 icon: "Reload"
             }),

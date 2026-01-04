@@ -1061,65 +1061,72 @@ upgradeHeal
   orig: 16,16
   offset: 0,0
   index: -1
-upgradeKick
+upgradeInfinite
   rotate: false
   xy: 515,336
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgradeKickDash
+upgradeKick
   rotate: false
   xy: 515,352
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgradePierce
+upgradeKickDash
   rotate: false
   xy: 515,368
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgradeReload
+upgradePierce
   rotate: false
   xy: 515,384
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgradeShot
+upgradeReload
   rotate: false
   xy: 515,400
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgradeThrow
+upgradeShot
   rotate: false
   xy: 515,416
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-circle
+upgradeThrow
   rotate: false
   xy: 515,432
+  size: 16,16
+  orig: 16,16
+  offset: 0,0
+  index: -1
+circle
+  rotate: false
+  xy: 515,448
   size: 15,15
   orig: 15,15
   offset: 0,0
   index: -1
 iconDash
   rotate: false
-  xy: 515,447
+  xy: 515,463
   size: 15,15
   orig: 15,15
   offset: 0,0
   index: -1
 iconKickGrab
   rotate: false
-  xy: 515,462
+  xy: 515,478
   size: 15,15
   orig: 15,15
   offset: 0,0
@@ -1154,7 +1161,7 @@ iconHeart
   index: -1
 grenade0
   rotate: false
-  xy: 530,432
+  xy: 530,448
   size: 5,6
   orig: 5,6
   offset: 0,0
