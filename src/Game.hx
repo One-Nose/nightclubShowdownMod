@@ -158,6 +158,15 @@ class Game extends dn.Process {
                     );
                     this.hero.reloadSpeed = 2;
                 },
+                children: [new Upgrade("Infinite Ammo", {
+                    description: "Never run out of ammo",
+                    onUnlock: () -> {
+                        this.hero.hasInfiniteAmmo = true;
+                        this.hero.setAmmo(this.hero.maxAmmo);
+                    },
+                    isUnlockable: () -> this.hero.maxAmmo == 8,
+                    icon: "BiggerMags"
+                })],
                 icon: "Reload"
             }),
             new Upgrade("Head Shot", {
@@ -315,11 +324,15 @@ class Game extends dn.Process {
 
         this.hud.addSpacing(4);
 
-        for (i in 0...hero.maxAmmo) {
-            var bullet = Assets.gameElements.h_get("iconBullet", this.hud);
-            bullet.colorize(if (i + 1 <= hero.ammo) 0xFFFFFF else 0xFF0000);
-            bullet.alpha = if (i + 1 <= hero.ammo) 1 else 0.8;
-            bullet.blendMode = Add;
+        if (!this.hero.hasInfiniteAmmo) {
+            for (i in 0...this.hero.maxAmmo) {
+                var bullet = Assets.gameElements.h_get("iconBullet", this.hud);
+                bullet.colorize(
+                    if (i + 1 <= this.hero.ammo) 0xFFFFFF else 0xFF0000
+                );
+                bullet.alpha = if (i + 1 <= this.hero.ammo) 1 else 0.8;
+                bullet.blendMode = Add;
+            }
         }
 
         if (hero.grenades > 0)

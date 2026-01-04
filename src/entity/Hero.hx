@@ -32,6 +32,7 @@ class Hero extends Entity {
     public var canCoverDash = false;
     public var canKickDash = false;
     public var reloadSpeed = 1.0;
+    public var hasInfiniteAmmo = false;
     public var hasEvasion = false;
     public var noDamageStreak = 0;
     public var bestNoDamageStreak = 0;
@@ -286,14 +287,16 @@ class Hero extends Entity {
     }
 
     function useAmmo() {
-        if (ammo <= 0) {
-            say("I need to reload!", 0xFF0000);
-            fx.noAmmo(shootX, shootY, dir);
-            lockControlsS(0.2);
+        if (this.ammo <= 0) {
+            this.say("I need to reload!", 0xFF0000);
+            this.fx.noAmmo(this.shootX, this.shootY, this.dir);
+            this.lockControlsS(0.2);
             return false;
         } else {
-            ammo--;
-            game.updateHud();
+            if (!this.hasInfiniteAmmo) {
+                this.ammo--;
+                this.game.updateHud();
+            }
             return true;
         }
     }
