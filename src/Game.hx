@@ -169,6 +169,11 @@ class Game extends dn.Process {
                 })],
                 icon: "Reload"
             }),
+            new Upgrade("Endurance", {
+                description: "Reduce damage from grenades and resist knockback",
+                onUnlock: () -> this.hero.hasEndurance = true,
+                icon: "Endurance"
+            }),
             new Upgrade("Head Shot", {
                 description: "Aim for the head to deal +1 damage and ignore cover",
                 onUnlock: () -> this.hero.unlockAction(action.HeadShot),
