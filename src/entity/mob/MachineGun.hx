@@ -23,11 +23,10 @@ class MachineGun extends entity.Mob {
             lookAt(e);
             dy = -0.1;
             if (e.hitOrHitCover(1, this)) {
-                e.dx *= 0.3;
-                e.dx += dirTo(e) * rnd(0.03, 0.06);
-                e.lockMovementsS(0.3);
-                e.lockControlsS(0.3);
-                fx.bloodHit(shootX, shootY, e.centerX, e.centerY);
+                e.knockback(this.dirTo(e));
+                this.fx.bloodHit(
+                    this.shootX, this.shootY, e.centerX, e.centerY
+                );
             }
             Assets.SFX.pew2(1);
             fx.shoot(shootX, shootY, e.centerX, e.centerY, 0xFF0000);

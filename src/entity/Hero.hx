@@ -34,6 +34,7 @@ class Hero extends Entity {
     public var reloadSpeed = 1.0;
     public var hasInfiniteAmmo = false;
     public var hasEvasion = false;
+    public var hasEndurance = false;
     public var noDamageStreak = 0;
     public var bestNoDamageStreak = 0;
 
@@ -511,6 +512,14 @@ class Hero extends Entity {
         }
     }
 
+    override function violentBump(bdx: Float, bdy: Float, seconds: Float) {
+        if (this.hasEndurance) {
+            super.knockback(if (bdx > 0) 1 else -1);
+            return;
+        }
+        super.violentBump(bdx, bdy, seconds);
+    }
+
     override function hit(damage: Int, source: Entity): Bool {
         // Make sure hero exists before using this.cd
         if (this.destroyed || this.cd.has("rolling"))
@@ -522,11 +531,19 @@ class Hero extends Entity {
             return false;
         }
 
-        if (super.hit(damage, source)) {
+        if (super.hit(if (this.hasEndurance) 1 else damage, source)) {
             this.noDamageStreak = -1;
             return true;
         };
 
         return false;
+    }
+
+    override function knockback(direction: Int) {
+        if (this.hasEndurance) {
+            this.dx *= 0.3;
+            return;
+        }
+        super.knockback(direction);
     }
 }

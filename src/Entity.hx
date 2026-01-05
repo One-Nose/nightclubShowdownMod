@@ -229,6 +229,13 @@ class Entity {
         return true;
     }
 
+    public function knockback(direction: Int) {
+        this.dx *= 0.3;
+        this.dx += direction * this.rnd(0.03, 0.06);
+        this.lockMovementsS(0.3);
+        this.lockControlsS(0.3);
+    }
+
     public function violentBump(bdx: Float, bdy: Float, seconds: Float) {
         if (!this.isAlive())
             return;
