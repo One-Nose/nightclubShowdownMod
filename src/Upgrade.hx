@@ -33,6 +33,7 @@ class Upgrade {
         - `maxLevel`: Amount of times the upgrade can be unlocked.
         - `isUnlockable`: A condition that must be met to unlock the upgrade.
         - `infinite`: Adds the upgrade as its own child.
+        - `icon`: Name of the icon to use for the upgrade, filename is `upgrade<icon>.png`
     **/
     public function new(name: String, config: {
         description: String,
