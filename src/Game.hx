@@ -324,7 +324,12 @@ class Game extends dn.Process {
 
         this.hud.addSpacing(4);
 
-        if (!this.hero.hasInfiniteAmmo) {
+        if (this.hero.hasInfiniteAmmo) {
+            var infinitySymbol = Assets.gameElements.h_get(
+                "iconInfinite", this.hud
+            );
+            infinitySymbol.colorize(0xFFFFFF);
+        } else {
             for (i in 0...this.hero.maxAmmo) {
                 var bullet = Assets.gameElements.h_get("iconBullet", this.hud);
                 bullet.colorize(
