@@ -1019,114 +1019,121 @@ upgradeEndurance
   orig: 16,16
   offset: 0,0
   index: -1
-upgradeExplosion
+upgradeEvasion
   rotate: false
   xy: 515,240
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgradeGeneric
+upgradeExplosion
   rotate: false
   xy: 515,256
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgradeGrab
+upgradeGeneric
   rotate: false
   xy: 515,272
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgradeGrenade
+upgradeGrab
   rotate: false
   xy: 515,288
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgradeHeadShot
+upgradeGrenade
   rotate: false
   xy: 515,304
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgradeHeal
+upgradeHeadShot
   rotate: false
   xy: 515,320
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgradeInfinite
+upgradeHeal
   rotate: false
   xy: 515,336
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgradeKick
+upgradeInfinite
   rotate: false
   xy: 515,352
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgradeKickDash
+upgradeKick
   rotate: false
   xy: 515,368
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgradePierce
+upgradeKickDash
   rotate: false
   xy: 515,384
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgradeReload
+upgradePierce
   rotate: false
   xy: 515,400
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgradeShot
+upgradeReload
   rotate: false
   xy: 515,416
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgradeThrow
+upgradeShot
   rotate: false
   xy: 515,432
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-circle
+upgradeThrow
   rotate: false
   xy: 515,448
+  size: 16,16
+  orig: 16,16
+  offset: 0,0
+  index: -1
+circle
+  rotate: false
+  xy: 515,464
   size: 15,15
   orig: 15,15
   offset: 0,0
   index: -1
 iconDash
   rotate: false
-  xy: 515,463
+  xy: 515,479
   size: 15,15
   orig: 15,15
   offset: 0,0
   index: -1
 iconKickGrab
   rotate: false
-  xy: 515,478
+  xy: 512,494
   size: 15,15
   orig: 15,15
   offset: 0,0
@@ -1152,23 +1159,16 @@ bigDirt1
   orig: 6,7
   offset: 0,0
   index: -1
-iconEvasion
+iconHeart
   rotate: false
   xy: 384,526
   size: 7,6
   orig: 7,6
   offset: 0,0
   index: -1
-iconHeart
-  rotate: false
-  xy: 281,379
-  size: 7,6
-  orig: 7,6
-  offset: 0,0
-  index: -1
 grenade0
   rotate: false
-  xy: 530,448
+  xy: 530,464
   size: 5,6
   orig: 5,6
   offset: 0,0
@@ -1180,17 +1180,17 @@ iconBullet
   orig: 2,6
   offset: 0,0
   index: -1
+iconEvasion
+  rotate: false
+  xy: 474,71
+  size: 6,6
+  orig: 6,6
+  offset: 0,0
+  index: -1
 dot0
   rotate: false
   xy: 272,499
   size: 1,1
   orig: 1,1
-  offset: 0,0
-  index: -1
-upgradeEvasion
-  rotate: false
-  xy: 515,224
-  size: 16,16
-  orig: 16,16
   offset: 0,0
   index: -1
