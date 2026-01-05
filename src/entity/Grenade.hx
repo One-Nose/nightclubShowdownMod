@@ -55,8 +55,8 @@ class Grenade extends Entity {
             Assets.SFX.explode3(1);
 
             if (distPx(game.hero) <= range) {
-                game.hero.violentBump(dirTo(game.hero) * 0.28, -0.2, 0.5);
-                game.hero.hit(2, this);
+                if (game.hero.hit(2, this))
+                    game.hero.violentBump(dirTo(game.hero) * 0.28, -0.2, 0.5);
             }
 
             for (e in entity.Cover.ALL)
