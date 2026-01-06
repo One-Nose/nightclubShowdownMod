@@ -47,6 +47,8 @@ class Grenader extends entity.Mob {
 
         spr.anim.registerStateAnim("bGrab", 4, function() return isGrabbed());
         spr.anim.registerStateAnim(
+            "bRun", 3, function() return cd.has("entering"));
+        spr.anim.registerStateAnim(
             "bPush", 2, function() return !onGround && cd.has("bodyHit"));
         spr.anim.registerStateAnim("bStun", 1, function() return isStunned());
         spr.anim.registerStateAnim("bIdle", 0);
