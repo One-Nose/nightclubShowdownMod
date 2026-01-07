@@ -41,12 +41,15 @@ class BasicGun extends entity.Mob {
     override function init() {
         super.init();
 
-        spr.anim.registerStateAnim("aGrab", 4, function() return isGrabbed());
+        spr.anim.registerStateAnim("aGrab", 5, function() return isGrabbed());
         spr.anim.registerStateAnim(
-            "aRun", 3, function() return cd.has("entering"));
+            "aRun", 4, function() return cd.has("entering"));
         spr.anim.registerStateAnim(
-            "aPush", 2, function() return !onGround && isStunned());
-        spr.anim.registerStateAnim("aStun", 1, function() return isStunned());
+            "aPush", 3, function() return !onGround && isStunned());
+        spr.anim.registerStateAnim("aStun", 2, function() return isStunned());
+        spr.anim.registerStateAnim(
+            "aCover", 1, function() return cover != null
+        );
         spr.anim.registerStateAnim("aIdle", 0);
 
         lockControlsS(

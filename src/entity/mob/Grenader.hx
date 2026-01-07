@@ -45,12 +45,15 @@ class Grenader extends entity.Mob {
     override function init() {
         super.init();
 
-        spr.anim.registerStateAnim("bGrab", 4, function() return isGrabbed());
+        spr.anim.registerStateAnim("bGrab", 5, function() return isGrabbed());
         spr.anim.registerStateAnim(
-            "bRun", 3, function() return cd.has("entering"));
+            "bRun", 4, function() return cd.has("entering"));
         spr.anim.registerStateAnim(
-            "bPush", 2, function() return !onGround && cd.has("bodyHit"));
-        spr.anim.registerStateAnim("bStun", 1, function() return isStunned());
+            "bPush", 3, function() return !onGround && cd.has("bodyHit"));
+        spr.anim.registerStateAnim("bStun", 2, function() return isStunned());
+        spr.anim.registerStateAnim(
+            "bCover", 1, function() return cover != null
+        );
         spr.anim.registerStateAnim("bIdle", 0);
     }
 
