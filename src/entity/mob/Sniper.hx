@@ -11,7 +11,7 @@ class Sniper extends entity.Mob {
         // spr.colorMatrix.colorHue(0.5);
 
         var s = createSkill("shoot");
-        s.setTimers(1, 0.7, 0.3);
+        s.setTimers(1.3, 0.7, 0.3);
         s.onStart = function() {
             lookAt(s.target);
             spr.anim.playAndLoop("dAim");
@@ -26,13 +26,16 @@ class Sniper extends entity.Mob {
         s.onExecute = function(e) {
             lookAt(e);
             dy = -0.1;
-            if (e.hitOrHitCover(1, this)) {
+
+            fx.flashBangS(0xFF0000, 0.1, 0.1);
+
+            if (e.hitOrHitCover(2, this)) {
                 e.knockback(this.dirTo(e));
                 this.fx.bloodHit(
                     this.shootX, this.shootY, e.centerX, e.centerY
                 );
             }
-            Assets.SFX.blaster0(1);
+            Assets.SFX.heavy(1);
             fx.shoot(shootX, shootY, e.centerX, e.centerY, 0xFF0000);
             spr.anim.play("dAimShoot").chainFor("dBlind", Const.FPS * 0.2);
         }

@@ -170,7 +170,7 @@ class Game extends dn.Process {
                 icon: "Reload"
             }),
             new Upgrade("Endurance", {
-                description: "Reduce damage from grenades and resist knockback",
+                description: "Resist knockback, and you can't be dealt more than 1 damage at a time",
                 onUnlock: () -> this.hero.hasEndurance = true,
                 icon: "Endurance"
             }),
