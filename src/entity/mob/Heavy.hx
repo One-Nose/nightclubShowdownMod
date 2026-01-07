@@ -43,9 +43,6 @@ class Heavy extends entity.Mob {
         spr.anim.registerStateAnim(
             "cPush", 3, function() return !onGround && isStunned());
         spr.anim.registerStateAnim("cStun", 2, function() return isStunned());
-        spr.anim.registerStateAnim(
-            "cCover", 1, function() return cover != null
-        );
         spr.anim.registerStateAnim("cIdle", 0);
 
         lockControlsS(rnd(0.3, 1.6));

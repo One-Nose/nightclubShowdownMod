@@ -50,9 +50,6 @@ class Sniper extends entity.Mob {
         spr.anim.registerStateAnim(
             "dPush", 3, function() return !onGround && isStunned());
         spr.anim.registerStateAnim("dStun", 2, function() return isStunned());
-        spr.anim.registerStateAnim(
-            "dCover", 1, function() return cover != null
-        );
         spr.anim.registerStateAnim("dIdle", 0);
         lockControlsS(
             cd.getS("ctrlLock") + 0.1 + countMobs(Sniper, false) * 0.6

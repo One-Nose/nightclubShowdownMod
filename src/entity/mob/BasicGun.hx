@@ -47,9 +47,6 @@ class BasicGun extends entity.Mob {
         spr.anim.registerStateAnim(
             "aPush", 3, function() return !onGround && isStunned());
         spr.anim.registerStateAnim("aStun", 2, function() return isStunned());
-        spr.anim.registerStateAnim(
-            "aCover", 1, function() return cover != null
-        );
         spr.anim.registerStateAnim("aIdle", 0);
 
         lockControlsS(
