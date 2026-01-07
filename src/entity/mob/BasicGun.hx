@@ -92,11 +92,6 @@ class BasicGun extends entity.Mob {
     override public function update() {
         super.update();
 
-        #if release
-        if (!game.cd.hasSetS("say", Const.INFINITE))
-            say("Wick is here!\nKill him!");
-        #end
-
         if (!controlsLocked() && onGround && tx == -1) {
             if (getSkill("shoot").isReady() && game.hero.isAlive())
                 getSkill("shoot").prepareOn(game.hero);
