@@ -1,0 +1,99 @@
+package entity.mob;
+
+class Sniper extends entity.Mob {
+    public function new(x, y, ?dir) {
+        super(x, y, dir);
+
+        initLife(3);
+
+        // spr.colorMatrix = new h3d.Matrix();
+        // spr.colorMatrix.identity();
+        // spr.colorMatrix.colorHue(0.5);
+
+        var s = createSkill("shoot");
+        s.setTimers(1, 0.7, 0.3);
+        s.onStart = function() {
+            lookAt(s.target);
+            spr.anim.playAndLoop("dAim");
+        }
+        s.onProgress = function(t) {
+            final target = s.target;
+            if (this.dir != this.dirTo(target))
+                s.interrupt(false);
+            this.lookAt(target);
+        }
+        s.onInterrupt = function() spr.anim.stopWithStateAnims();
+        s.onExecute = function(e) {
+            lookAt(e);
+            dy = -0.1;
+            if (e.hitOrHitCover(1, this)) {
+                e.knockback(this.dirTo(e));
+                this.fx.bloodHit(
+                    this.shootX, this.shootY, e.centerX, e.centerY
+                );
+            }
+            Assets.SFX.blaster0(1);
+            fx.shoot(shootX, shootY, e.centerX, e.centerY, 0xFF0000);
+            spr.anim.play("dAimShoot").chainFor("dBlind", Const.FPS * 0.2);
+        }
+    }
+
+    override function init() {
+        super.init();
+
+        spr.anim.registerStateAnim("dGrab", 5, function() return isGrabbed());
+        spr.anim.registerStateAnim(
+            "dRun", 4, function() return cd.has("entering"));
+        spr.anim.registerStateAnim(
+            "dPush", 3, function() return !onGround && isStunned());
+        spr.anim.registerStateAnim("dStun", 2, function() return isStunned());
+        spr.anim.registerStateAnim(
+            "dCover", 1, function() return cover != null
+        );
+        spr.anim.registerStateAnim("dIdle", 0);
+        lockControlsS(
+            cd.getS("ctrlLock") + 0.1 + countMobs(Sniper, false) * 0.6
+        );
+    }
+
+    override function onDie() {
+        super.onDie();
+        // Assets.SBANK.death0(1);
+        new entity.DeadBody(this, "d").init();
+    }
+
+    override function get_shootY(): Float {
+        return switch (curAnimId) {
+            case "dBlind": footY - 13;
+            case "dAim": footY - 18;
+            default: super.get_shootY();
+        }
+    }
+
+    override function get_headY(): Float {
+        if (spr != null && !spr.destroyed)
+            return super.get_headY() + switch (spr.groupName) {
+                case "dStun": 7;
+                default: 0;
+            }
+        return super.get_headY();
+    }
+
+    override function onDamage(v: Int) {
+        super.onDamage(v);
+
+        spr.anim.playOverlap("dHit");
+        playHitSound();
+
+        interruptSkills(true);
+    }
+
+    override public function update() {
+        super.update();
+
+        if (!controlsLocked() && onGround && tx == -1) {
+            if (getSkill("shoot").isReady() && game.hero.isAlive())
+                getSkill("shoot").prepareOn(game.hero);
+        }
+    }
+}

@@ -28,6 +28,7 @@ class Level extends dn.Process {
 
     var mobShop: Array<ShopEntry> = [
         {price: 1, createMob: BasicGun.new},
+        {price: 2, createMob: Sniper.new},
         {price: 3, createMob: Heavy.new, accumulativePrice: 5},
         {price: 5, createMob: Grenader.new},
     ];
