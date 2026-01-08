@@ -66,8 +66,8 @@ class BasicGun extends entity.Mob {
 
     override function get_shootY(): Float {
         return switch (curAnimId) {
-            case "basicGunBlind": footY - 13;
-            case "basicGunAim": footY - 18;
+            case "basicGunBlind": footY - 16;
+            case "basicGunAim": footY - 21;
             default: super.get_shootY();
         }
     }

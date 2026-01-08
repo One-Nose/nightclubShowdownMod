@@ -66,8 +66,8 @@ class Heavy extends entity.Mob {
 
     override function get_shootY(): Float {
         return switch (curAnimId) {
-            case "heavyBlind": footY - 13;
-            case "heavyAim": footY - 18;
+            case "heavyBlind": footY - 16 * this.sprScaleY;
+            case "heavyAim": footY - 21 * this.sprScaleY;
             default: super.get_shootY();
         }
     }

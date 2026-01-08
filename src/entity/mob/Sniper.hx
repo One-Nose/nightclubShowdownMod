@@ -68,8 +68,8 @@ class Sniper extends entity.Mob {
 
     override function get_shootY(): Float {
         return switch (curAnimId) {
-            case "sniperBlind": footY - 13;
-            case "sniperAim": footY - 18;
+            case "sniperBlind": footY - 16;
+            case "sniperAim": footY - 16;
             default: super.get_shootY();
         }
     }
