@@ -10,7 +10,7 @@ class Grenader extends entity.Mob {
         s.setTimers(0.6, 0, 3);
         s.onStart = function() {
             lookAt(s.target);
-            spr.anim.playAndLoop("bGrenade");
+            spr.anim.playAndLoop("grenaderGrenade");
         }
         s.onProgress = function(t) {
             final target = s.target;
@@ -38,25 +38,30 @@ class Grenader extends entity.Mob {
             // fx.bloodHit(shootX, shootY, e.centerX, e.centerY);
             // }
             // fx.shoot(shootX, shootY, e.centerX, e.centerY, 0xFF0000);
-            spr.anim.play("bThrowGrenade");
+            spr.anim.play("grenaderThrowGrenade");
         }
     }
 
     override function init() {
         super.init();
 
-        spr.anim.registerStateAnim("bGrab", 5, function() return isGrabbed());
         spr.anim.registerStateAnim(
-            "bRun", 4, function() return cd.has("entering"));
+            "grenaderGrab", 5, function() return isGrabbed());
         spr.anim.registerStateAnim(
-            "bPush", 3, function() return !onGround && cd.has("bodyHit"));
-        spr.anim.registerStateAnim("bStun", 2, function() return isStunned());
-        spr.anim.registerStateAnim("bIdle", 0);
+            "grenaderRun", 4, function() return cd.has("entering"));
+        spr.anim.registerStateAnim(
+            "grenaderPush",
+            3,
+            function() return !onGround && cd.has("bodyHit")
+        );
+        spr.anim.registerStateAnim(
+            "grenaderStun", 2, function() return isStunned());
+        spr.anim.registerStateAnim("grenaderIdle", 0);
     }
 
     override function onDie() {
         super.onDie();
-        new entity.DeadBody(this, "b").init();
+        new entity.DeadBody(this, "grenader").init();
     }
 
     override function get_shootY(): Float {
@@ -66,7 +71,7 @@ class Grenader extends entity.Mob {
     override function get_headY(): Float {
         if (spr != null && !spr.destroyed)
             return super.get_headY() + switch (spr.groupName) {
-                case "bStun": 11;
+                case "grenaderStun": 11;
                 default: 0;
             }
         return super.get_headY();
@@ -75,7 +80,7 @@ class Grenader extends entity.Mob {
     override function onDamage(v: Int) {
         super.onDamage(v);
 
-        spr.anim.playOverlap("bHit");
+        spr.anim.playOverlap("grenaderHit");
 
         interruptSkills(true);
     }

@@ -11,7 +11,7 @@ class Heavy extends entity.Mob {
         s.setTimers(1, 0.7, 0.3);
         s.onStart = function() {
             lookAt(s.target);
-            spr.anim.playAndLoop("cAim");
+            spr.anim.playAndLoop("heavyAim");
         }
         s.onProgress = function(t) {
             final target = s.target;
@@ -31,7 +31,9 @@ class Heavy extends entity.Mob {
             }
             Assets.SFX.blaster0(1);
             fx.shoot(shootX, shootY, e.centerX, e.centerY, 0xFF0000);
-            spr.anim.play("cAimShoot").chainFor("cBlind", Const.FPS * 0.2);
+            spr.anim
+                .play("heavyAimShoot")
+                .chainFor("heavyBlind", Const.FPS * 0.2);
         }
     }
 
@@ -39,11 +41,12 @@ class Heavy extends entity.Mob {
         super.init();
 
         spr.anim.registerStateAnim(
-            "cRun", 4, function() return cd.has("entering"));
+            "heavyRun", 4, function() return cd.has("entering"));
         spr.anim.registerStateAnim(
-            "cPush", 3, function() return !onGround && isStunned());
-        spr.anim.registerStateAnim("cStun", 2, function() return isStunned());
-        spr.anim.registerStateAnim("cIdle", 0);
+            "heavyPush", 3, function() return !onGround && isStunned());
+        spr.anim.registerStateAnim(
+            "heavyStun", 2, function() return isStunned());
+        spr.anim.registerStateAnim("heavyIdle", 0);
 
         lockControlsS(rnd(0.3, 1.6));
     }
@@ -58,13 +61,13 @@ class Heavy extends entity.Mob {
 
     override function onDie() {
         super.onDie();
-        new entity.DeadBody(this, "c").init();
+        new entity.DeadBody(this, "heavy").init();
     }
 
     override function get_shootY(): Float {
         return switch (curAnimId) {
-            case "cBlind": footY - 13;
-            case "cAim": footY - 18;
+            case "heavyBlind": footY - 13;
+            case "heavyAim": footY - 18;
             default: super.get_shootY();
         }
     }
@@ -72,7 +75,7 @@ class Heavy extends entity.Mob {
     override function get_headY(): Float {
         if (spr != null && !spr.destroyed)
             return super.get_headY() - 5 + switch (spr.groupName) {
-                case "cStun": 7;
+                case "heavyStun": 7;
                 default: 0;
             }
         return super.get_headY();
@@ -81,7 +84,7 @@ class Heavy extends entity.Mob {
     override function onDamage(v: Int) {
         super.onDamage(v);
 
-        spr.anim.playOverlap("cHit");
+        spr.anim.playOverlap("heavyHit");
         playHitSound();
     }
 

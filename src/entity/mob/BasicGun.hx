@@ -14,7 +14,7 @@ class BasicGun extends entity.Mob {
         s.setTimers(1, 0.7, 0.3);
         s.onStart = function() {
             lookAt(s.target);
-            spr.anim.playAndLoop("aAim");
+            spr.anim.playAndLoop("basicGunAim");
         }
         s.onProgress = function(t) {
             final target = s.target;
@@ -34,20 +34,24 @@ class BasicGun extends entity.Mob {
             }
             Assets.SFX.blaster0(1);
             fx.shoot(shootX, shootY, e.centerX, e.centerY, 0xFF0000);
-            spr.anim.play("aAimShoot").chainFor("aBlind", Const.FPS * 0.2);
+            spr.anim
+                .play("basicGunAimShoot")
+                .chainFor("basicGunBlind", Const.FPS * 0.2);
         }
     }
 
     override function init() {
         super.init();
 
-        spr.anim.registerStateAnim("aGrab", 5, function() return isGrabbed());
         spr.anim.registerStateAnim(
-            "aRun", 4, function() return cd.has("entering"));
+            "basicGunGrab", 5, function() return isGrabbed());
         spr.anim.registerStateAnim(
-            "aPush", 3, function() return !onGround && isStunned());
-        spr.anim.registerStateAnim("aStun", 2, function() return isStunned());
-        spr.anim.registerStateAnim("aIdle", 0);
+            "basicGunRun", 4, function() return cd.has("entering"));
+        spr.anim.registerStateAnim(
+            "basicGunPush", 3, function() return !onGround && isStunned());
+        spr.anim.registerStateAnim(
+            "basicGunStun", 2, function() return isStunned());
+        spr.anim.registerStateAnim("basicGunIdle", 0);
 
         lockControlsS(
             cd.getS("ctrlLock") + 0.1 + countMobs(BasicGun, false) * 0.6
@@ -57,13 +61,13 @@ class BasicGun extends entity.Mob {
     override function onDie() {
         super.onDie();
         // Assets.SBANK.death0(1);
-        new entity.DeadBody(this, "a").init();
+        new entity.DeadBody(this, "basicGun").init();
     }
 
     override function get_shootY(): Float {
         return switch (curAnimId) {
-            case "aBlind": footY - 13;
-            case "aAim": footY - 18;
+            case "basicGunBlind": footY - 13;
+            case "basicGunAim": footY - 18;
             default: super.get_shootY();
         }
     }
@@ -71,7 +75,7 @@ class BasicGun extends entity.Mob {
     override function get_headY(): Float {
         if (spr != null && !spr.destroyed)
             return super.get_headY() + switch (spr.groupName) {
-                case "aStun": 7;
+                case "basicGunStun": 7;
                 default: 0;
             }
         return super.get_headY();
@@ -80,7 +84,7 @@ class BasicGun extends entity.Mob {
     override function onDamage(v: Int) {
         super.onDamage(v);
 
-        spr.anim.playOverlap("aHit");
+        spr.anim.playOverlap("basicGunHit");
         playHitSound();
 
         interruptSkills(true);

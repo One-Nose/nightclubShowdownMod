@@ -14,7 +14,7 @@ class Sniper extends entity.Mob {
         s.setTimers(1.3, 0.7, 0.3);
         s.onStart = function() {
             lookAt(s.target);
-            spr.anim.playAndLoop("dAim");
+            spr.anim.playAndLoop("sniperAim");
         }
         s.onProgress = function(t) {
             final target = s.target;
@@ -37,20 +37,24 @@ class Sniper extends entity.Mob {
             }
             Assets.SFX.heavy(1);
             fx.shoot(shootX, shootY, e.centerX, e.centerY, 0xFF0000);
-            spr.anim.play("dAimShoot").chainFor("dBlind", Const.FPS * 0.2);
+            spr.anim
+                .play("sniperAimShoot")
+                .chainFor("sniperBlind", Const.FPS * 0.2);
         }
     }
 
     override function init() {
         super.init();
 
-        spr.anim.registerStateAnim("dGrab", 5, function() return isGrabbed());
         spr.anim.registerStateAnim(
-            "dRun", 4, function() return cd.has("entering"));
+            "sniperGrab", 5, function() return isGrabbed());
         spr.anim.registerStateAnim(
-            "dPush", 3, function() return !onGround && isStunned());
-        spr.anim.registerStateAnim("dStun", 2, function() return isStunned());
-        spr.anim.registerStateAnim("dIdle", 0);
+            "sniperRun", 4, function() return cd.has("entering"));
+        spr.anim.registerStateAnim(
+            "sniperPush", 3, function() return !onGround && isStunned());
+        spr.anim.registerStateAnim(
+            "sniperStun", 2, function() return isStunned());
+        spr.anim.registerStateAnim("sniperIdle", 0);
         lockControlsS(
             cd.getS("ctrlLock") + 0.1 + countMobs(Sniper, false) * 0.6
         );
@@ -59,13 +63,13 @@ class Sniper extends entity.Mob {
     override function onDie() {
         super.onDie();
         // Assets.SBANK.death0(1);
-        new entity.DeadBody(this, "d").init();
+        new entity.DeadBody(this, "sniper").init();
     }
 
     override function get_shootY(): Float {
         return switch (curAnimId) {
-            case "dBlind": footY - 13;
-            case "dAim": footY - 18;
+            case "sniperBlind": footY - 13;
+            case "sniperAim": footY - 18;
             default: super.get_shootY();
         }
     }
@@ -73,7 +77,7 @@ class Sniper extends entity.Mob {
     override function get_headY(): Float {
         if (spr != null && !spr.destroyed)
             return super.get_headY() + switch (spr.groupName) {
-                case "dStun": 7;
+                case "sniperStun": 7;
                 default: 0;
             }
         return super.get_headY();
@@ -82,7 +86,7 @@ class Sniper extends entity.Mob {
     override function onDamage(v: Int) {
         super.onDamage(v);
 
-        spr.anim.playOverlap("dHit");
+        spr.anim.playOverlap("sniperHit");
         playHitSound();
 
         interruptSkills(true);

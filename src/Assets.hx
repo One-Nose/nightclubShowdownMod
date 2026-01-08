@@ -37,33 +37,41 @@ class Assets {
         gameElements.defineAnim("heroDeathFly", "0(30), 1(9999)");
         gameElements.defineAnim("heroRun", "0(6),1(4), 2(4), 3(6), 4(4), 5(4)");
 
-        gameElements.defineAnim("aAimShoot", "0(10), 1(10)");
-        gameElements.defineAnim("aBlindShoot", "0(4), 1(10)");
-        gameElements.defineAnim("aHit", "0(8)");
-        gameElements.defineAnim("aDeathFly", "0(30), 1(9999)");
-        gameElements.defineAnim("aGrab", "0(15), 1(10)");
-        gameElements.defineAnim("aRun", "0(6),1(4), 2(4), 3(6), 4(4), 5(4)");
+        gameElements.defineAnim("basicGunAimShoot", "0(10), 1(10)");
+        gameElements.defineAnim("basicGunBlindShoot", "0(4), 1(10)");
+        gameElements.defineAnim("basicGunHit", "0(8)");
+        gameElements.defineAnim("basicGunDeathFly", "0(30), 1(9999)");
+        gameElements.defineAnim("basicGunGrab", "0(15), 1(10)");
+        gameElements.defineAnim(
+            "basicGunRun", "0(6),1(4), 2(4), 3(6), 4(4), 5(4)"
+        );
 
-        gameElements.defineAnim("bAimShoot", "0(10), 1(10)");
-        gameElements.defineAnim("bBlindShoot", "0(4), 1(10)");
-        gameElements.defineAnim("bThrowGrenade", "0(4), 1(10)");
-        gameElements.defineAnim("bHit", "0(8)");
-        gameElements.defineAnim("bDeathFly", "0(30), 1(9999)");
-        gameElements.defineAnim("bGrab", "0(15), 1(10)");
-        gameElements.defineAnim("bRun", "0(6),1(4), 2(4), 3(6), 4(4), 5(4)");
+        gameElements.defineAnim("grenaderAimShoot", "0(10), 1(10)");
+        gameElements.defineAnim("grenaderBlindShoot", "0(4), 1(10)");
+        gameElements.defineAnim("grenaderThrowGrenade", "0(4), 1(10)");
+        gameElements.defineAnim("grenaderHit", "0(8)");
+        gameElements.defineAnim("grenaderDeathFly", "0(30), 1(9999)");
+        gameElements.defineAnim("grenaderGrab", "0(15), 1(10)");
+        gameElements.defineAnim(
+            "grenaderRun", "0(6),1(4), 2(4), 3(6), 4(4), 5(4)"
+        );
 
-        gameElements.defineAnim("cAimShoot", "0(10), 1(10)");
-        gameElements.defineAnim("cBlindShoot", "0(4), 1(10)");
-        gameElements.defineAnim("cHit", "0(8)");
-        gameElements.defineAnim("cDeathFly", "0(30), 1(9999)");
-        // gameElements.defineAnim("cGrab","0(15), 1(10)");
-        gameElements.defineAnim("cRun", "0(6),1(4), 2(4), 3(6), 4(4), 5(4)");
+        gameElements.defineAnim("heavyAimShoot", "0(10), 1(10)");
+        gameElements.defineAnim("heavyBlindShoot", "0(4), 1(10)");
+        gameElements.defineAnim("heavyHit", "0(8)");
+        gameElements.defineAnim("heavyDeathFly", "0(30), 1(9999)");
+        // gameElements.defineAnim("heavyGrab","0(15), 1(10)");
+        gameElements.defineAnim(
+            "heavyRun", "0(6),1(4), 2(4), 3(6), 4(4), 5(4)"
+        );
 
-        gameElements.defineAnim("dAimShoot", "0(10), 1(10)");
-        gameElements.defineAnim("dHit", "0(8)");
-        gameElements.defineAnim("dDeathFly", "0(30), 1(9999)");
-        gameElements.defineAnim("dGrab", "0(15), 1(10)");
-        gameElements.defineAnim("dRun", "0(6),1(4), 2(4), 3(6), 4(4), 5(4)");
+        gameElements.defineAnim("sniperAimShoot", "0(10), 1(10)");
+        gameElements.defineAnim("sniperHit", "0(8)");
+        gameElements.defineAnim("sniperDeathFly", "0(30), 1(9999)");
+        gameElements.defineAnim("sniperGrab", "0(15), 1(10)");
+        gameElements.defineAnim(
+            "sniperRun", "0(6),1(4), 2(4), 3(6), 4(4), 5(4)"
+        );
 
         gameElements.defineAnim("dancingA", "0-1(10)");
         gameElements.defineAnim("dancingB", "0-1(10)");
