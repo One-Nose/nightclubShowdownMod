@@ -305,6 +305,7 @@ class Hero extends Entity {
     override function onDamage(v: Int) {
         super.onDamage(v);
         game.updateHud();
+        Assets.SFX.grunt0(1);
         fx.flashBangS(0xFF0000, 0.2, 0.2);
         spr.anim.playOverlap("heroHit");
     }
