@@ -4,7 +4,7 @@ class Sniper extends entity.Mob {
     public function new(x, y, ?dir) {
         super(x, y, dir);
 
-        initLife(3);
+        initLife(2);
 
         // spr.colorMatrix = new h3d.Matrix();
         // spr.colorMatrix.identity();
