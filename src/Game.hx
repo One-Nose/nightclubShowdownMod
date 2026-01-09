@@ -266,7 +266,7 @@ class Game extends dn.Process {
                 icon: "Heal"
             }),
             new Upgrade("Two Grenades", {
-                description: "+2 grenades you can throw them around",
+                description: "+2 grenades that you can throw around",
                 onUnlock: () -> {
                     this.hero.grenades += 2;
                     this.updateHud();
