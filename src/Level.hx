@@ -278,7 +278,7 @@ class Level extends dn.Process {
             var dirByX = new Map<Int, Int>();
             while (registeredMobs < batchSize) {
                 shop = shop.filter(
-                    entry -> entry.price <= M.fmax(difficulty, 1) * 2
+                    entry -> entry.price <= M.fmax(difficulty, 0.5) * 2
                 );
 
                 batchShop = batchShop.filter(
