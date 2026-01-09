@@ -1,5 +1,5 @@
 -cp src
 -main Boot
 -lib heaps:2.0.0
--lib deepnightLibs:1.0.85
+-lib deepnightLibs:1.0.87
 -dce full
