@@ -235,7 +235,7 @@ class Game extends dn.Process {
 
         this.unlockableRewards = Upgrade.initUpgrades([
             new Upgrade("Bonus Heart", {
-                description: "+1 max life",
+                description: "CHALLENGE REWARD: Survive six rounds without getting hit",
                 onUnlock: () -> {
                     this.hero.initLife(4);
                     this.updateHud();
