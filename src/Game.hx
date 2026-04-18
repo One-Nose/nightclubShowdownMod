@@ -265,13 +265,36 @@ class Game extends dn.Process {
                 infinite: true,
                 icon: "Heal"
             }),
+            new Upgrade("Restockable Grenades", {
+                description: "CHALLENGE REWARD: Hit two enemies with one grenade",
+                onUnlock: () -> {
+                    this.hero.grenades = 6;
+                    this.updateHud();
+                },
+                children: [new Upgrade("Restock Grenades", {
+                    description: "Replenish up to six grenades",
+                    onUnlock: () -> {
+                        this.hero.grenades = 6;
+                        this.updateHud();
+                    },
+                    isUnlockable: () -> this.hero.grenades < 6,
+                    infinite: true,
+                    icon: "Grenade"
+                })],
+                isUnlockable: () ->
+                    this.hero.grenades < 6 &&
+                    this.hero.hasHitTwoWithGrenade,
+                icon: "RestockableGrenades"
+            }),
             new Upgrade("Two Grenades", {
                 description: "+2 grenades that you can throw around",
                 onUnlock: () -> {
                     this.hero.grenades += 2;
                     this.updateHud();
                 },
-                isUnlockable: () -> this.hero.grenades <= 4,
+                isUnlockable: () ->
+                    this.hero.grenades <= 4 &&
+                    !this.hero.hasHitTwoWithGrenade,
                 infinite: true,
                 icon: "Grenade"
             })

@@ -3,12 +3,15 @@ package entity;
 class Grenade extends Entity {
     public static var ALL: Array<Grenade> = [];
 
+    var thrower: Entity;
     var range: Float;
 
     public function new(entity: Entity, range = 1.) {
         super(entity.cx, entity.cy);
         xr = entity.xr;
         yr = entity.yr;
+
+        this.thrower = entity;
 
         this.dir = entity.dir;
         this.gravity *= 0.25;
@@ -63,9 +66,14 @@ class Grenade extends Entity {
                 if (distPx(e) <= range)
                     e.hit(3, this);
 
+            var mobHitCount = 0;
             for (e in entity.Mob.ALL)
                 if (distPx(e) <= range)
-                    e.hit(3, this);
+                    if (e.hit(3, this))
+                        mobHitCount++;
+
+            if (mobHitCount >= 2 && this.thrower is entity.Hero)
+                (cast this.thrower : entity.Hero).hasHitTwoWithGrenade = true;
 
             destroy();
         }

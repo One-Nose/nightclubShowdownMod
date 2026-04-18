@@ -1250,37 +1250,44 @@ upgradeReload
   orig: 16,16
   offset: 0,0
   index: -1
-upgradeShot
+upgradeRestockableGrenades
   rotate: false
   xy: 528,512
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-upgradeThrow
+upgradeShot
   rotate: false
   xy: 521,528
   size: 16,16
   orig: 16,16
   offset: 0,0
   index: -1
-circle
+upgradeThrow
   rotate: false
   xy: 521,544
+  size: 16,16
+  orig: 16,16
+  offset: 0,0
+  index: -1
+circle
+  rotate: false
+  xy: 551,0
   size: 15,15
   orig: 15,15
   offset: 0,0
   index: -1
 iconDash
   rotate: false
-  xy: 536,544
+  xy: 551,15
   size: 15,15
   orig: 15,15
   offset: 0,0
   index: -1
 iconKickGrab
   rotate: false
-  xy: 551,0
+  xy: 551,30
   size: 15,15
   orig: 15,15
   offset: 0,0

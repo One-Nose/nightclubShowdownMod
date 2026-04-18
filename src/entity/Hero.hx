@@ -42,6 +42,7 @@ class Hero extends Entity {
     public var hasKicked = false;
     public var hasDashed = false;
     public var hasThrownGrenade = false;
+    public var hasHitTwoWithGrenade = false;
 
     public function new(x, y) {
         super(x, y);
